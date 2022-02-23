@@ -12,25 +12,29 @@ using Vintagestory.GameContent;
 
 namespace decoclock.src
 {
-   internal class BEGrandfatherClock : BlockEntity
+    internal class BEGrandfatherClock : BlockEntity
     {
         ICoreAPI api;
         GrandfatherClock ownBlock;
-
+        inventoryGrandfatherClock inventory;
         ILoadedSound ambientSound;
         ClockHandRenderer rendererHourHand;
         ClockHandRenderer rendererMinuteHand;
         MeshData currentMesh;
 
- //BlockEntityAnimationUtil AnimUtil => GetBehavior<BEBehaviorAnimatable>()?.animUtil;
+        BlockEntityAnimationUtil AnimUtil => GetBehavior<BEBehaviorAnimatable>()?.animUtil;
         
+        bool minuteHand;
+        bool hourHand;
+        bool clockParts;
+        bool face;
         bool minuteHandRotate;
         bool hourHandRotate;
         public float MeshAngle;
        
         float hour;
         float minutes;
-
+        long? listenerid;
 
         #region Getters
 
@@ -56,10 +60,10 @@ namespace decoclock.src
             get
             {
                 object value = null;
-                Api.ObjectCache.TryGetValue("clockhourhandmesh-" + Material, out value);
+                Api.ObjectCache.TryGetValue("clockhourhandmesh-" + "gold", out value);
                 return (MeshData)value;
             }
-            set { Api.ObjectCache["clockhourhandmesh-" + Material] = value; }
+            set { Api.ObjectCache["clockhourhandmesh-" + "gold"] = value; }
         }
 
         MeshData ClockMinuteHandMesh
@@ -67,10 +71,10 @@ namespace decoclock.src
             get
             {
                 object value = null;
-                Api.ObjectCache.TryGetValue("clockminutehandmesh-" + Material, out value);
+                Api.ObjectCache.TryGetValue("clockminutehandmesh-" + "gold", out value);
                 return (MeshData)value;
             }
-            set { Api.ObjectCache["clockminutehandmesh-" + Material] = value; }
+            set { Api.ObjectCache["clockminutehandmesh-" + "gold"] = value; }
         }
 
         #endregion
@@ -121,8 +125,10 @@ namespace decoclock.src
 
 
 
-            RegisterGameTickListener(OneMinute, 1000);
-
+            if (minuteHand && hourHand && face && clockParts)
+            {
+                SetupGameTickers();
+            }
 
             if (api.Side == EnumAppSide.Client)
             {
@@ -148,6 +154,16 @@ namespace decoclock.src
                 }
                 
             }
+        }
+
+        private void SetupGameTickers()
+        {
+            listenerid = RegisterGameTickListener(OneMinute, 1000);
+        }
+
+        private void RemoveGameTickers()
+        {
+            if (listenerid != null) UnregisterGameTickListener((long)listenerid);
         }
 
 
@@ -194,10 +210,9 @@ namespace decoclock.src
             }
             else return;
             
-            if (hour != hourUpdate)
+            if (hourHandRotate = hour != hourUpdate)
             {
                 hour = hourUpdate;
-                hourHandRotate = true;
             }
 
             int hourM12 = (int)hourOfDay % 12;
@@ -295,7 +310,7 @@ namespace decoclock.src
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-
+            RemoveGameTickers();// ???
             //if (ambientSound != null)
             //{
             //    ambientSound.Stop();
@@ -321,9 +336,16 @@ namespace decoclock.src
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
-
+            RemoveGameTickers();
             rendererMinuteHand?.Dispose();
 
+        }
+    }
+
+    class inventoryGrandfatherClock : InventoryDisplayed
+    {
+        public inventoryGrandfatherClock(BlockEntity be, int quantitySlots, string invId, ICoreAPI api, NewSlotDelegate onNewSlot = null) : base(be, quantitySlots, invId, api, onNewSlot)
+        {
         }
     }
 }
