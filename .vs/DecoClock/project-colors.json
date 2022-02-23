@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "d76f67af-51a6-4adb-8098-37d6c8b1dc21": {
+      "ProjectGuid": "d76f67af-51a6-4adb-8098-37d6c8b1dc21",
+      "DisplayName": "DecoClock",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
