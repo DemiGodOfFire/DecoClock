@@ -1,0 +1,92 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"gold1": "block/metal/sheet/gold1"
+	},
+	"elements": [
+		{
+			"name": "hour_hand",
+			"from": [ 7.4993, 8.0001, 0.6006 ], 
+			"to": [ 8.4993, 8.1001, 1.6006 ], 
+			"rotationOrigin": [ 8.0, 8.0, 1.1 ],
+			"rotationX": 90.0,
+			"rotationY": 89.972,
+			"rotationZ": 0.005,
+			"faces": {
+				"north": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+				"east": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+				"south": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+				"west": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+				"up": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+				"down": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] }
+			},
+			"children": [
+				{
+					"name": "segment 1",
+					"from": [ 1.0, 0.0, 0.1 ], 
+					"to": [ 2.5, 0.1, 0.9 ], 
+					"rotationOrigin": [ 1.5, 0.0, 0.4 ],
+					"faces": {
+						"north": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.5, 0.5 ] },
+						"east": { "texture": "#gold1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"south": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.5, 0.5 ] },
+						"west": { "texture": "#gold1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"up": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.5, 0.5 ] },
+						"down": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.5, 0.5 ] }
+					},
+					"children": [
+						{
+							"name": "segment 2",
+							"from": [ 1.5, 0.0, 0.1 ], 
+							"to": [ 2.9, 0.1, 0.7 ], 
+							"rotationOrigin": [ 2.0, 0.0, 0.4 ],
+							"faces": {
+								"north": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+								"east": { "texture": "#gold1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"south": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+								"west": { "texture": "#gold1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"up": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+								"down": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] }
+							},
+							"children": [
+								{
+									"name": "segment3",
+									"from": [ 1.4, 0.0, 0.1 ], 
+									"to": [ 2.6, 0.1, 0.5 ], 
+									"rotationOrigin": [ 1.9, 0.0, 0.4 ],
+									"faces": {
+										"north": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+										"east": { "texture": "#gold1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"south": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+										"west": { "texture": "#gold1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"up": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] },
+										"down": { "texture": "#gold1", "uv": [ 0.0, 0.0, 1.0, 0.5 ] }
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"animations": [
+		{
+			"name": "Animation 1",
+			"code": "animation1",
+			"quantityframes": 120,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		}
+	]
+}

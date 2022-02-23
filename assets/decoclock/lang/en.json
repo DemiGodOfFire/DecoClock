@@ -1,0 +1,11 @@
+{
+	"block-grandfatherclock-*": "Grandfather Clock",
+	"block-wallclock-*": "Wall Clock",
+	"block-alarmclock-*": "Alarm Clock",
+	"item-tickmarks-*": "Tick Marks",
+	"item-hourhand-*": "Hour Hand",
+	"item-minutehand-*": "Minute Hand",
+	"block-toolmold-burned-tickmarks": "Tick Marks Mold",
+	"block-toolmold-raw-tickmarks": "Raw Tick Marks Mold",
+	"game:tabname-decoclock": "DecoClock"
+}

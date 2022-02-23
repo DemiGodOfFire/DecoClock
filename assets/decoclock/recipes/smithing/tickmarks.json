@@ -1,0 +1,20 @@
+{
+	"ingredient":{
+		"type": "item",
+		"code": "game:ingot-*",
+		"name": "metal",
+		"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel"]
+		 },
+  "pattern": [[
+   "_#_#_#_",
+   "_#_#_#_",
+   "#_#_#_#",
+   "#_#_#_#",
+   "_#_#_#_",
+   "_#_#_#_",
+   "__#_#__",
+   "__#_#__"
+  ]],
+  "name": "Tick Marks",
+  "output": { "type": "item", "code": "tickmarks-{metal}" }
+}

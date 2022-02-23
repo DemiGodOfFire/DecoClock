@@ -1,0 +1,33 @@
+{
+	code: "minutehand",
+	
+	shape: { base: "block/grandfather_clock/minute_hand" },
+	creativeinventory: { "general": ["*"], "items": ["*"], "decoclock": ["*"]},
+	attributes: {
+		handbook: {
+			createdBy: "metalmolding"
+		}
+	},	
+	drawtype: "json",
+	
+	variantgroups: [
+		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ] }
+	],
+	textures: 
+	{
+		"minute": { "base": "game:block/metal/plate/{metal}" }
+	},
+	guiTransform: {
+		translation: { x: 0, y: 0, z: 0 },
+		rotation: { x: 90, y: 0, z: 0 },
+		origin: { x: 0.5, y: 0, z: 0.5 },
+		scale: 6
+	},
+	groundTransform: {
+		rotation: { x: 0, y: 0, z: 0 },
+		origin: { x: 0.5, y: 0, z: 0.5 },
+		scale: 6
+	}
+}
+	
+	

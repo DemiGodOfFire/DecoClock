@@ -1,0 +1,11 @@
+{
+	"block-grandfatherclock-*": "Напольные часы",
+	"block-wallclock-*": "Настенные часы",
+	"block-alarmclock-*": "Будильник",
+	"item-tickmarks-*": "Деления циферблата",
+	"item-hourhand-*": "Часовая стрелка",
+	"item-minutehand-*": "Минутная стрелка",
+	"block-toolmold-burned-tickmarks": "Форма для делений циферблата",
+	"block-toolmold-raw-tickmarks": "Формаа для делений циферблата(необож.)",
+	"game:tabname-decoclock": "ДекоЧасы"
+}
