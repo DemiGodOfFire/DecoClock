@@ -16,7 +16,7 @@ namespace decoclock.src
     {
         ICoreAPI api;
         GrandfatherClock ownBlock;
-        inventoryGrandfatherClock inventory;
+        InventoryGeneric inventory;
         ILoadedSound ambientSound;
         ClockHandRenderer rendererHourHand;
         ClockHandRenderer rendererMinuteHand;
@@ -101,6 +101,14 @@ namespace decoclock.src
             tree.SetFloat("meshAngle", MeshAngle);
         }
 
+        private void InitInventory()
+        {
+            if (inventory == null)
+            {
+                inventory = new InventoryGeneric(4, "DecoClock-grandfather_clock", Pos+"", null, null);
+
+            }
+        }
 
         public override void Initialize(ICoreAPI api)
         {
@@ -108,8 +116,8 @@ namespace decoclock.src
             ownBlock = Block as GrandfatherClock;
 
             this.api = api;
-
             base.Initialize(api);
+            InitInventory();
 
             if (api.Side == EnumAppSide.Client)
             {
@@ -341,11 +349,5 @@ namespace decoclock.src
 
         }
     }
-
-    class inventoryGrandfatherClock : InventoryDisplayed
-    {
-        public inventoryGrandfatherClock(BlockEntity be, int quantitySlots, string invId, ICoreAPI api, NewSlotDelegate onNewSlot = null) : base(be, quantitySlots, invId, api, onNewSlot)
-        {
-        }
-    }
+    
 }

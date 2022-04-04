@@ -8,14 +8,14 @@
 	"textureSizes": {
 	},
 	"textures": {
+		"face": "block/metal/plate/gold",
 		"tickmarks": "block/metal/plate/blackbronze",
 		"string": "block/cloth/burlap/string",
 		"hour": "block/metal/plate/silver",
 		"plain": "block/glass/plain",
 		"frame": "block/wood/debarked/oak",
 		"clockparts": "block/metal/plate/tinbronze",
-		"face": "block/metal/plate/gold",
-		"metal-*": "block/metal/plate/brass"
+		"minute": "block/metal/plate/brass"
 	},
 	"elements": [
 		{
@@ -344,12 +344,12 @@
 							"to": [ 9.0, 24.0, 6.0 ], 
 							"rotationOrigin": [ 5.0, 16.0, 1.0 ],
 							"faces": {
-								"north": { "texture": "#face", "uv": [ 0.5, 0.5, 8.5, 8.5 ] },
-								"east": { "texture": "#face", "uv": [ 1.0, 0.5, 6.0, 8.5 ] },
-								"south": { "texture": "#face", "uv": [ 7.5, 6.5, 15.5, 14.5 ] },
-								"west": { "texture": "#face", "uv": [ 0.0, 0.0, 5.0, 8.0 ] },
-								"up": { "texture": "#face", "uv": [ 0.0, 0.0, 8.0, 5.0 ] },
-								"down": { "texture": "#face", "uv": [ 0.0, 0.0, 8.0, 5.0 ] }
+								"north": { "texture": "#face", "uv": [ 0.0, 8.0, 8.0, 16.0 ] },
+								"east": { "texture": "#face", "uv": [ 8.0, 8.0, 13.0, 16.0 ] },
+								"south": { "texture": "#face", "uv": [ 0.0, 0.0, 8.0, 8.0 ] },
+								"west": { "texture": "#face", "uv": [ 7.0, 0.0, 12.0, 8.0 ] },
+								"up": { "texture": "#face", "uv": [ 8.0, 5.0, 16.0, 10.0 ] },
+								"down": { "texture": "#face", "uv": [ 0.0, 5.5, 8.0, 10.5 ] }
 							},
 							"children": [
 								{

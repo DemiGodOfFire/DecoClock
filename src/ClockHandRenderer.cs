@@ -47,7 +47,7 @@ namespace decoclock.src
 
             prog.ModelMatrix = ModelMat
                 .Identity()
-               .Translate(pos.X , pos.Y, pos.Z - camPos.Z)
+                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
                 .Translate(0.5f, 1f, 0.5f)
                 .RotateZ(AngleRad)
                 .Translate(-0.5f, 0f, -0.5f)
