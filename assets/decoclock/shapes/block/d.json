@@ -1,0 +1,118 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"string": "block/cloth/burlap/string",
+		"clockparts": "block/metal/ingot/tinbronze"
+	},
+	"elements": [
+		{
+			"name": "Cube43",
+			"from": [ 7.5, 13.0, 4.0 ], 
+			"to": [ 8.5, 16.0, 5.0 ], 
+			"rotationOrigin": [ 8.0, 22.0, 4.0 ],
+			"faces": {
+				"north": { "texture": "#clockparts", "uv": [ 0.5, 1.0, 1.5, 4.0 ] },
+				"east": { "texture": "#clockparts", "uv": [ 2.0, 2.0, 3.0, 5.0 ] },
+				"south": { "texture": "#clockparts", "uv": [ 1.5, 1.0, 2.5, 4.0 ] },
+				"west": { "texture": "#clockparts", "uv": [ 3.5, 3.5, 4.5, 6.5 ] },
+				"up": { "texture": "#clockparts", "uv": [ 3.0, 1.0, 4.0, 2.0 ] },
+				"down": { "texture": "#clockparts", "uv": [ 2.0, 0.5, 3.0, 1.5 ] }
+			},
+			"children": [
+				{
+					"name": "Cube48",
+					"from": [ 0.45, 3.0, 0.45 ], 
+					"to": [ 0.55, 5.0, 0.55 ], 
+					"rotationOrigin": [ 0.5, 5.0, 0.5 ],
+					"faces": {
+						"north": { "texture": "#string", "uv": [ 0.0, 0.0, 0.5, 2.0 ] },
+						"east": { "texture": "#string", "uv": [ 3.0, 1.0, 3.5, 3.0 ] },
+						"south": { "texture": "#string", "uv": [ 2.0, 6.0, 2.5, 8.0 ] },
+						"west": { "texture": "#string", "uv": [ 1.0, 1.5, 1.5, 3.5 ] },
+						"up": { "texture": "#string", "uv": [ 4.5, 4.5, 5.0, 5.0 ] },
+						"down": { "texture": "#string", "uv": [ 2.0, 2.0, 2.5, 2.5 ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Cube44",
+			"from": [ 5.5, 11.0, 4.0 ], 
+			"to": [ 6.5, 14.0, 5.0 ], 
+			"rotationOrigin": [ 6.0, 20.0, 4.0 ],
+			"faces": {
+				"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 3.0 ] },
+				"east": { "texture": "#clockparts", "uv": [ 3.0, 1.0, 4.0, 4.0 ] },
+				"south": { "texture": "#clockparts", "uv": [ 2.0, 6.0, 3.0, 9.0 ] },
+				"west": { "texture": "#clockparts", "uv": [ 1.0, 1.5, 2.0, 4.5 ] },
+				"up": { "texture": "#clockparts", "uv": [ 4.5, 4.5, 5.5, 5.5 ] },
+				"down": { "texture": "#clockparts", "uv": [ 2.0, 2.0, 3.0, 3.0 ] }
+			},
+			"children": [
+				{
+					"name": "Cube46",
+					"from": [ 0.45, 3.0, 0.45 ], 
+					"to": [ 0.55, 7.0, 0.55 ], 
+					"rotationOrigin": [ 0.5, 7.0, 0.5 ],
+					"faces": {
+						"north": { "texture": "#string", "uv": [ 0.0, 0.0, 0.5, 4.0 ] },
+						"east": { "texture": "#string", "uv": [ 3.0, 1.0, 3.5, 5.0 ] },
+						"south": { "texture": "#string", "uv": [ 2.0, 6.0, 2.5, 10.0 ] },
+						"west": { "texture": "#string", "uv": [ 1.0, 1.5, 1.5, 5.5 ] },
+						"up": { "texture": "#string", "uv": [ 4.5, 4.5, 5.0, 5.0 ] },
+						"down": { "texture": "#string", "uv": [ 2.0, 2.0, 2.5, 2.5 ] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Cube45",
+			"from": [ 9.5, 12.0, 4.0 ], 
+			"to": [ 10.5, 15.0, 5.0 ], 
+			"rotationOrigin": [ 10.0, 21.0, 4.0 ],
+			"faces": {
+				"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 3.0 ] },
+				"east": { "texture": "#clockparts", "uv": [ 2.5, 3.5, 3.5, 6.5 ] },
+				"south": { "texture": "#clockparts", "uv": [ 3.5, 2.5, 4.5, 5.5 ] },
+				"west": { "texture": "#clockparts", "uv": [ 3.5, 3.0, 4.5, 6.0 ] },
+				"up": { "texture": "#clockparts", "uv": [ 1.5, 1.5, 2.5, 2.5 ] },
+				"down": { "texture": "#clockparts", "uv": [ 2.5, 5.0, 3.5, 6.0 ] }
+			},
+			"children": [
+				{
+					"name": "Cube47",
+					"from": [ 0.45, 3.0, 0.45 ], 
+					"to": [ 0.55, 6.0, 0.55 ], 
+					"rotationOrigin": [ 0.5, 6.0, 0.5 ],
+					"faces": {
+						"north": { "texture": "#string", "uv": [ 0.0, 0.0, 0.5, 3.0 ] },
+						"east": { "texture": "#string", "uv": [ 3.0, 1.0, 3.5, 4.0 ] },
+						"south": { "texture": "#string", "uv": [ 2.0, 6.0, 2.5, 9.0 ] },
+						"west": { "texture": "#string", "uv": [ 1.0, 1.5, 1.5, 4.5 ] },
+						"up": { "texture": "#string", "uv": [ 4.5, 4.5, 5.0, 5.0 ] },
+						"down": { "texture": "#string", "uv": [ 2.0, 2.0, 2.5, 2.5 ] }
+					}
+				}
+			]
+		}
+	],
+	"animations": [
+		{
+			"name": "Pendulum",
+			"code": "pendulun",
+			"quantityframes": 60,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		}
+	]
+}

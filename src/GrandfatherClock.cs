@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
@@ -12,9 +13,13 @@ namespace decoclock.src
 
 
     internal class GrandfatherClock :Block
-
     {
+       
+
         Cuboidf[] colBox;
+
+
+
 
         public override ItemStack OnPickBlock(IWorldAccessor world, BlockPos pos)
         {
@@ -30,7 +35,7 @@ namespace decoclock.src
         public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1)
         {
             return new ItemStack[] { OnPickBlock(world, pos) };
-        }
+        }//? 
 
         //public bool AbleToAttach(IWorldAccessor world, string facingCode, BlockPos blockPos)
         //{

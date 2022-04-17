@@ -8,7 +8,7 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"hour": "block/metal/plate/gold"
+		"hour": "game:block/metal/ingot/gold"
 	},
 	"elements": [
 		{

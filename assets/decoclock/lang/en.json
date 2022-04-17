@@ -5,7 +5,15 @@
 	"item-tickmarks-*": "Tick Marks",
 	"item-hourhand-*": "Hour Hand",
 	"item-minutehand-*": "Minute Hand",
+	"item-clockparts-*": "Clock Parts",	
+	"item-irongear": "Iron Gear",
 	"block-toolmold-burned-tickmarks": "Tick Marks Mold",
 	"block-toolmold-raw-tickmarks": "Raw Tick Marks Mold",
+	"block-toolmold-burned-clockparts": "Clock Parts Mold",
+	"block-toolmold-raw-clockparts": "Raw Clock Parts Mold",
+	"block-toolmold-burned-hourhand": "Hour Hand Mold",
+	"block-toolmold-raw-hourhand": "Raw Hour Hand Mold",
+	"block-toolmold-burned-minutehand": "Minute Hand Mold",
+	"block-toolmold-raw-minutehand": "Raw Minute Hand Mold",
 	"game:tabname-decoclock": "DecoClock"
 }

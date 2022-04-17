@@ -8,7 +8,6 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"minute": "block/metal/plate/gold"
 	},
 	"elements": [
 		{
@@ -36,7 +35,7 @@
 						"south": { "texture": "#minute", "uv": [ 0.0, 0.0, 1.0, 3.5 ], "autoUv": false },
 						"west": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 3.5 ], "autoUv": false },
 						"up": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-						"down": { "texture": "#null", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+						"down": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false }
 					},
 					"children": [
 						{
@@ -50,7 +49,7 @@
 								"south": { "texture": "#minute", "uv": [ 0.0, 0.0, 1.0, 3.0 ], "autoUv": false },
 								"west": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "autoUv": false },
 								"up": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"down": { "texture": "#null", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+								"down": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false }
 							},
 							"children": [
 								{
@@ -64,7 +63,7 @@
 										"south": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "autoUv": false },
 										"west": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "autoUv": false },
 										"up": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"down": { "texture": "#null", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+										"down": { "texture": "#minute", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false }
 									}
 								}
 							]

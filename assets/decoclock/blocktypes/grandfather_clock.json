@@ -7,51 +7,40 @@
 		"properties": {
 			"*": {
 				"rotatatableInterval": "22.5deg",
-				"shape": {"base": "block/grandfather_clock/complete", "rotateY": 180}}	
-	}
+				"shape": {"base": "block/grandfather_clock/base", "rotateY": 180}}	
+		}
+	},
 	"entityBehaviors": [{ "name": "Animatable" }], 	
-	"creativeinventory": {}
-	"creativeinventoryStakcs": [
-	{
-		tabs: ["general" , "decorative", "decoclock" ],
-		stacks: [
-		{}
-	}],
+	
+	"variantgroups": [
+		{ "loadFromProperties": "block/wood" }
+	],
+	
+	"creativeinventory": { "general": ["*"], "decorative": ["*"], "decoclock": ["*"] },
+	
 	"behaviors": [{"name": "UnstableFalling"}],
 	"blockmaterial": "Wood",
-	"shapebytype": { "base": "block/grandfather_clock/complete", "rotateY": 0	},
+	
+	"shape": { "base": "block/grandfather_clock/base"},
+	
 	"textures": {
 		"string": {"base": "game:block/cloth/burlap/string"},
 		"plain": {"base": "game:block/glass/plain"},
-		
-		"metal-copper": {"base": "game:block/metal/plate/copper"}, 
-		"metal-tin": {"base": "game:block/metal/plate/tin"},
-		"metal-bismuth": {"base": "game:block/metal/plate/bismuth"},
-		"metal-tinbronze": {"base": "game:block/metal/plate/tinbronze"},
-		"metal-bismuthbronze": {"base": "game:block/metal/plate/bismuthbronze"},
-		"metal-blackbronze": {"base": "game:block/metal/plate/blackbronze"},
-		"metal-brass": {"base": "game:block/metal/plate/brass"},
-		"metal-silver": {"base": "game:block/metal/plate/silver"},
-		"metal-gold": {"base": "game:block/metal/plate/gold"},
-		"metal-iron": {"base": "game:block/metal/plate/iron"},
-		"metal-meteoriciron": {"base": "game:block/metal/plate/meteoriciron"},
-		"metal-lead": {"base": "game:block/metal/plate/lead"},
-		"metal-zinc": {"base": "game:block/metal/plate/zinc"},
-		"metal-steel": {"base": "game:block/metal/plate/steel"},
-		
-		"wood-birch-frame": {"base": "game:block/wood/debarked/birch"},
-		"wood-oak-frame": {"base": "game:block/wood/debarked/oak"},
-		"wood-maple-frame": {"base": "game:block/wood/debarked/maple"},		
-		"wood-pine-frame": {"base": "game:block/wood/debarked/pine"},
-		"wood-acacia-frame": {"base": "game:block/wood/debarked/acacia"},
-		"wood-kapok-frame": {"base": "game:block/wood/debarked/kapok"},
-		"wood-baldcypress-frame": {"base": "game:block/wood/debarked/baldcypress"},
-		"wood-larch-frame": {"base": "game:block/wood/debarked/larch"},
-		"wood-redwood-frame": {"base": "game:block/wood/debarked/redwood"},
-		"wood-ebony-frame": {"base": "game:block/wood/debarked/ebony"},
-		"wood-walnut-frame": {"base": "game:block/wood/debarked/walnut"},
-		"wood-purpleheart-frame": {"base": "game:block/wood/debarked/purpleheart"},
-		"wood-aged-frame": {"base": "game:block/wood/debarked/aged"}
+		"frame": { "base": "game:block/wood/debarked/{wood}"},
+		"metal-copper": {"base": "game:block/metal/ingot/copper"}, 
+		"metal-tin": {"base": "game:block/metal/ingot/tin"},
+		"metal-bismuth": {"base": "game:block/metal/ingot/bismuth"},
+		"metal-tinbronze": {"base": "game:block/metal/ingot/tinbronze"},
+		"metal-bismuthbronze": {"base": "game:block/metal/ingot/bismuthbronze"},
+		"metal-blackbronze": {"base": "game:block/metal/ingot/blackbronze"},
+		"metal-brass": {"base": "game:block/metal/ingot/brass"},
+		"metal-silver": {"base": "game:block/metal/ingot/silver"},
+		"metal-gold": {"base": "game:block/metal/ingot/gold"},
+		"metal-iron": {"base": "game:block/metal/ingot/iron"},
+		"metal-meteoriciron": {"base": "game:block/metal/ingot/meteoriciron"},
+		"metal-lead": {"base": "game:block/metal/ingot/lead"},
+		"metal-zinc": {"base": "game:block/metal/ingot/zinc"},
+		"metal-steel": {"base": "game:block/metal/ingot/steel"}
 	},
 	"facecullmode": "nevercull",
 	"lightAbsorption": 0,

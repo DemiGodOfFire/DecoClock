@@ -15,6 +15,7 @@
    "#_###",
    "#_###",
    "#_###"
+   ]],
   "name": "Clock Parts",
   "output": { "type": "item", "code": "clockparts-{metal}" }
 }

@@ -5,7 +5,15 @@
 	"item-tickmarks-*": "Деления циферблата",
 	"item-hourhand-*": "Часовая стрелка",
 	"item-minutehand-*": "Минутная стрелка",
+	"item-clockparts-*": "Clock Parts",
+	"item-irongear": "Железная шестерёнка",
 	"block-toolmold-burned-tickmarks": "Форма для делений циферблата",
-	"block-toolmold-raw-tickmarks": "Формаа для делений циферблата(необож.)",
+	"block-toolmold-raw-tickmarks": "Форма для делений циферблата(необож.)",
+	"block-toolmold-burned-clockparts":  "Форма",
+	"block-toolmold-raw-clockparts": "Форма(необож.)",
+	"block-toolmold-burned-hourhand": "Форма для часовой стрелки",
+	"block-toolmold-raw-hourhand": "Форма для часовой стрелки(необож.)",
+	"block-toolmold-burned-minutehand": "Форма для минутной стрелки",
+	"block-toolmold-raw-minutehand": "Форма для минутной стрелки(необож.)",
 	"game:tabname-decoclock": "ДекоЧасы"
 }

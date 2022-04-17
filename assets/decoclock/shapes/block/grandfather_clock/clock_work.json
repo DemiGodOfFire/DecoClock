@@ -1,0 +1,44 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"clockWork": "game:block/metal/plate/brass"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [ 4.0, 0.0, 1.0 ], 
+			"to": [ 12.0, 8.0, 6.0 ], 
+			"rotationOrigin": [ 8.0, 0.0, 1.0 ],
+			"faces": {
+				"north": { "texture": "#clockWork", "uv": [ 0.5, 0.5, 8.5, 8.5 ] },
+				"east": { "texture": "#clockWork", "uv": [ 1.0, 0.5, 6.0, 8.5 ] },
+				"south": { "texture": "#clockWork", "uv": [ 7.5, 6.5, 15.5, 14.5 ] },
+				"west": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 5.0, 8.0 ] },
+				"up": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 8.0, 5.0 ] },
+				"down": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 8.0, 5.0 ] }
+			},
+			"children": [
+				{
+					"name": "tribe",
+					"from": [ 3.95, 3.95, 5.0 ], 
+					"to": [ 4.05, 4.05, 5.3 ], 
+					"rotationOrigin": [ 7.9, 7.9, 5.0 ],
+					"faces": {
+						"north": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false },
+						"east": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"south": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"west": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"up": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"down": { "texture": "#clockWork", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+					}
+				}
+			]
+		}
+	]}

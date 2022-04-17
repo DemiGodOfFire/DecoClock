@@ -1,32 +1,45 @@
 {
-	code: "minutehand",
+	"code": "minutehand",
 	
-	shape: { base: "block/grandfather_clock/minute_hand" },
-	creativeinventory: { "general": ["*"], "items": ["*"], "decoclock": ["*"]},
-	attributes: {
-		handbook: {
-			createdBy: "metalmolding"
+	"shape": { "base": "block/grandfather_clock/minute_hand" },
+	"creativeinventory": { "general": ["*"], "items": ["*"], "decoclock": ["*"]},
+	"attributes": {
+		"handbook": {
+			"createdBy": "metalmolding"
 		}
-	},	
-	drawtype: "json",
+	},
+	"drawtype": "json",
 	
-	variantgroups: [
+	"variantgroups": [
 		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ] }
 	],
-	textures: 
+	"textures": 
 	{
-		"minute": { "base": "game:block/metal/plate/{metal}" }
+		"minute": { "base": "game:block/metal/ingot/{metal}" }
 	},
-	guiTransform: {
-		translation: { x: 0, y: 0, z: 0 },
-		rotation: { x: 90, y: 0, z: 0 },
-		origin: { x: 0.5, y: 0, z: 0.5 },
-		scale: 6
+	"guiTransform": {
+		"translation": { "x": -6, "y": 10, "z": 0 },
+		"rotation": { "x": 0, "y": 0, "z": -135 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 },
+		"scale":  6
 	},
-	groundTransform: {
-		rotation: { x: 0, y: 0, z: 0 },
-		origin: { x: 0.5, y: 0, z: 0.5 },
-		scale: 6
+	"groundTransform": {
+		"translation": { "x": 0, "y": 0.02, "z": 0 },
+		"rotation": { "x": 90, "y": 0, "z": 0 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 },
+		"scale":  6
+	},
+	"fpHandTransform": {
+		"translation": { "x": 0, "y": 0.2, "z": 0 },
+		"rotation": { "x": -35, "y": 0, "z": -35 },
+		"origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
+		"scale":  3
+	},
+	"tpHandTransform": {
+		"translation": { "x": -0.5, "y": -0.07, "z": -0.45 },
+		"rotation": { "x": 90, "y": 1, "z": -75 },
+		"origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
+		"scale":  1
 	}
 }
 	

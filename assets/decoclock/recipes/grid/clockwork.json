@@ -1,0 +1,14 @@
+{
+	"ingredientPattern": "FFF,FWF,FFF",
+	"ingredients": {
+		"F": { "type": "item", "code": "irongear" },
+		"W": { "type": "item", "code": "game:metalplate-*", "name": "material", "allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ]},
+	},
+	"width": 3,
+	"height": 3,
+	"output": { 
+		"type": "item", 
+		"code": "clockwork-{material}"
+		
+	}
+}

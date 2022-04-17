@@ -7,12 +7,13 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace decoclock.src
 {
-    internal class BEGrandfatherClock : BlockEntity
+    internal class BEGrandfatherClock : BlockEntity, ITexPositionSource
     {
         ICoreAPI api;
         GrandfatherClock ownBlock;
@@ -21,13 +22,24 @@ namespace decoclock.src
         ClockHandRenderer rendererHourHand;
         ClockHandRenderer rendererMinuteHand;
         MeshData currentMesh;
+        ITexPositionSource tmpTextureSource;
 
         BlockEntityAnimationUtil AnimUtil => GetBehavior<BEBehaviorAnimatable>()?.animUtil;
+
+        public Size2i AtlasSize { get; set; }
+
         
+
+        string curMatMHand = "silver";
+        string curMatHHand = "meteoriciron";
+        string curMatClockParts = "brass";
+        string curMatClockWork = "gold";
+
+
         bool minuteHand;
         bool hourHand;
         bool clockParts;
-        bool face;
+        bool clockWork;
         bool minuteHandRotate;
         bool hourHandRotate;
         public float MeshAngle;
@@ -43,7 +55,19 @@ namespace decoclock.src
             get { return Block.LastCodePart(); }
         }
 
-      
+        public TextureAtlasPosition this[string textureCode]
+        {
+            get
+            {
+                if (textureCode == "hour") return tmpTextureSource["metal-" + curMatHHand];
+                if (textureCode == "minute") return tmpTextureSource["metal-" + curMatMHand];
+                if (textureCode == "parts") return tmpTextureSource["metal-" + curMatClockParts];
+                if (textureCode == "parts") return tmpTextureSource["metal-" + curMatClockParts];
+                if (textureCode == "clockWork") return tmpTextureSource["metal-" + curMatClockWork];
+                return tmpTextureSource[textureCode];
+            }
+        }
+
         MeshData ClockBaseMesh
         {
             get
@@ -60,10 +84,10 @@ namespace decoclock.src
             get
             {
                 object value = null;
-                Api.ObjectCache.TryGetValue("clockhourhandmesh-" + "gold", out value);
+                Api.ObjectCache.TryGetValue("clockhourhandmesh-" + curMatHHand, out value);
                 return (MeshData)value;
             }
-            set { Api.ObjectCache["clockhourhandmesh-" + "gold"] = value; }
+            set { Api.ObjectCache["clockhourhandmesh-" + curMatHHand] = value; }
         }
 
         MeshData ClockMinuteHandMesh
@@ -71,10 +95,10 @@ namespace decoclock.src
             get
             {
                 object value = null;
-                Api.ObjectCache.TryGetValue("clockminutehandmesh-" + "gold", out value);
+                Api.ObjectCache.TryGetValue("clockminutehandmesh-" + curMatMHand, out value);
                 return (MeshData)value;
             }
-            set { Api.ObjectCache["clockminutehandmesh-" + "gold"] = value; }
+            set { Api.ObjectCache["clockminutehandmesh-" + curMatMHand] = value; }
         }
 
         #endregion
@@ -92,6 +116,13 @@ namespace decoclock.src
                 MarkDirty(true);
             }
 
+            inventory.FromTreeAttributes(tree.GetTreeAttribute("inventory"));
+
+            if (Api != null)
+            {
+                inventory.AfterBlocksLoaded(Api.World);
+            }
+
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
@@ -105,7 +136,7 @@ namespace decoclock.src
         {
             if (inventory == null)
             {
-                inventory = new InventoryGeneric(4, "DecoClock-grandfather_clock", Pos+"", null, null);
+                inventory = new InventoryGeneric(4, "DecoClock-grandfather_clock", Pos+"", api, null);
 
             }
         }
@@ -114,6 +145,12 @@ namespace decoclock.src
         {
 
             ownBlock = Block as GrandfatherClock;
+
+            if (api is ICoreClientAPI capi) {
+                tmpTextureSource = capi.Tesselator.GetTexSource(Block);
+            }
+            
+            
 
             this.api = api;
             base.Initialize(api);
@@ -133,7 +170,7 @@ namespace decoclock.src
 
 
 
-            if (minuteHand && hourHand && face && clockParts)
+            if (minuteHand && hourHand && clockWork && clockParts)
             {
                 SetupGameTickers();
             }
@@ -173,35 +210,6 @@ namespace decoclock.src
         {
             if (listenerid != null) UnregisterGameTickListener((long)listenerid);
         }
-
-
-        //        public override void CreateBehaviors(Block block, IWorldAccessor worldForResolve)
-        //        {
-        //            base.CreateBehaviors(block, worldForResolve);
-
-        //            mpc = GetBehavior<BEBehaviorMPConsumer>();
-        //            if (mpc != null)
-        //            {
-        //                mpc.OnConnected = () => {
-        //                    automated = true;
-        //                    quantityPlayersGrinding = 0;
-        //                    if (renderer != null)
-        //                    {
-        //                        renderer.ShouldRender = true;
-        //                        renderer.ShouldRotateAutomated = true;
-        //                    }
-        //                };
-
-        //                mpc.OnDisconnected = () => {
-        //                    automated = false;
-        //                    if (renderer != null)
-        //                    {
-        //                        renderer.ShouldRender = false;
-        //                        renderer.ShouldRotateAutomated = false;
-        //                    }
-        //                };
-        //            }
-        //        }
 
         private void OneMinute(float dt)
         {
@@ -333,7 +341,16 @@ namespace decoclock.src
             rendererMinuteHand = null;
         }
 
-      
+        public override void OnBlockBroken(IPlayer byPlayer = null)                 // need OnBlockBroken or GetDrops?
+        {
+
+            if (Api.World is IServerWorldAccessor)
+            {
+                inventory.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
+        }
+
+
 
         ~BEGrandfatherClock()
         {
