@@ -1,0 +1,18 @@
+{
+	"ingredientPattern": "_P_,PQP,PPP",
+	"ingredients": {
+		"Q": { "type": "item", "code": "game:clearquartz"},
+		"P": { 
+			"type": "item",
+			"code": "game:plank-*",
+			"name": "wood",
+			"allowedVariants": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"],
+			"quantity": 2},
+	},
+	"width": 3,
+	"height": 3,
+	"output": { 
+		"type": "block", 
+		"code": "grandfatherclock-{wood}"
+	}
+}

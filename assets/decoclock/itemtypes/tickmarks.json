@@ -1,0 +1,43 @@
+{
+	"code": "tickmarks",
+	
+	"shape": { "base": "item/tickmarks" },
+	"creativeinventory": { "general": ["*"], "items": ["*"], "decoclock": ["*"]},
+	"attributes": {
+		"handbook": {
+			"createdBy": "metalmolding"
+		}
+	},	
+	"drawtype": "json",
+	
+	"variantgroups": [
+		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ] }
+	],
+	"textures": 
+	{
+		"tickmarks": { "base": "game:block/metal/ingot/{metal}" }
+	},
+	"guiTransform": {
+		"translation": { "x": -0.1, "y": 0, "z": 0 },
+		"rotation": { "x": 45, "y": 0, "z": 0 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 },
+		"scale": 3
+	},
+	"groundTransform": {
+		"rotation": { "x": 0, "y": 0, "z": 0 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 },
+		"scale": 2.5
+	},
+	"fpHandTransform": {
+		"translation": { "x": -0.1, "y": 0.25, "z": 0 },
+		"rotation": { "x": 51, "y": 89, "z": 0 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 }
+	},
+	"tpHandTransform": {
+		"translation": { "x": -1.4, "y": 0, "z": -1.45 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 }
+	}
+	
+}
+	
+	

@@ -6,6 +6,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>CS1591</NoWarn>
 		<WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
@@ -14,8 +15,10 @@
 
 	<PropertyGroup>
 		<MinGameVersion>1.16.0</MinGameVersion>
-		<RunGameVersion>1.16.4</RunGameVersion>
+		<RunGameVersion>1.17.3</RunGameVersion>
 	</PropertyGroup>
+
+	
 
 	<ItemGroup Label="Game Refs">
 		<Reference Include="VintagestoryAPI">

@@ -6,7 +6,7 @@
 	"item-hourhand-*": "Часовая стрелка",
 	"item-minutehand-*": "Минутная стрелка",
 	"item-clockparts-*": "Clock Parts",
-	"item-irongear": "Железная шестерёнка",
+	"item-gear-iron": "Железная шестерёнка",
 	"block-toolmold-burned-tickmarks": "Форма для делений циферблата",
 	"block-toolmold-raw-tickmarks": "Форма для делений циферблата(необож.)",
 	"block-toolmold-burned-clockparts":  "Форма",

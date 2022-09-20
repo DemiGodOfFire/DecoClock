@@ -1,8 +1,12 @@
 {
-	"ingredientPattern": "FFF,FWF,FFF",
+	"ingredientPattern": "GGG,PGP,GGG",
 	"ingredients": {
-		"F": { "type": "item", "code": "irongear" },
-		"W": { "type": "item", "code": "game:metalplate-*", "name": "material", "allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ]},
+		"G": { "type": "item", "code": "gear-iron" },
+		"P": { 
+			"type": "item",
+			"code": "game:metalplate-*",
+			"name": "material",
+			"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ]},
 	},
 	"width": 3,
 	"height": 3,

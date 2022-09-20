@@ -1,0 +1,99 @@
+{
+	"code": "grandfatherclock",
+	"class": "grandfatherclock",
+	"entityClass": "begrandfatherclock",
+	"attributes":{
+		"types": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"],
+		"properties": {
+			"*": {
+				"rotatatableInterval": "22.5deg",
+				"shape": {"base": "block/grandfatherclock/base", "rotateY": 180}}	
+		}
+	},
+	"entityBehaviors": [{ "name": "Animatable" }], 	
+	
+	"variantgroups": [
+		{ "code": "wood", "states": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] }
+	],
+	
+	
+	"creativeinventory": { "general": ["*"], "decorative": ["*"], "decoclock": ["*"] },
+	
+	"behaviors": [{"name": "UnstableFalling"}],
+	"blockmaterial": "Wood",
+	
+	"shape": { "base": "block/grandfatherclock/complete"},
+	
+	"textures": {
+		
+		"doorglass": {"base": "game:block/glass/plain"},
+		"thread": {"base": "game:block/transparent"},
+		"dialglass": { "base": "game:block/transparent"},
+		"frame": { "base": "game:block/wood/debarked/{wood}"},
+		"clockparts": { "base": "game:block/transparent"},
+		"clockwork": { "base": "game:block/transparent"},
+		"tickmarks": { "base": "game:block/transparent"},
+		"string": {"base": "game:block/cloth/burlap/string"},
+		"metal-copper": {"base": "game:block/metal/ingot/copper"}, 
+		"metal-tin": {"base": "game:block/metal/ingot/tin"},
+		"metal-bismuth": {"base": "game:block/metal/ingot/bismuth"},
+		"metal-tinbronze": {"base": "game:block/metal/ingot/tinbronze"},
+		"metal-bismuthbronze": {"base": "game:block/metal/ingot/bismuthbronze"},
+		"metal-blackbronze": {"base": "game:block/metal/ingot/blackbronze"},
+		"metal-brass": {"base": "game:block/metal/ingot/brass"},
+		"metal-silver": {"base": "game:block/metal/ingot/silver"},
+		"metal-gold": {"base": "game:block/metal/ingot/gold"},
+		"metal-iron": {"base": "game:block/metal/ingot/iron"},
+		"metal-meteoriciron": {"base": "game:block/metal/ingot/meteoriciron"},
+		"metal-lead": {"base": "game:block/metal/ingot/lead"},
+		"metal-zinc": {"base": "game:block/metal/ingot/zinc"},
+		"metal-steel": {"base": "game:block/metal/ingot/steel"},
+		"glass-blue": {"base": "game:block/glass/blue"},
+		"glass-red": {"base": "game:block/glass/red"}
+	},
+	"facecullmode": "nevercull",
+	"lightAbsorption": 0,
+	"maxStackSize": 1,
+	"sidesolid": {
+		"all": "false"
+	},
+	"sideopaque": {
+		"all": "false"
+	},
+	"collisionBoxes": [
+		{ "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 2, "z2": 1 } 
+		
+	],
+	"selectionBoxes": [
+		{ "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 2, "z2": 1 }
+	],
+	"resistance": 3.5,
+	"sounds": {
+		"place": "game:block/planks",
+		"walk": "game:walk/wood"
+	},
+	"heldTpIdleAnimation": "holdunderarm",
+	"guiTransform": {
+		"translation": {"x": 0,"y": -1,"z": 0 },
+		"rotation": {"x": -22.6,"y": -140,"z": 0 },
+		"origin": {"x": 0.5,"y": 1,"z": 0.2 },
+		"scale": 0.75
+	},
+	"fpHandTransform": {
+		"translation": {"x": -0.6,"y": 0,"z": 2.1 },
+		"rotation": {"x": -90,"y": -117,"z": 0 },
+		"origin": {"x": 0.5,"y": 1,"z": 0.2 }
+	},
+	"groundTransform": {
+		"translation": {"x": 0,"y": 0.2,"z": 0 },
+		"rotation": {"x": -90,"y": -45,"z": 0 },
+		"origin": {"x": 0.5,"y": 1,"z": 0.5 },
+		"scale": 2
+	},
+	"tpHandTransform": {
+		"translation": {"x": -1.3,"y": -1.6,"z": -0.4 },
+		"rotation": {"x": 0,"y": 180,"z": 77 },
+		"origin": {"x": 0.5,"y": 1,"z": 0.52 },
+		"scale": 0.5
+	}	
+}

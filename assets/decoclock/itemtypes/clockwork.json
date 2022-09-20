@@ -1,7 +1,7 @@
 {
 	"code": "clockwork",
 	
-	"shape": { "base": "block/grandfather_clock/clock_work" },
+	"shape": { "base": "block/grandfatherclock/clockwork" },
 	"creativeinventory": { "general": ["*"], "items": ["*"], "decoclock": ["*"]},
 	"attributes":{	"handbook": {
 			"groupBy": ["clockwork-*"]
@@ -14,7 +14,25 @@
 	],
 	"textures": 
 	{
-		"clockWork": { "base": "game:block/metal/plate/{metal}" }
+		"clockwork": { "base": "game:block/metal/plate/{metal}" }
+	},
+		groundTransform: {
+			translation: { x: 0, y: 0.076, z: 0 },
+			rotation: { x: -90, y: 0, z: 0 },
+			origin: { x: 0.5, y: 0.25, z: 0.5 },
+			scale: 2.5
+	},
+		guiTransform: {
+		translation: { x: 4, y: 0, z: 0 },
+		rotation: { x: -15, y: -45, z: 0 },
+		origin: { x: 0.5, y: 0.25, z: 0.5 },
+		scale: 2
+	}, 
+		fpHandTransform: {
+		translation: { x: -0.1, y: 0.3, z: 0 },
+		rotation: { x: 0, y: -90, z: 0 },
+		origin: { x: 0.5, y: 0.25, z: 0.5 },
+		scale: 1.5
 	}
 }
 	
