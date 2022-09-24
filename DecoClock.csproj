@@ -7,6 +7,7 @@
 		<NoWarn>CS1591</NoWarn>
 		<WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
+    <LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
@@ -14,7 +15,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<MinGameVersion>1.16.0</MinGameVersion>
+		<MinGameVersion>1.17.3</MinGameVersion>
 		<RunGameVersion>1.17.3</RunGameVersion>
 	</PropertyGroup>
 

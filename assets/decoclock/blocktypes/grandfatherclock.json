@@ -49,7 +49,16 @@
 		"metal-zinc": {"base": "game:block/metal/ingot/zinc"},
 		"metal-steel": {"base": "game:block/metal/ingot/steel"},
 		"glass-blue": {"base": "game:block/glass/blue"},
-		"glass-red": {"base": "game:block/glass/red"}
+		"glass-brown": {"base": "game:block/glass/brown"},
+		"glass-green": {"base": "game:block/glass/green"},
+		"glass-pink": {"base": "game:block/glass/pink"},
+		"glass-plain": {"base": "game:block/glass/plain"},
+		"glass-quartz": {"base": "game:block/glass/quartz"},
+		"glass-red": {"base": "game:block/glass/red"},
+		"glass-smoky": {"base": "game:block/glass/smoky"},
+		"glass-vintage": {"base": "game:block/glass/vintage"},
+		"glass-violet": {"base": "game:block/glass/violet"},
+		"glass-yellow": {"base": "game:block/glass/yellow"}
 	},
 	"facecullmode": "nevercull",
 	"lightAbsorption": 0,

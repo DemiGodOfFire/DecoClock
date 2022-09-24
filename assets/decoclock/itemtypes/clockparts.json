@@ -15,7 +15,7 @@
 	],
 	"textures": 
 	{
-		"parts": { "base": "game:block/metal/ingot/{metal}" }
+		"clockparts": { "base": "game:block/metal/ingot/{metal}" }
 	},
 	"guiTransform": {
 		"translation": { "x": 3, "y": 2, "z": 0 },

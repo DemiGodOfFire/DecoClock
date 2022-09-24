@@ -13,7 +13,6 @@ namespace DecoClock
     {
         public static string ModId { get; private set; }
 
-
         public override void Start(ICoreAPI api)
         {
             ModId = Mod.Info.ModID;

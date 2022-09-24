@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -9,110 +10,83 @@ namespace DecoClock
 {
     internal class BEClock : BlockEntity, ITexPositionSource
     {
-        ICoreAPI api;
-        ClockBlock ownBlock;
+
         InventoryClock inventory;
         ILoadedSound ambientSound;
         ClockHandRenderer rendererHand;
-        MeshData currentMesh;
-        ITexPositionSource tmpTextureSource;
-
-        public Size2i AtlasSize => tmpTextureSource.AtlasSize;
-
-        string[] lis = { "sdsa" };
-
-        private static string[] listCode = {"hourhand",
-            "minutehand",
-            "parts",
-            "clockWork",
-            "tickmarks" };
+        ITexPositionSource textureSource;
 
 
+        public Size2i AtlasSize => textureSource.AtlasSize;
 
-        public ClockItem[] listGrandfatherClockItems;
+        protected List<ClockItem> Parts = new ();
+        //{
+        //    new("hourhand"),
+        //    new("minutehand"),
+        //    new("dialglass"),
+        //    new("clockparts"),
+        //    new("clockwork"),
+        //    new("tickmarks")
+        //};
 
         string curMatMHand = "silver";
         string curMatHHand = "meteoriciron";
-        string curMatClockParts = "brass";
-        string curMatClockWork = "gold";
-        string curMatDial = "blackbronze";
-        string curMatDialGlass = "blue";
-        string curMatDoorGlass = "red";
+    
 
-        bool minuteHand;
-        bool hourHand;
-        bool clockParts;
-        bool clockWork;
+       
         bool minuteHandRotate;
-        bool hourHandRotate;
         public float MeshAngle;
 
-        float hour;
         float minutes;
-        long? listenerid;
+
+
 
         #region Getters
 
 
-        public void addItem()
+        private void AddCodeParts()
         {
-            ClockItem clockWork = new ClockItem("clockwork");
-            ClockItem tickmarks = new ClockItem("clockwork", zavs: 0);
-            ClockItem clockParts = new ClockItem("parts");
-            ClockItem minuteHand = new ClockItem("minutehand", zavs: 0);
-            ClockItem hourhand = new ClockItem("hourhand", zavs: 0);
-            listGrandfatherClockItems = new ClockItem[5];
-            listGrandfatherClockItems[0] = clockWork;
-            listGrandfatherClockItems[1] = tickmarks;
-            listGrandfatherClockItems[2] = clockParts;
-            listGrandfatherClockItems[3] = minuteHand;
-            listGrandfatherClockItems[4] = hourhand;
-        }
 
-        public string Material
-        {
-            get { return Block.LastCodePart(); }
-        }
-
-        public TextureAtlasPosition this[string textureCode]
-        {
-            get
+            AddParts();
+            ClockManager manager = Api.ModLoader.GetModSystem<ClockManager>();
+            foreach (var part in Parts)
             {
-                if (textureCode == "hour") return tmpTextureSource["metal-" + curMatHHand];
-
-                if (textureCode == "minute") return tmpTextureSource["metal-" + curMatMHand];
-                if (textureCode == "thread") return tmpTextureSource["string"];
-                if (textureCode == "doorglass") return tmpTextureSource["glass-" + curMatDoorGlass];
-                if (textureCode == "dialglass") return tmpTextureSource["glass-" + curMatDialGlass];
-                if (textureCode == "clockparts") return tmpTextureSource["metal-" + curMatClockParts];
-                if (textureCode == "clockwork") return tmpTextureSource["metal-" + curMatClockWork];
-                if (textureCode == "tickmarks") return tmpTextureSource["metal-" + curMatDial];
-                return tmpTextureSource[textureCode];
+                part.Codes ??= manager.Parts[part.Type].ToArray();
             }
         }
 
-        MeshData ClockBaseMesh
+        protected virtual void AddParts()
         {
-            get
-            {
-                object value;
-                Api.ObjectCache.TryGetValue("clockbasemesh-" + Material, out value);
-                return (MeshData)value;
-            }
-            set { Api.ObjectCache["clockbasemesh-" + Material] = value; }
+            Parts.Add(new("hourhand"));
+            Parts.Add(new("minutehand"));
+            Parts.Add(new("dialglass"));
+            Parts.Add(new("clockparts"));
+            Parts.Add(new("clockwork"));
+            Parts.Add(new("tickmarks"));
         }
 
-
-
-        MeshData ClockWorkMesh
+      
+        public virtual TextureAtlasPosition this[string textureCode]
         {
             get
             {
-                object value;
-                Api.ObjectCache.TryGetValue("clockworkmesh-" + Material, out value);
-                return (MeshData)value;
+                if (textureCode == "thread") return textureSource["string"];
+
+                ItemStack stack = inventory.TryGetPart(textureCode);
+                if (stack is not null)
+                {
+                    var capi = (ICoreClientAPI)Api;
+                    if (stack.Class == EnumItemClass.Item)
+                    {
+                        return capi.ItemTextureAtlas.GetPosition(stack.Item);
+                    }
+                    else
+                    {
+                        return capi.BlockTextureAtlas.GetPosition(stack.Block);
+                    }
+                }
+                return textureSource[textureCode];
             }
-            set { Api.ObjectCache["clockwork-" + Material] = value; }
         }
 
         MeshData ClockHourHandMesh
@@ -146,14 +120,8 @@ namespace DecoClock
 
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
 
-
-            //inventory.FromTreeAttributes(tree.GetTreeAttribute("inventory"));
-
-            //if (Api != null)
-            //{
-            //    inventory.AfterBlocksLoaded(Api.World);
-            //}
-
+            InitInventory();
+            inventory.FromTreeAttributes(tree);
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
@@ -161,77 +129,27 @@ namespace DecoClock
             base.ToTreeAttributes(tree);
 
             tree.SetFloat("meshAngle", MeshAngle);
+            inventory?.ToTreeAttributes(tree);
         }
 
         private void InitInventory()
         {
             if (inventory == null)
             {
-                addItem();
-                //inventory = new InventoryClock(listGrandfatherClockItem, "DecoClock-grandfather_clock", Pos, api);
-                inventory = new InventoryClock(codes, api, Pos);
-
+                AddCodeParts();
+                inventory = new InventoryClock(Parts.ToArray(), Pos, Api);
             }
         }
 
         public override void Initialize(ICoreAPI api)
         {
-
-            ownBlock = Block as ClockBlock;
-
+            base.Initialize(api);
             if (api is ICoreClientAPI capi)
             {
-                tmpTextureSource = capi.Tesselator.GetTexSource(Block);
+                textureSource = capi.Tesselator.GetTexSource(Block);
             }
-
-
-
-            this.api = api;
-            base.Initialize(api);
             InitInventory();
-
-            if (api.Side == EnumAppSide.Client)
-            {
-                base.Initialize(api);
-
-                ownBlock = Block as ClockBlock;
-                if (Api.Side == EnumAppSide.Client)
-                {
-                    currentMesh = GenBaseMesh();
-                    MarkDirty(true);
-                }
-            }
-
-
-            //if (api.Side == EnumAppSide.Client)
-            //{
-            //    //rendererHourHand = new ClockHandRenderer(api as ICoreClientAPI, Pos, GenMesh("hour_hand"));
-
-            //    //(api as ICoreClientAPI).Event.RegisterRenderer(rendererHourHand, EnumRenderStage.Opaque, "grandfather_clock");
-
-            //    rendererHand = new ClockHandRenderer(api as ICoreClientAPI, Pos, GenMesh("minute_hand"));
-
-            //    (api as ICoreClientAPI).Event.RegisterRenderer(rendererHand, EnumRenderStage.Opaque, "grandfather_clock");
-
-            //    if (ClockBaseMesh == null)
-            //    {
-            //        ClockBaseMesh = GenMesh("base");
-            //    }
-            //    if (ClockMinuteHandMesh == null)
-            //    {
-            //        ClockMinuteHandMesh = GenMesh("minute_hand");
-            //    }
-            //    if (ClockHourHandMesh == null)
-            //    {
-            //        ClockHourHandMesh = GenMesh("hour_hand");
-            //    }
-
-            //}
         }
-
-
-
-
 
         //private void OneMinute(float dt)
         //{
@@ -263,30 +181,15 @@ namespace DecoClock
             ItemSlot handslot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
 
-            if (TryAddPart(handslot, byPlayer))
+            if (inventory.TryAddPart(handslot.Itemstack, out ItemStack content))
 
             {
                 var pos = Pos.ToVec3d().Add(0.5, 0.25, 0.5);
                 Api.World.PlaySoundAt(Block.Sounds.Place, pos.X, pos.Y, pos.Z, byPlayer);
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+                //delete one item from player
                 return true;
             }
-
-            return true;
-        }
-
-        private bool TryAddPart(ItemSlot handslot, IPlayer byPlayer)
-        {
-            if (!clockWork && handslot.Itemstack.Collectible.Code.Path == "clockWork")
-            {
-                handslot.TakeOut(1);
-                handslot.MarkDirty();
-                clockWork = true;
-                MarkDirty(true);
-                return true;
-            }
-
-
 
             return false;
         }
@@ -343,8 +246,6 @@ namespace DecoClock
             return mesh;
         }
 
-
-
         internal MeshData GenMesh(string type)
         {
 
@@ -352,59 +253,27 @@ namespace DecoClock
             var capi = Api as ICoreClientAPI;
             Shape shape = Api.Assets.TryGet("decoclock:shapes/block/grandfatherclock/" + type + ".json").ToObject<Shape>();
             capi.Tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
-            //   Api.ObjectCache[type + "-" + "iron"] = mesh;
-
             return mesh;
         }
 
-        //internal MeshData GenMeshes()
-        //{
-
-        //    GenBaseMesh();
-
-        //    return 0;
-        //}
-
         #region meshing
 
+        MeshData baseMesh;
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            string key = Block.Code + MeshAngle.ToString() + curMatDoorGlass + curMatClockWork + curMatDial + curMatClockParts + curMatDialGlass;
-            if (!Api.ObjectCache.TryGetValue(key, out object mesh))
+            if (baseMesh is null)
             {
-                mesh = GenBaseMesh().Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
-                Api.ObjectCache.Add(key, mesh);
+                UpdateMesh();
             }
-            mesher.AddMeshData((MeshData)mesh);
-
-
-
-            // if (ClockWorkMesh != null)
-            {
-                //         mesher.AddMeshData(GenMesh("clockwork").Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0));
-            }
-            //bool skipmesh = base.OnTesselation(mesher, tesselator);
-            //if (skipmesh) return true;
-
-
-            //if (ownMesh == null)
-            //{
-            //    return true;
-            //}
-
-            // mesher.AddMeshData(ownMesh);
-            //            if (quantityPlayersGrinding == 0 && !automated)
-            //            {
-            //                mesher.AddMeshData(
-            //                    this.clockHandMesh.Clone()
-            //                    .Rotate(new API.MathTools.Vec3f(0.5f, 0.5f, 0.5f), 0, renderer.AngleRad, 0)
-            //                    .Translate(0 / 16f, 11 / 16f, 0 / 16f)
-            //                );
-            //            }
-
+            mesher.AddMeshData(baseMesh);
 
             return true;
+        }
+
+        private void UpdateMesh()
+        {
+            baseMesh = GenBaseMesh().Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
         }
 
 
@@ -429,10 +298,10 @@ namespace DecoClock
 
         public override void OnBlockBroken(IPlayer byPlayer = null)                 // need OnBlockBroken or GetDrops?
         {
-
+            base.OnBlockBroken(byPlayer);
             if (Api.World is IServerWorldAccessor)
             {
-                inventory.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
             }
         }
 
