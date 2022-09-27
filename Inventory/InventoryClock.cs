@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Vintagestory.API.Common;
-using Vintagestory.API.Datastructures;
+﻿using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -15,7 +12,7 @@ namespace DecoClock
     //    tickmarks
     //};
 
-   // [System.Serializable]
+    // [System.Serializable]
     public class ClockItem
     {
         public string Type { get; private set; }
@@ -33,11 +30,35 @@ namespace DecoClock
 
     public class InventoryClock : InventoryGeneric
     {
+
+
         private ClockItem[] codes;
         public InventoryClock(ClockItem[] codes, BlockPos pos, ICoreAPI api) : base(codes.Length, "DecoClock-ClockInv", pos + "", api)
         {
             this.codes = codes;
+            if (api != null)
+            {
+                ResolveCodes();
+            }
         }
+
+
+        private void ResolveCodes()
+        {
+            ClockManager manager = Api.ModLoader.GetModSystem<ClockManager>();
+            foreach (var code in codes)
+            {
+                if (manager.Parts.ContainsKey(code.Type))
+                {
+                    code.Codes ??= manager.Parts[code.Type].ToArray();
+                }
+                else
+                {
+                    Api.Logger.Error("Achtung!"+" not found code " + code.Type);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Show content if exist
@@ -103,6 +124,12 @@ namespace DecoClock
             }
             content = null;
             return false;
+        }
+
+        public override void LateInitialize(string inventoryID, ICoreAPI api)
+        {
+            base.LateInitialize(inventoryID, api);
+            ResolveCodes();
         }
 
         //public override void ToTreeAttributes(ITreeAttribute invtree)

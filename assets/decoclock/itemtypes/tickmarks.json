@@ -13,10 +13,7 @@
 	"variantgroups": [
 		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ] }
 	],
-	"textures": 
-	{
-		"tickmarks": { "base": "game:block/metal/ingot/{metal}" }
-	},
+	"texture":  { "base": "game:block/metal/ingot/{metal}" },
 	"guiTransform": {
 		"translation": { "x": -0.1, "y": 0, "z": 0 },
 		"rotation": { "x": 45, "y": 0, "z": 0 },

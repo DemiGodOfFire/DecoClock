@@ -15,11 +15,14 @@ namespace DecoClock
         ILoadedSound ambientSound;
         ClockHandRenderer rendererHand;
         ITexPositionSource textureSource;
+        MeshData baseMesh;
+
 
 
         public Size2i AtlasSize => textureSource.AtlasSize;
+        protected List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
+        private List<ClockItem> _parts = new();
 
-        protected List<ClockItem> Parts = new ();
         //{
         //    new("hourhand"),
         //    new("minutehand"),
@@ -31,45 +34,32 @@ namespace DecoClock
 
         string curMatMHand = "silver";
         string curMatHHand = "meteoriciron";
-    
 
-       
-        bool minuteHandRotate;
+
+
         public float MeshAngle;
 
-        float minutes;
 
 
 
         #region Getters
 
-
-        private void AddCodeParts()
-        {
-
-            AddParts();
-            ClockManager manager = Api.ModLoader.GetModSystem<ClockManager>();
-            foreach (var part in Parts)
-            {
-                part.Codes ??= manager.Parts[part.Type].ToArray();
-            }
-        }
-
         protected virtual void AddParts()
         {
-            Parts.Add(new("hourhand"));
-            Parts.Add(new("minutehand"));
-            Parts.Add(new("dialglass"));
-            Parts.Add(new("clockparts"));
-            Parts.Add(new("clockwork"));
-            Parts.Add(new("tickmarks"));
+            _parts.Add(new("hourhand"));
+            _parts.Add(new("clockwork"));
+            _parts.Add(new("dialglass"));
+            _parts.Add(new("tickmarks"));
+            _parts.Add(new("minutehand"));
+            _parts.Add(new("clockparts"));
         }
 
-      
+
         public virtual TextureAtlasPosition this[string textureCode]
         {
             get
             {
+
                 if (textureCode == "thread") return textureSource["string"];
 
                 ItemStack stack = inventory.TryGetPart(textureCode);
@@ -78,15 +68,41 @@ namespace DecoClock
                     var capi = (ICoreClientAPI)Api;
                     if (stack.Class == EnumItemClass.Item)
                     {
-                        return capi.ItemTextureAtlas.GetPosition(stack.Item);
+                        var tex = stack.Item.FirstTexture;
+                        AssetLocation texturePath = tex.Baked.BakedName;
+                        // return capi.ItemTextureAtlas[tex.Base];
+                        //   return capi.ItemTextureAtlas.GetPosition(stack.Item);
+                        return getOrCreateTexPos(texturePath, capi);
                     }
                     else
                     {
+                        // var tex = stack.Block.FirstTexture;
                         return capi.BlockTextureAtlas.GetPosition(stack.Block);
+                        //return capi.BlockTextureAtlas.GetPosition(stack.Block);
                     }
                 }
                 return textureSource[textureCode];
             }
+        }
+
+        protected TextureAtlasPosition getOrCreateTexPos(AssetLocation texturePath, ICoreClientAPI capi)
+        {
+            TextureAtlasPosition texpos = capi.BlockTextureAtlas[texturePath];
+
+            if (texpos == null)
+            {
+                IAsset texAsset = capi.Assets.TryGet(texturePath.Clone().WithPathPrefixOnce("textures/").WithPathAppendixOnce(".png"));
+                if (texAsset != null)
+                {
+                    capi.BlockTextureAtlas.GetOrInsertTexture(texturePath, out _, out texpos, () => texAsset.ToBitmap(capi));
+                }
+                else
+                {
+                    capi.World.Logger.Warning("For render in block " + Block.Code + ", item {0} defined texture {1}, no such texture found.", texturePath);
+                }
+            }
+
+            return texpos;
         }
 
         MeshData ClockHourHandMesh
@@ -136,7 +152,6 @@ namespace DecoClock
         {
             if (inventory == null)
             {
-                AddCodeParts();
                 inventory = new InventoryClock(Parts.ToArray(), Pos, Api);
             }
         }
@@ -148,8 +163,15 @@ namespace DecoClock
             {
                 textureSource = capi.Tesselator.GetTexSource(Block);
             }
-            InitInventory();
+            //AddParts();
+            if (inventory != null)
+            {
+                inventory.LateInitialize(inventory.InventoryID, api);
+            }
+            else InitInventory();
         }
+
+
 
         //private void OneMinute(float dt)
         //{
@@ -180,64 +202,66 @@ namespace DecoClock
         {
             ItemSlot handslot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
-
             if (inventory.TryAddPart(handslot.Itemstack, out ItemStack content))
-
             {
                 var pos = Pos.ToVec3d().Add(0.5, 0.25, 0.5);
                 Api.World.PlaySoundAt(Block.Sounds.Place, pos.X, pos.Y, pos.Z, byPlayer);
                 (Api as ICoreClientAPI)?.World.Player.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
                 //delete one item from player
+                if (Api.Side == EnumAppSide.Client)
+                {
+                    UpdateMesh();
+                }
+                MarkDirty(true);
                 return true;
             }
 
             return false;
         }
 
-        void UpdateHandState()
-        {
-            if (Api?.World == null) return;
+        //void UpdateHandState()
+        //{
+        //    if (Api?.World == null) return;
 
-            if (rendererHand != null)
-            {
-                rendererHand.AngleRad = MinuteAngle();
-            }
+        //    if (rendererHand != null)
+        //    {
+        //        rendererHand.AngleRad = MinuteAngle();
+        //    }
 
-            Api.World.BlockAccessor.MarkBlockDirty(Pos, OnRetesselatedMinuteHand);
+        //    Api.World.BlockAccessor.MarkBlockDirty(Pos, OnRetesselatedMinuteHand);
 
-            //if (nowGrinding)
-            //{
-            //    ambientSound?.Start();
-            //}
-            //else
-            //{
-            //    ambientSound?.Stop();
-            //}
+        //    //if (nowGrinding)
+        //    //{
+        //    //    ambientSound?.Start();
+        //    //}
+        //    //else
+        //    //{
+        //    //    ambientSound?.Stop();
+        //    //}
 
-            if (Api.Side == EnumAppSide.Server)
-            {
-                MarkDirty();
-            }
+        //    if (Api.Side == EnumAppSide.Server)
+        //    {
+        //        MarkDirty();
+        //    }
 
-        }
+        //}
 
-        private void OnRetesselatedMinuteHand()
-        {
-            if (rendererHand == null) return; // Maybe already disposed
+        //private void OnRetesselatedMinuteHand()
+        //{
+        //    if (rendererHand == null) return; // Maybe already disposed
 
 
-            rendererHand.ShouldRender = minuteHandRotate;
+        //    rendererHand.ShouldRender = minuteHandRotate;
 
-        }
+        //}
 
-        private float MinuteAngle()
-        {
-            return 2 * (float)Math.PI * minutes / 60; // check values
-        }
+        //private float MinuteAngle()
+        //{
+        //    return 2 * (float)Math.PI * minutes / 60; // check values
+        //}
 
         internal MeshData GenBaseMesh()
         {
-
             ITesselatorAPI mesher = ((ICoreClientAPI)Api).Tesselator;
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
@@ -248,8 +272,6 @@ namespace DecoClock
 
         internal MeshData GenMesh(string type)
         {
-
-
             var capi = Api as ICoreClientAPI;
             Shape shape = Api.Assets.TryGet("decoclock:shapes/block/grandfatherclock/" + type + ".json").ToObject<Shape>();
             capi.Tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
@@ -258,7 +280,6 @@ namespace DecoClock
 
         #region meshing
 
-        MeshData baseMesh;
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {

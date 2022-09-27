@@ -8,9 +8,6 @@
 	"textureHeight": 16,
 	"textureSizes": {
 	},
-	"textures": {
-		"clockparts": "game:block/metal/plate/gold"
-	},
 	"elements": [
 		{
 			"name": "Cube41",

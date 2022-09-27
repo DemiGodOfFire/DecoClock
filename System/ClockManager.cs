@@ -8,6 +8,11 @@ namespace DecoClock
     {
         public Dictionary<string, List<AssetLocation>> Parts { get; } = new();
 
+        public override double ExecuteOrder()
+        {
+            return 0.2;
+        }
+
         public override void AssetsLoaded(ICoreAPI api)
         {
             Parts.Add("hourhand", new());

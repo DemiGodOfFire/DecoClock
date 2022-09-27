@@ -13,10 +13,7 @@
 	"variantgroups": [
 		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ] }
 	],
-	"textures": 
-	{
-		"clockparts": { "base": "game:block/metal/ingot/{metal}" }
-	},
+	"texture": { "base": "game:block/metal/ingot/{metal}" },
 	"guiTransform": {
 		"translation": { "x": 3, "y": 2, "z": 0 },
 		"rotation": { "x": -90, "y": 0, "z": 0 },
