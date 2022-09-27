@@ -19,16 +19,91 @@ namespace DecoClock
         MeshRef meshref;
         public Matrixf ModelMat = new Matrixf();
 
-        public ClockHandRenderer(ICoreClientAPI coreClientAPI, BlockPos pos, MeshData mesh)
+        public ClockHandRenderer(ICoreClientAPI coreClientAPI, BlockPos pos)
         {
             api = coreClientAPI;
             this.pos = pos;
-            meshref = coreClientAPI.Render.UploadMesh(mesh);
+            MarkDirty();
         }
 
         public double RenderOrder => 0.5;
 
         public int RenderRange => 24;
+
+        public void MarkDirty()
+        {
+            //   meshref = coreClientAPI.Render.UploadMesh(mesh);
+            var be = api.World.BlockAccessor.GetBlockEntity(pos) as BEClock;
+            
+            
+        }
+
+
+        //private void OneMinute(float dt)
+        //{
+        //    float hourOfDay = api.World.Calendar.HourOfDay;
+        //    float hourUpdate = api.World.Calendar.FullHourOfDay / api.World.Calendar.HoursPerDay * 24;
+
+
+        //    float minutesFloat = hourOfDay - hour;
+        //    float minutesUpdate = minutesFloat * 60f;
+
+        //    if (minuteHandRotate = minutes != minutesUpdate)
+        //    {
+        //        minutes = minutesUpdate;
+        //    }
+        //    else return;
+
+        //    if (hourHandRotate = hour != hourUpdate)
+        //    {
+        //        hour = hourUpdate;
+        //    }
+
+        //    int hourM12 = (int)hourOfDay % 12;
+        //    UpdateHandState();
+
+        //}
+
+        //void UpdateHandState()
+        //{
+        //    if (Api?.World == null) return;
+
+        //    if (rendererHand != null)
+        //    {
+        //        rendererHand.AngleRad = MinuteAngle();
+        //    }
+
+        //    Api.World.BlockAccessor.MarkBlockDirty(Pos, OnRetesselatedMinuteHand);
+
+        //    //if (nowGrinding)
+        //    //{
+        //    //    ambientSound?.Start();
+        //    //}
+        //    //else
+        //    //{
+        //    //    ambientSound?.Stop();
+        //    //}
+
+        //    if (Api.Side == EnumAppSide.Server)
+        //    {
+        //        MarkDirty();
+        //    }
+
+        //}
+
+        //private void OnRetesselatedMinuteHand()
+        //{
+        //    if (rendererHand == null) return; // Maybe already disposed
+
+
+        //    rendererHand.ShouldRender = minuteHandRotate;
+
+        //}
+
+        //private float MinuteAngle()
+        //{
+        //    return 2 * (float)Math.PI * minutes / 60; // check values
+        //}
 
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)

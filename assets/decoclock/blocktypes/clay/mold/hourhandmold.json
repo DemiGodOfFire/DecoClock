@@ -6,7 +6,7 @@
 	},
 	behaviorsByType: {
 		"*-raw-*": [
-			{ name: "GroundStorable", properties: { layout: 'SingleCenter' } },
+			{ name: "GroundStorable", properties: { layout: 'Halves' } },
 			{ name: "Unplaceable", "__comment": "The ground storable obsoletes this being a block. Should be an item, but is kept a block for backwards compatibility" },  
 			{ name: "RightClickPickup" }
 		],
@@ -20,8 +20,6 @@
 		"toolmold-burned-hourhand": {
 			"requiredUnits": 100,
 			"fillHeight": 1,
-			"moldrackable": true,
-			"onmoldrackTransform": { rotation: { z: 90 } },			
 			"drop": { 
 				type: "item", 
 				code: "hourhand-{metal}", 

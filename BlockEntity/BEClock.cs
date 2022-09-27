@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -16,33 +15,10 @@ namespace DecoClock
         ClockHandRenderer rendererHand;
         ITexPositionSource textureSource;
         MeshData baseMesh;
-
-
-
         public Size2i AtlasSize => textureSource.AtlasSize;
         protected List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
         private List<ClockItem> _parts = new();
-
-        //{
-        //    new("hourhand"),
-        //    new("minutehand"),
-        //    new("dialglass"),
-        //    new("clockparts"),
-        //    new("clockwork"),
-        //    new("tickmarks")
-        //};
-
-        string curMatMHand = "silver";
-        string curMatHHand = "meteoriciron";
-
-
-
         public float MeshAngle;
-
-
-
-
-        #region Getters
 
         protected virtual void AddParts()
         {
@@ -59,8 +35,10 @@ namespace DecoClock
         {
             get
             {
-
-                if (textureCode == "thread") return textureSource["string"];
+                if (inventory.TryGetPart("clockparts") != null)
+                {
+                    if (textureCode == "thread") return textureSource["string"];
+                }
 
                 ItemStack stack = inventory.TryGetPart(textureCode);
                 if (stack is not null)
@@ -72,7 +50,7 @@ namespace DecoClock
                         AssetLocation texturePath = tex.Baked.BakedName;
                         // return capi.ItemTextureAtlas[tex.Base];
                         //   return capi.ItemTextureAtlas.GetPosition(stack.Item);
-                        return getOrCreateTexPos(texturePath, capi);
+                        return GetOrCreateTexPos(texturePath, capi);
                     }
                     else
                     {
@@ -85,7 +63,7 @@ namespace DecoClock
             }
         }
 
-        protected TextureAtlasPosition getOrCreateTexPos(AssetLocation texturePath, ICoreClientAPI capi)
+        protected TextureAtlasPosition GetOrCreateTexPos(AssetLocation texturePath, ICoreClientAPI capi)
         {
             TextureAtlasPosition texpos = capi.BlockTextureAtlas[texturePath];
 
@@ -101,41 +79,15 @@ namespace DecoClock
                     capi.World.Logger.Warning("For render in block " + Block.Code + ", item {0} defined texture {1}, no such texture found.", texturePath);
                 }
             }
-
             return texpos;
         }
 
-        MeshData ClockHourHandMesh
-        {
-            get
-            {
-                object value = null;
-                Api.ObjectCache.TryGetValue("clockhourhandmesh-" + curMatHHand, out value);
-                return (MeshData)value;
-            }
-            set { Api.ObjectCache["clockhourhandmesh-" + curMatHHand] = value; }
-        }
-
-        MeshData ClockMinuteHandMesh
-        {
-            get
-            {
-                object value = null;
-                Api.ObjectCache.TryGetValue("clockminutehandmesh-" + curMatMHand, out value);
-                return (MeshData)value;
-            }
-            set { Api.ObjectCache["clockminutehandmesh-" + curMatMHand] = value; }
-        }
-
-        #endregion
 
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
-
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
-
             InitInventory();
             inventory.FromTreeAttributes(tree);
         }
@@ -143,7 +95,6 @@ namespace DecoClock
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
-
             tree.SetFloat("meshAngle", MeshAngle);
             inventory?.ToTreeAttributes(tree);
         }
@@ -159,44 +110,19 @@ namespace DecoClock
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            if (api is ICoreClientAPI capi)
-            {
-                textureSource = capi.Tesselator.GetTexSource(Block);
-            }
-            //AddParts();
+
             if (inventory != null)
             {
                 inventory.LateInitialize(inventory.InventoryID, api);
             }
             else InitInventory();
+            if (api is ICoreClientAPI capi)
+            {
+                textureSource = capi.Tesselator.GetTexSource(Block);
+ //               rendererHand = new ClockHandRenderer(capi, Pos);
+            }
+
         }
-
-
-
-        //private void OneMinute(float dt)
-        //{
-        //    float hourOfDay = api.World.Calendar.HourOfDay;
-        //    float hourUpdate = api.World.Calendar.FullHourOfDay / api.World.Calendar.HoursPerDay * 24;
-
-
-        //    float minutesFloat = hourOfDay - hour;
-        //    float minutesUpdate = minutesFloat * 60f;
-
-        //    if (minuteHandRotate = minutes != minutesUpdate)
-        //    {
-        //        minutes = minutesUpdate;
-        //    }
-        //    else return;
-
-        //    if (hourHandRotate = hour != hourUpdate)
-        //    {
-        //        hour = hourUpdate;
-        //    }
-
-        //    int hourM12 = (int)hourOfDay % 12;
-        //    UpdateHandState();
-
-        //}
 
         public bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -219,48 +145,8 @@ namespace DecoClock
             return false;
         }
 
-        //void UpdateHandState()
-        //{
-        //    if (Api?.World == null) return;
 
-        //    if (rendererHand != null)
-        //    {
-        //        rendererHand.AngleRad = MinuteAngle();
-        //    }
-
-        //    Api.World.BlockAccessor.MarkBlockDirty(Pos, OnRetesselatedMinuteHand);
-
-        //    //if (nowGrinding)
-        //    //{
-        //    //    ambientSound?.Start();
-        //    //}
-        //    //else
-        //    //{
-        //    //    ambientSound?.Stop();
-        //    //}
-
-        //    if (Api.Side == EnumAppSide.Server)
-        //    {
-        //        MarkDirty();
-        //    }
-
-        //}
-
-        //private void OnRetesselatedMinuteHand()
-        //{
-        //    if (rendererHand == null) return; // Maybe already disposed
-
-
-        //    rendererHand.ShouldRender = minuteHandRotate;
-
-        //}
-
-        //private float MinuteAngle()
-        //{
-        //    return 2 * (float)Math.PI * minutes / 60; // check values
-        //}
-
-        internal MeshData GenBaseMesh()
+        public MeshData GenBaseMesh()
         {
             ITesselatorAPI mesher = ((ICoreClientAPI)Api).Tesselator;
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
@@ -270,11 +156,14 @@ namespace DecoClock
             return mesh;
         }
 
-        internal MeshData GenMesh(string type)
+        public MeshData GenMesh(string type)
         {
-            var capi = Api as ICoreClientAPI;
-            Shape shape = Api.Assets.TryGet("decoclock:shapes/block/grandfatherclock/" + type + ".json").ToObject<Shape>();
-            capi.Tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            ITesselatorAPI mesher = ((ICoreClientAPI)Api).Tesselator;
+            AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/");
+            assetLocation.Path = assetLocation.Path.Replace("/complete", $"/{type}.json");
+            Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
+            mesher.TesselateShape("BeClock", shape, out MeshData mesh, this);
+
             return mesh;
         }
 
@@ -317,7 +206,7 @@ namespace DecoClock
             rendererHand = null;
         }
 
-        public override void OnBlockBroken(IPlayer byPlayer = null)                 // need OnBlockBroken or GetDrops?
+        public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
             if (Api.World is IServerWorldAccessor)

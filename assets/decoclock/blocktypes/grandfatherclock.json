@@ -33,6 +33,8 @@
 		"clockparts": { "base": "game:block/transparent"},
 		"clockwork": { "base": "game:block/transparent"},
 		"tickmarks": { "base": "game:block/transparent"},
+		"hourhand": { "base": "game:block/transparent"},
+		"minutehand": { "base": "game:block/transparent"},
 		"string": {"base": "game:block/cloth/burlap/string"},
 		"metal-copper": {"base": "game:block/metal/ingot/copper"}, 
 		"metal-tin": {"base": "game:block/metal/ingot/tin"},

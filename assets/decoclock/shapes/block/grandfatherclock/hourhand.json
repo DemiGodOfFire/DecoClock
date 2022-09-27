@@ -7,9 +7,6 @@
 	"textureHeight": 16,
 	"textureSizes": {
 	},
-	"textures": {
-		"hour": "game:block/metal/ingot/gold"
-	},
 	"elements": [
 		{
 			"name": "hour hand",
@@ -17,12 +14,12 @@
 			"to": [ 8.2, 0.2, 8.1 ], 
 			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
 			"faces": {
-				"north": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"east": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"south": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"west": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"up": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"down": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+				"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
 			},
 			"children": [
 				{
@@ -31,12 +28,12 @@
 					"to": [ 0.35, 1.4, 0.1 ], 
 					"rotationOrigin": [ 4.1, 4.4, 0.0 ],
 					"faces": {
-						"north": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"east": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"south": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"west": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"up": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-						"down": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+						"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
+						"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
+						"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
+						"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
+						"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+						"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
 					},
 					"children": [
 						{
@@ -45,12 +42,12 @@
 							"to": [ 0.25, 1.8, 0.1 ], 
 							"rotationOrigin": [ 4.15, 5.0, 0.0 ],
 							"faces": {
-								"north": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"east": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"south": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"west": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"up": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"down": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+								"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+								"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
 							},
 							"children": [
 								{
@@ -59,12 +56,12 @@
 									"to": [ 0.15, 1.4, 0.1 ], 
 									"rotationOrigin": [ 4.2, 4.8, 0.0 ],
 									"faces": {
-										"north": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"east": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"south": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"west": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"up": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"down": { "texture": "#hour", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+										"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+										"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
 									}
 								}
 							]
