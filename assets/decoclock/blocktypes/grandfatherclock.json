@@ -25,11 +25,10 @@
 	"shape": { "base": "block/grandfatherclock/complete"},
 	
 	"textures": {
-		
+		"frame": { "base": "game:block/wood/debarked/{wood}"},
 		"doorglass": {"base": "game:block/glass/plain"},
 		"thread": {"base": "game:block/transparent"},
-		"dialglass": { "base": "game:block/transparent"},
-		"frame": { "base": "game:block/wood/debarked/{wood}"},
+		"dialglass": { "base": "game:block/transparent"},		
 		"clockparts": { "base": "game:block/transparent"},
 		"clockwork": { "base": "game:block/transparent"},
 		"tickmarks": { "base": "game:block/transparent"},

@@ -43,7 +43,7 @@ namespace DecoClock
                 ItemStack stack = inventory.TryGetPart(textureCode);
                 if (stack is not null)
                 {
-                    var capi = (ICoreClientAPI)Api;
+                    var capi = Api as ICoreClientAPI;
                     if (stack.Class == EnumItemClass.Item)
                     {
                         var tex = stack.Item.FirstTexture;
@@ -90,6 +90,11 @@ namespace DecoClock
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
             InitInventory();
             inventory.FromTreeAttributes(tree);
+            if (Api is ICoreClientAPI)
+            {
+                UpdateMesh();
+                MarkDirty(true);
+            }
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
@@ -119,8 +124,10 @@ namespace DecoClock
             if (api is ICoreClientAPI capi)
             {
                 textureSource = capi.Tesselator.GetTexSource(Block);
- //               rendererHand = new ClockHandRenderer(capi, Pos);
+                    UpdateMesh();
+                //               rendererHand = new ClockHandRenderer(capi, Pos);
             }
+            //else MarkDirty(true);
 
         }
 
@@ -146,23 +153,26 @@ namespace DecoClock
         }
 
 
-        public MeshData GenBaseMesh()
+        public MeshData GenBaseMesh(ITesselatorAPI tesselator)
         {
-            ITesselatorAPI mesher = ((ICoreClientAPI)Api).Tesselator;
+            //ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
-            mesher.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
 
             return mesh;
         }
 
-        public MeshData GenMesh(string type)
+        public MeshData GenMesh(string type, ITesselatorAPI tesselator = null)
         {
-            ITesselatorAPI mesher = ((ICoreClientAPI)Api).Tesselator;
+            if (tesselator == null)
+            {
+                tesselator = ((ICoreClientAPI)Api).Tesselator;
+            }
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/");
             assetLocation.Path = assetLocation.Path.Replace("/complete", $"/{type}.json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
-            mesher.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
 
             return mesh;
         }
@@ -172,18 +182,20 @@ namespace DecoClock
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            if (baseMesh is null)
+            if (baseMesh != null)
             {
-                UpdateMesh();
+                mesher.AddMeshData(baseMesh);
             }
-            mesher.AddMeshData(baseMesh);
-
             return true;
         }
 
-        private void UpdateMesh()
+        public void UpdateMesh(ITesselatorAPI tesselator = null)
         {
-            baseMesh = GenBaseMesh().Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            if (tesselator == null)
+            {
+                tesselator = ((ICoreClientAPI)Api).Tesselator;
+            }
+            baseMesh = GenBaseMesh(tesselator).Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
         }
 
 

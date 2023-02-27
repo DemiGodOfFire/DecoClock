@@ -54,11 +54,15 @@ namespace DecoClock
                     float deg22dot5rad = GameMath.PIHALF / 4;
                     float roundRad = (int)Math.Round(angleHor / deg22dot5rad) * deg22dot5rad;
                     be.MeshAngle = roundRad;
+                    if (world.Side == EnumAppSide.Client)
+                    {
+                        be.UpdateMesh();
+                    }
+                    be.MarkDirty(true);
                 }
             }
 
             return val;
         }
-
     }
 }

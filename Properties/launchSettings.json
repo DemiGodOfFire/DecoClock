@@ -9,7 +9,7 @@
     "Launch Client with Test World": {
       "commandName": "Executable",
       "executablePath": "%VINTAGE_STORY%\\$(RunGameVersion)\\Vintagestory.exe",
-      "commandLineArgs": "--playStyle \"preset-surviveandbuild\" --openWorld \"$(ProjectName) Test World\" --addModPath $(ProjectDir)mods --addOrigin $(ProjectDir)assets --tracelog",
+      "commandLineArgs": "--openWorld \"$(ProjectName) Test World\" --addModPath $(ProjectDir)mods --addOrigin $(ProjectDir)assets --tracelog",
       "workingDirectory": "%VINTAGE_STORY%\\$(RunGameVersion)"
     },
     "Launch Server": {
