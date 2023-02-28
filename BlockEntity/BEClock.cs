@@ -56,7 +56,6 @@ namespace DecoClock
                     {
                         // var tex = stack.Block.FirstTexture;
                         return capi.BlockTextureAtlas.GetPosition(stack.Block);
-                        //return capi.BlockTextureAtlas.GetPosition(stack.Block);
                     }
                 }
                 return textureSource[textureCode];
@@ -127,8 +126,6 @@ namespace DecoClock
                     UpdateMesh();
                 //               rendererHand = new ClockHandRenderer(capi, Pos);
             }
-            //else MarkDirty(true);
-
         }
 
         public bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
