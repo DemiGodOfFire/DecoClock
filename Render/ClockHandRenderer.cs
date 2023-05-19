@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -117,7 +117,7 @@ namespace DecoClock
             rpi.GlToggleBlend(true);
 
             IStandardShaderProgram prog = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
-            prog.Tex2D = api.BlockTextureAtlas.AtlasTextureIds[0];
+         //   prog.Tex2D = api.BlockTextureAtlas.AtlasTexture[0].TextureId; //WHAT???
 
 
             prog.ModelMatrix = ModelMat

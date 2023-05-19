@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -7,26 +7,31 @@ using Vintagestory.API.Server;
 
 namespace DecoClock
 {
-    internal class BEClock : BlockEntity, ITexPositionSource
+    internal class BEClock : BlockEntity,  ITexPositionSource
     {
 
         InventoryClock inventory;
+        GuiDialogClock dialogClock;
         ILoadedSound ambientSound;
         ClockHandRenderer rendererHand;
         ITexPositionSource textureSource;
         MeshData baseMesh;
         public Size2i AtlasSize => textureSource.AtlasSize;
         protected List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
+
+      
+
+
         private List<ClockItem> _parts = new();
         public float MeshAngle;
 
         protected virtual void AddParts()
         {
-            _parts.Add(new("hourhand"));
             _parts.Add(new("clockwork"));
-            _parts.Add(new("dialglass"));
             _parts.Add(new("tickmarks"));
+            _parts.Add(new("hourhand"));
             _parts.Add(new("minutehand"));
+            _parts.Add(new("dialglass"));
             _parts.Add(new("clockparts"));
         }
 
@@ -81,28 +86,6 @@ namespace DecoClock
             return texpos;
         }
 
-
-
-        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
-        {
-            base.FromTreeAttributes(tree, worldForResolving);
-            MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
-            InitInventory();
-            inventory.FromTreeAttributes(tree);
-            if (Api is ICoreClientAPI)
-            {
-                UpdateMesh();
-                MarkDirty(true);
-            }
-        }
-
-        public override void ToTreeAttributes(ITreeAttribute tree)
-        {
-            base.ToTreeAttributes(tree);
-            tree.SetFloat("meshAngle", MeshAngle);
-            inventory?.ToTreeAttributes(tree);
-        }
-
         private void InitInventory()
         {
             if (inventory == null)
@@ -120,18 +103,25 @@ namespace DecoClock
                 inventory.LateInitialize(inventory.InventoryID, api);
             }
             else InitInventory();
+
             if (api is ICoreClientAPI capi)
             {
                 textureSource = capi.Tesselator.GetTexSource(Block);
-                    UpdateMesh();
+                UpdateMesh();
                 //               rendererHand = new ClockHandRenderer(capi, Pos);
             }
         }
 
         public bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
-            ItemSlot handslot = byPlayer.InventoryManager.ActiveHotbarSlot;
+            if (dialogClock == null)
+            {
+                dialogClock = new GuiDialogClock(inventory, Pos, Api as ICoreClientAPI);
+            }
 
+            dialogClock.TryOpen();
+
+            /*ItemSlot handslot = byPlayer.InventoryManager.ActiveHotbarSlot;
             if (inventory.TryAddPart(handslot.Itemstack, out ItemStack content))
             {
                 var pos = Pos.ToVec3d().Add(0.5, 0.25, 0.5);
@@ -144,11 +134,12 @@ namespace DecoClock
                 }
                 MarkDirty(true);
                 return true;
-            }
+            }*/
 
             return false;
         }
 
+        #region meshing
 
         public MeshData GenBaseMesh(ITesselatorAPI tesselator)
         {
@@ -174,9 +165,6 @@ namespace DecoClock
             return mesh;
         }
 
-        #region meshing
-
-
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             if (baseMesh != null)
@@ -195,8 +183,73 @@ namespace DecoClock
             baseMesh = GenBaseMesh(tesselator).Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
         }
 
-
         #endregion
+
+        public void DropContents(Vec3d atPos)
+        {
+            inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+        }
+
+        #region Events
+
+
+        public override void OnReceivedClientPacket(IPlayer player, int packetid, byte[] data)
+        {
+            if (packetid < 1000)
+            {
+                inventory.InvNetworkUtil.HandleClientPacket(player, packetid, data);
+
+                // Tell server to save this chunk to disk again
+                Api.World.BlockAccessor.GetChunkAtBlockPos(Pos.X, Pos.Y, Pos.Z).MarkModified();
+                if (Api.Side == EnumAppSide.Client)
+                {
+                    UpdateMesh();
+                }
+                MarkDirty(true);
+                return;
+            }
+
+            if (packetid == (int)EnumBlockEntityPacketId.Close)
+            {
+                player.InventoryManager?.CloseInventory(inventory);
+            }
+
+            if (packetid == (int)EnumBlockEntityPacketId.Open)
+            {
+                player.InventoryManager?.OpenInventory(inventory);
+            }
+            if (Api.Side == EnumAppSide.Client)
+            {
+                UpdateMesh();
+            }
+            MarkDirty(true);
+
+        }
+
+        public override void OnReceivedServerPacket(int packetid, byte[] data)
+        {
+            base.OnReceivedServerPacket(packetid, data);
+        }
+
+        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
+        {
+            base.FromTreeAttributes(tree, worldForResolving);
+            MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
+            InitInventory();
+            inventory.FromTreeAttributes(tree);
+            if (Api is ICoreClientAPI)
+            {
+                UpdateMesh();
+                MarkDirty(true);
+            }
+        }
+
+        public override void ToTreeAttributes(ITreeAttribute tree)
+        {
+            base.ToTreeAttributes(tree);
+            tree.SetFloat("meshAngle", MeshAngle);
+            inventory?.ToTreeAttributes(tree);
+        }
 
         public override void OnBlockRemoved()
         {
@@ -223,6 +276,8 @@ namespace DecoClock
                 inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
             }
         }
+
+        #endregion
 
         public override void OnBlockUnloaded()
         {

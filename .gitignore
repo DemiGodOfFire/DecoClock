@@ -1,8 +1,14 @@
-/ignore
-/bin
-/obj
-/mods
-/releases
-/.vs
-/*.csproj.user
-/*.sln
+# Visual Studio
+.cr
+.vs
+bin
+obj
+*.sln
+*.user
+
+# Mod Builder
+/[Mm]ods
+/[Rr]eleases
+
+# Other
+/[Ii]gnore

@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-
 
     internal class ClockBlock : Block
     {
