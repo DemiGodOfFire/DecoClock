@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.GameContent;
 
 namespace DecoClock
 {
-    internal class BEClock : BlockEntity,  ITexPositionSource
+    internal class BEClock : BlockEntity, ITexPositionSource
     {
 
         InventoryClock inventory;
@@ -19,8 +21,16 @@ namespace DecoClock
         public Size2i AtlasSize => textureSource.AtlasSize;
         protected List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
 
-      
 
+        ILoadedSound openSound;
+        ILoadedSound closeSound;
+        //AssetLocation OpenSound = new AssetLocation("sounds/block/chestopen");
+        //AssetLocation CloseSound = new AssetLocation("sounds/block/chestclose");
+
+        BlockEntityAnimationUtil animUtil
+        {
+            get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
+        }
 
         private List<ClockItem> _parts = new();
         public float MeshAngle;
@@ -69,7 +79,7 @@ namespace DecoClock
             {
                 if (inventory.TryGetPart("clockparts") != null)
                 {
-                    if (textureCode == "thread") return textureSource["string"];
+                    if (textureCode == "thread") { return textureSource["string"]; }
                 }
 
                 ItemStack stack = inventory.TryGetPart(textureCode);
@@ -84,9 +94,9 @@ namespace DecoClock
                     }
                     else
                     {
-                         var tex = stack.Block.FirstTextureInventory;
+                        var tex = stack.Block.FirstTextureInventory;
                         AssetLocation texturePath = tex.Baked.BakedName;
-                        return capi.BlockTextureAtlas.GetPosition(stack.Block);
+                        return GetOrCreateTexPos(texturePath, capi);
                     }
                 }
                 return textureSource[textureCode];
@@ -128,25 +138,83 @@ namespace DecoClock
             {
                 inventory.LateInitialize(inventory.InventoryID, api);
             }
-            else InitInventory();
+            else
+            {
+                InitInventory();
+            }
+
+            if (openSound == null && api.Side == EnumAppSide.Client)
+            {
+                openSound = ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
+                {
+                    Location = new AssetLocation("sounds/block/chestopen"),
+                    ShouldLoop = false,
+                    Position = Pos.ToVec3f().Add(0.5f, 0.25f, 0.5f),
+                    DisposeOnFinish = false,
+                    Volume = 1f,
+                    Range = 16f
+                });
+            }
+
+            if (closeSound == null && api.Side == EnumAppSide.Client)
+            {
+                closeSound = ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
+                {
+                    Location = new AssetLocation("sounds/block/chestclose"),
+                    ShouldLoop = false,
+                    Position = Pos.ToVec3f().Add(0.5f, 0.25f, 0.5f),
+                    DisposeOnFinish = false,
+                    Volume = 1f,
+                    Range = 16f
+                });
+            }
 
             if (api is ICoreClientAPI capi)
             {
                 textureSource = capi.Tesselator.GetTexSource(Block);
+                animUtil.InitializeAnimator(Core.ModId + "clock");
+                animUtil.StartAnimation(new AnimationMetaData
+                {
+                    Animation = "idle",
+                    Code = "idle",
+                    AnimationSpeed = 1.8f,
+                    EaseOutSpeed = 6,
+                    EaseInSpeed = 15
+                });
                 UpdateMesh();
                 //               rendererHand = new ClockHandRenderer(capi, Pos);
             }
+
+
         }
 
         public bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
-            if (dialogClock == null)
+            if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
                 dialogClock = new GuiDialogClock(inventory, Pos, Api as ICoreClientAPI);
+                dialogClock.OnClosed += () =>
+                {
+                    closeSound.Start();
+                    animUtil?.StopAnimation("opendoor");
+                };
             }
 
-            dialogClock.TryOpen();
 
+            if (Api.Side == EnumAppSide.Client)
+            {
+                dialogClock.TryOpen();
+                openSound.Start();
+
+                animUtil.StartAnimation(new AnimationMetaData
+                {
+                    Animation = "opendoor",
+                    Code = "opendoor",
+                    AnimationSpeed = 1.8f,
+                    EaseOutSpeed = 6,
+                    EaseInSpeed = 15
+                });
+            }
             /*ItemSlot handslot = byPlayer.InventoryManager.ActiveHotbarSlot;
             if (inventory.TryAddPart(handslot.Itemstack, out ItemStack content))
             {
@@ -174,6 +242,8 @@ namespace DecoClock
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
 
+
+
             return mesh;
         }
 
@@ -195,7 +265,7 @@ namespace DecoClock
         {
             if (baseMesh != null)
             {
-                mesher.AddMeshData(baseMesh);
+                // mesher.AddMeshData(baseMesh);
             }
             return true;
         }
@@ -206,7 +276,10 @@ namespace DecoClock
             {
                 tesselator = ((ICoreClientAPI)Api).Tesselator;
             }
-            baseMesh = GenBaseMesh(tesselator).Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            MeshData mesh = GenBaseMesh(tesselator);
+            ((ICoreClientAPI)Api).Render.UpdateMesh(animUtil.renderer.meshref, mesh);
+            animUtil.renderer.rotationDeg = new Vec3f(0, MeshAngle * 180 / (float)Math.PI, 0);
+            baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
         }
 
         #endregion
@@ -227,34 +300,27 @@ namespace DecoClock
 
                 // Tell server to save this chunk to disk again
                 Api.World.BlockAccessor.GetChunkAtBlockPos(Pos.X, Pos.Y, Pos.Z).MarkModified();
-                if (Api.Side == EnumAppSide.Client)
-                {
-                    UpdateMesh();
-                }
                 MarkDirty(true);
                 return;
             }
 
-            if (packetid == (int)EnumBlockEntityPacketId.Close)
-            {
-                player.InventoryManager?.CloseInventory(inventory);
-            }
-
             if (packetid == (int)EnumBlockEntityPacketId.Open)
             {
-                player.InventoryManager?.OpenInventory(inventory);
-            }
-            if (Api.Side == EnumAppSide.Client)
-            {
-                UpdateMesh();
-            }
-            MarkDirty(true);
 
+            }
+
+            if (packetid == (int)EnumBlockEntityPacketId.Close)
+            {
+
+            }
         }
 
-        public override void OnReceivedServerPacket(int packetid, byte[] data)
+
+
+
+        public void OpenDoor()
         {
-            base.OnReceivedServerPacket(packetid, data);
+
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -286,12 +352,13 @@ namespace DecoClock
             //    ambientSound.Stop();
             //    ambientSound.Dispose();
             //}
+            animUtil?.Dispose();
+            openSound?.Dispose();
 
             if (Api?.World == null) return;
 
 
             rendererHand?.Dispose();
-            rendererHand = null;
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
@@ -310,6 +377,8 @@ namespace DecoClock
             base.OnBlockUnloaded();
             rendererHand?.Dispose();
             ambientSound?.Dispose();
+            openSound?.Dispose();
+            animUtil?.Dispose();
         }
     }
 

@@ -1,4 +1,6 @@
+using System;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -7,12 +9,18 @@ namespace DecoClock
     {
         InventoryClock inventory;
         BlockPos BlockEntityPosition;
+        AssetLocation OpenSound = new AssetLocation("sounds/block/chestopen");
+        AssetLocation CloseSound = new AssetLocation("sounds/block/chestclose");
 
         public GuiDialogClock(InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(Core.ModId + ":fatherclock-title", capi)
         {
             this.inventory = inventory;
             BlockEntityPosition = blockEntityPos;
         }
+
+        public override double DrawOrder => 0.2;
+        public override bool PrefersUngrabbedMouse => false;
+
         public override bool TryOpen()
         {
             ComposeDialog();
@@ -51,10 +59,10 @@ namespace DecoClock
                 .Compose();
 
         }
-
         private void SendInvPacket(object p)
         {
             capi.Network.SendBlockEntityPacket(BlockEntityPosition.X, BlockEntityPosition.Y, BlockEntityPosition.Z, p);
         }
+
     }
 }
