@@ -28,7 +28,7 @@ namespace DecoClock
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
-            BEClock be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BEClock;
+            BEClock? be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BEClock;
             if (be != null)
             {
                 return be.OnInteract(byPlayer, blockSel);
@@ -43,7 +43,7 @@ namespace DecoClock
 
             if (val)
             {
-                BEClock be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BEClock;
+                BEClock? be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BEClock;
                 if (be != null)
                 {
                     BlockPos targetPos = blockSel.DidOffset ? blockSel.Position.AddCopy(blockSel.Face.Opposite) : blockSel.Position;
@@ -53,6 +53,8 @@ namespace DecoClock
                     float deg22dot5rad = GameMath.PIHALF / 4;
                     float roundRad = (int)Math.Round(angleHor / deg22dot5rad) * deg22dot5rad;
                     be.MeshAngle = roundRad;
+                    //be.dx = dx; 
+                    //be.dz = dz;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
