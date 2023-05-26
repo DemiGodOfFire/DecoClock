@@ -11,25 +11,17 @@ namespace DecoClock
 {
     internal class BEClock : BlockEntity, ITexPositionSource
     {
-
-        InventoryClock? inventory;
-        GuiDialogClock? dialogClock;
-        ILoadedSound ambientSound;
-        ClockHandRenderer rendererHand;
-        ITexPositionSource textureSource;
-        MeshData baseMesh;
-        public Size2i AtlasSize => textureSource.AtlasSize;
-        protected List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
-
-
+        ILoadedSound? ambientSound;
+        ITexPositionSource? textureSource;
         ILoadedSound? openSound;
         ILoadedSound? closeSound;
+        InventoryClock? inventory;
+        GuiDialogClock? dialogClock;
+        ClockHandRenderer? rendererHand;
+        MeshData? baseMesh;
 
-        BlockEntityAnimationUtil? animUtil
-        {
-            get { return GetBehavior<BEBehaviorAnimatable>()?.animUtil; }
-        }
-
+        public Size2i AtlasSize => textureSource.AtlasSize;
+        protected List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
         private List<ClockItem> _parts = new();
         public float MeshAngle;
 
@@ -173,30 +165,18 @@ namespace DecoClock
                 //       inventory.TryGetPart("hourhand"),
                 //       inventory.TryGetPart("minutehand"),
                 //       Pos),EnumRenderStage.Opaque);
-                //(api as ICoreClientAPI).Event.RegisterRenderer(rendererHand = new ClockHandRenderer(api as ICoreClientAPI, Pos)
-                //    , EnumRenderStage.Opaque);
-                rendererHand = new ClockHandRenderer(api as ICoreClientAPI, Pos);
-                (api as ICoreClientAPI).Event.RegisterRenderer(rendererHand, EnumRenderStage.Opaque, "clock");
+                ((ICoreClientAPI)Api).Event.RegisterRenderer(rendererHand = new ClockHandRenderer((ICoreClientAPI)Api, Pos)
+                    , EnumRenderStage.Opaque);
             }
             if (api is ICoreClientAPI capi)
             {
                 textureSource = capi.Tesselator.GetTexSource(Block);
-                // animUtil.InitializeAnimator(Core.ModId + "clock");
-                //animUtil.StartAnimation(new AnimationMetaData
+                //var angle = MeshAngle;
+                //if (MeshAngle != 0)
                 //{
-                //    Animation = "idle",
-                //    Code = "idle",
-                //    AnimationSpeed = 1.8f,
-                //    EaseOutSpeed = 6,
-                //    EaseInSpeed = 15
-                //});
-                var angle = MeshAngle;
-                if (MeshAngle != 0)
-                {
-                   
-                }
+
+                //}
                 UpdateMesh();
-                //               rendererHand = new ClockHandRenderer(capi, Pos);
             }
         }
 
@@ -209,7 +189,6 @@ namespace DecoClock
                 dialogClock.OnClosed += () =>
                 {
                     closeSound?.Start();
-                    // animUtil?.StopAnimation("opendoor");
                 };
             }
 
@@ -218,16 +197,6 @@ namespace DecoClock
             {
                 dialogClock?.TryOpen();
 
-                //animUtil.StartAnimation(new AnimationMetaData
-                //{
-                //    Animation = "opendoor",
-                //    Code = "opendoor",
-                //    AnimationSpeed = 1.8f,
-                //    EaseOutSpeed = 6,
-                //    EaseInSpeed = 15,
-                //    SupressDefaultAnimation = true
-
-                //});
             }
             /*ItemSlot handslot = byPlayer.InventoryManager.ActiveHotbarSlot;
             if (inventory.TryAddPart(handslot.Itemstack, out ItemStack content))
@@ -251,13 +220,9 @@ namespace DecoClock
 
         public MeshData GenBaseMesh(ITesselatorAPI tesselator)
         {
-            //ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
-
-
-
             return mesh;
         }
 
@@ -280,10 +245,8 @@ namespace DecoClock
             if (inventory != null)
             {
                 var inv = inventory.TryGetPart(part);
-                if(inv!=null)
+                if (inv != null)
                 {
-
-                    //// var type = inventory.TryGetPart(part)?.Item.Code.EndVariant();
                     ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
                     string path = $"decoclock:shapes/block/grandfatherclock/{part}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
@@ -305,17 +268,10 @@ namespace DecoClock
 
         public void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
-            if (tesselator == null)
-            {
-                tesselator = ((ICoreClientAPI)Api).Tesselator;
-            }
+            tesselator ??= ((ICoreClientAPI)Api).Tesselator;
             MeshData mesh = GenBaseMesh(tesselator);
-            Vec3f rotationMesh = new(0, MeshAngle * 180 / (float)Math.PI, 0);
-            //((ICoreClientAPI)Api).Render.UpdateMesh(animUtil.renderer.meshref, mesh);
-            //animUtil.renderer.rotationDeg = rotationMesh;
             baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
             rendererHand.Update(GetItemMesh("hourhand"), GetItemMesh("minutehand"), MeshAngle);
-
         }
 
         #endregion
@@ -341,14 +297,6 @@ namespace DecoClock
             }
         }
 
-
-
-
-        public void OpenDoor()
-        {
-
-        }
-
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
@@ -372,18 +320,13 @@ namespace DecoClock
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-
-            //if (ambientSound != null)
-            //{
-            //    ambientSound.Stop();
-            //    ambientSound.Dispose();
-            //}
-            // animUtil?.Dispose();
+            openSound?.Stop();
             openSound?.Dispose();
+            closeSound?.Stop();
+            closeSound?.Dispose();
 
             if (Api?.World == null) return;
-
-
+            dialogClock?.TryClose();
             rendererHand?.Dispose();
         }
 
@@ -404,7 +347,7 @@ namespace DecoClock
             rendererHand?.Dispose();
             ambientSound?.Dispose();
             openSound?.Dispose();
-            //animUtil?.Dispose();
+            closeSound?.Dispose();
         }
     }
 

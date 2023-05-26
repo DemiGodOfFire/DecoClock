@@ -36,7 +36,6 @@ namespace DecoClock
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
 
-        //rework
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {
             bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
@@ -53,8 +52,6 @@ namespace DecoClock
                     float deg22dot5rad = GameMath.PIHALF / 4;
                     float roundRad = (int)Math.Round(angleHor / deg22dot5rad) * deg22dot5rad;
                     be.MeshAngle = roundRad;
-                    //be.dx = dx; 
-                    //be.dz = dz;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
