@@ -15,7 +15,7 @@
 	],
 	"textures": 
 	{
-		"minute": { "base": "game:block/metal/ingot/{metal}" }
+		"minutehand": { "base": "game:block/metal/ingot/{metal}" }
 	},
 	"guiTransform": {
 		"translation": { "x": -6, "y": 10, "z": 0 },

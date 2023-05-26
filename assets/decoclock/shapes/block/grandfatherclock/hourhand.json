@@ -12,8 +12,9 @@
 	"elements": [
 		{
 			"name": "hour hand",
-			"from": [ -0.2, -0.2, 0.0 ],
-			"to": [ 0.2, 0.2, 0.1 ],
+			"from": [ 7.8, -0.2, 8.0 ],
+			"to": [ 8.2, 0.2, 8.1 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
 			"faces": {
 				"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
 				"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },

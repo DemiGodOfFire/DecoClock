@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 
@@ -25,7 +26,6 @@ namespace DecoClock
 
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
-        int i=0;
 
 
 
@@ -63,21 +63,7 @@ namespace DecoClock
         //        rendererHand.AngleRad = MinuteAngle();
         //    }
 
-        //    Api.World.BlockAccessor.MarkBlockDirty(Pos, OnRetesselatedMinuteHand);
 
-        //    //if (nowGrinding)
-        //    //{
-        //    //    ambientSound?.Start();
-        //    //}
-        //    //else
-        //    //{
-        //    //    ambientSound?.Stop();
-        //    //}
-
-        //    if (Api.Side == EnumAppSide.Server)
-        //    {
-        //        MarkDirty();
-        //    }
 
         //}
 
@@ -100,78 +86,58 @@ namespace DecoClock
             {
                 return;
             }
+            float hourOfDay = capi.World.Calendar.HourOfDay;
+            float hour = capi.World.Calendar.FullHourOfDay / capi.World.Calendar.HoursPerDay * 24;
+
+
+            float minutesFloat = hourOfDay - hour;
+
+            float hourM12 = hourOfDay % 12f;
+            float hourRad = hourM12 * (float)Math.PI/6;
+            float mminureRad = 2 * (float)Math.PI * minutesFloat;
+
+            IRenderAPI rpi = capi.Render;
+            Vec3d camPos = capi.World.Player.Entity.CameraPos;
+            rpi.GlDisableCullFace();
+            rpi.GlToggleBlend(true);
+            IStandardShaderProgram hourHandShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+            hourHandShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
+
+            if (minuteHand != null)
+            {
+                hourHandShader.ModelMatrix = ModelMat
+                .Identity()
+                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
+                .Translate(0.5f, 1.5f, 0.5f)
+                .RotateY(angleRad)
+                .RotateZ(-mminureRad)
+                .Translate(-0.5f, 0f, -0.601f)
+                .Values;
+                hourHandShader.ViewMatrix = rpi.CameraMatrixOriginf;
+                hourHandShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+                rpi.RenderMesh(minuteHand);
+            }
             if (hourHand != null)
             {
-                if (i == 360)
-                    i = 0;
-                IRenderAPI rpi = capi.Render;
-                Vec3d camPos = capi.World.Player.Entity.CameraPos;
-
-                rpi.GlDisableCullFace();
-                rpi.GlToggleBlend(true);
-
-                IStandardShaderProgram hourHandShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
-                hourHandShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
-                //hourHandShader.ModelMatrix = ModelMat
-                //    .Identity()
-                //    .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-                //    .Translate(0.5f, -1.5f, 0.5f)
-                //    .RotateZDeg(90)
-                //    //.Translate(0f, 0f, -0.61f)
-                //    //.RotateY(angleRad)
-                //    //.Translate(-0.5f, 0f, 0.11f)
-                //    //.Translate(-0.5f, 1.5f, -0.61f)
-                //    .Values
-                //   ;
-
-                ModelMat.Identity();
-                ModelMat.Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
-                ModelMat.Translate(0.5f, 1.5f,0.5f);
-                ModelMat.RotateY(angleRad);
-                ModelMat.RotateZ((float)(-i * Math.PI / 180));
-
-                ModelMat.Translate(0f, 0f, -0.11f);
-                hourHandShader.ModelMatrix = ModelMat.Values;
-
-                //.Translate(0.5f, 0f, 0f)
-
-                //.RotateY(angleRad)
-                //.Translate(0.5,0f,-0.61)
-
-
-                //.Rotate(0,angleRad,0)//(float)(45 * Math.PI / 180)
-                //.Translate(-0.5f, 1.5, -0.61f)
-
-                //.Translate(0.0f, 0f, -0.11f)
-
-                //.Translate(0.5,1.5f,0.61)
-
-                //.Translate(-0.5f, 0f, -0.5f)
-                //.Translate(0.5f, 0f, 0.61f)
-
-                //.Translate(-0.5f, 0f, -0.61f)
-                //.Translate(0f,1.5f,0f)
-
-                //      prog.ModelMatrix = ModelMat
-                //    .Identity()
-                //    .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-                //    .Translate(-origx, 0, -origz)
-                //    .RotateYDeg(blockRotation)
-                //    .Translate(discPos.X, discPos.Y, discPos.Z)
-                //    .Rotate(discRotRad)
-                //    .Scale(0.9f, 0.9f, 0.9f)
-                //    .Translate(origx, origy, origz)
-                //    .Values
-                //;
-
+               
+                hourHandShader.ModelMatrix = ModelMat
+                .Identity()
+                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
+                .Translate(0.5f, 1.5f,0.5f)
+                .RotateY(angleRad)
+                .RotateZ(-hourRad)
+                .Translate(-0.5f, 0f, -0.61f)
+                .Values;
                 hourHandShader.ViewMatrix = rpi.CameraMatrixOriginf;
                 hourHandShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
                 rpi.RenderMesh(hourHand);
-                hourHandShader.Stop();
-                i++;
             }
 
-            //ShouldRender = false;
+           
+            hourHandShader.Stop();
+
+
+
         }
 
         public void Update(MeshData? hourHand, MeshData? minuteHand, float angleRad)
