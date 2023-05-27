@@ -3,17 +3,17 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock.Render
 {
-    internal class GrandfatherClockDoorRenderer : IRenderer
+    internal class PendulumRenderer : IRenderer
     {
         private ICoreClientAPI capi;
         private BlockPos pos;
-        private MeshRef? door;
+        private MeshRef? pendulum;
         private Matrixf modelMat = new Matrixf();
         private float meshAngle;
         private float i = 0;
-        private bool open = false;
-        private bool close = true;
-        public GrandfatherClockDoorRenderer(ICoreClientAPI capi, BlockPos pos)
+        private int delta = 1;
+
+        public PendulumRenderer(ICoreClientAPI capi, BlockPos pos)
         {
             this.capi = capi;
             this.pos = pos;
@@ -24,9 +24,8 @@ namespace DecoClock.Render
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
-            if (door == null) { return; }
-            if (open && i <= 120) { i += 11; }
-            else if (close && i > 0) { i -= 11; }
+            if (pendulum == null) { return; }
+            if (i == -15 || i == 15) { delta *= -1; }
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             rpi.GlDisableCullFace();
@@ -37,16 +36,17 @@ namespace DecoClock.Render
             doorShader.ModelMatrix = modelMat
                .Identity()
                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-               .Translate(0.5f, 0.0f, 0.5f)
+               .Translate(0.5f, 1.125f, 0.5f)
                .RotateY(meshAngle)
-               .Translate(0.3125f, 0f, -0.0563f)
-               .RotateYDeg(i)
-               .Translate(-0.8125f, 0f, -0.4437) 
+               .RotateZDeg(i)
+               .Translate(-0.5f, -1.125f, -0.5625f)
                .Values;
-
             doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
             doorShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(door);
+            rpi.RenderMesh(pendulum);
+
+            i += 0.5f * (float)delta;
+
             doorShader.Stop();
 
         }
@@ -54,31 +54,19 @@ namespace DecoClock.Render
         public void Update(MeshData? door, float angleMesh)
         {
             this.meshAngle = angleMesh;
-            this.door?.Dispose();
-            this.door = null;
+            this.pendulum?.Dispose();
+            this.pendulum = null;
 
             if (door != null)
             {
-                this.door = capi.Render.UploadMesh(door);
+                this.pendulum = capi.Render.UploadMesh(door);
             }
-        }
-
-        public void Open()
-        {
-            open = true;
-            close = false;
-        }
-
-        public void Close()
-        {
-            close = true;
-            open = false;
         }
 
         public void Dispose()
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
-            door?.Dispose();
+            pendulum?.Dispose();
         }
     }
 }

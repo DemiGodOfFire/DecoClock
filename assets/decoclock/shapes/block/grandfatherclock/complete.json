@@ -107,34 +107,6 @@
 							},
 							"children": [
 								{
-									"name": "Pendulum",
-									"from": [ 4.5, -9.0, 2.0 ],
-									"to": [ 5.5, 1.0, 2.4 ],
-									"rotationOrigin": [ 5.0, 0.0, 2.0 ],
-									"faces": {
-										"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
-										"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ] },
-										"south": { "texture": "#clockparts", "uv": [ 8.5, 3.5, 9.5, 13.5 ] },
-										"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ] }
-									},
-									"children": [
-										{
-											"name": "Pendulum weight",
-											"from": [ -1.0, -3.0, 0.0 ],
-											"to": [ 2.0, 0.0, 0.4 ],
-											"rotationOrigin": [ -1.0, -3.0, 0.0 ],
-											"faces": {
-												"north": { "texture": "#clockparts", "uv": [ 0.5, 0.5, 3.5, 3.5 ] },
-												"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ] },
-												"south": { "texture": "#clockparts", "uv": [ 1.0, 1.5, 4.0, 4.5 ] },
-												"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ] },
-												"up": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ] },
-												"down": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ] }
-											}
-										}
-									]
-								},
-								{
 									"name": "Weight2",
 									"from": [ 4.5, -5.0, 4.0 ],
 									"to": [ 5.5, -2.0, 5.0 ],
@@ -494,73 +466,4 @@
 				}
 			]
 		}
-	],
-	"animations": [
-		{
-			"name": "Pendulum",
-			"code": "pendulun",
-			"quantityframes": 60,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-				{
-					"frame": 0,
-					"elements": {
-						"Pendulum": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
-					}
-				},
-				{
-					"frame": 14,
-					"elements": {
-						"Pendulum": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -15.0 }
-					}
-				},
-				{
-					"frame": 29,
-					"elements": {
-						"Pendulum": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
-					}
-				},
-				{
-					"frame": 44,
-					"elements": {
-						"Pendulum": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 15.0 }
-					}
-				}
-			]
-		},
-
-		{
-			"name": "opendoor",
-			"code": "opendoor",
-			"quantityframes": 30,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Hold",
-			"keyframes": [
-				{
-					"frame": 0,
-					"elements": {
-
-					}
-				},
-				{
-					"frame": 29,
-					"elements": {
-
-					}
-				}
-			]
-		},
-
-		{
-			"name": "idle",
-			"code": "idle",
-			"quantityframes": 30,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		}
-	]
-}
+	]}

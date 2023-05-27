@@ -79,9 +79,9 @@ namespace DecoClock
 
         }
 
-        public void Update(MeshData? hourHand, MeshData? minuteHand, float angleRad)
+        public void Update(MeshData? hourHand, MeshData? minuteHand, float angleMesh)
         {
-            this.meshAngle = angleRad;
+            this.meshAngle = angleMesh;
             this.hourHand?.Dispose();
             this.hourHand = null;
 

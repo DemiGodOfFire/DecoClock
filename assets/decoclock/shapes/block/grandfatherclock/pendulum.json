@@ -1,0 +1,76 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "Pendulum",
+			"from": [ 7.5, 9.0, 2.2 ],
+			"to": [ 8.5, 19.0, 2.6 ],
+			"rotationOrigin": [ 8.0, 18.0, 2.2 ],
+			"faces": {
+				"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 10.0 ] },
+				"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ] },
+				"south": { "texture": "#clockparts", "uv": [ 8.5, 3.5, 9.5, 13.5 ] },
+				"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ] }
+			},
+			"children": [
+				{
+					"name": "Pendulum weight",
+					"from": [ -1.0, -3.0, 0.0 ],
+					"to": [ 2.0, 0.0, 0.4 ],
+					"rotationOrigin": [ -1.0, -3.0, 0.0 ],
+					"faces": {
+						"north": { "texture": "#clockparts", "uv": [ 0.5, 0.5, 3.5, 3.5 ] },
+						"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ] },
+						"south": { "texture": "#clockparts", "uv": [ 1.0, 1.5, 4.0, 4.5 ] },
+						"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ] },
+						"up": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ] },
+						"down": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ] }
+					}
+				}
+			]
+		}
+	],
+	"animations": [
+		{
+			"name": "Pendulum",
+			"code": "pendulun",
+			"quantityframes": 60,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "opendoor",
+			"code": "opendoor",
+			"quantityframes": 30,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Hold",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "idle",
+			"code": "idle",
+			"quantityframes": 30,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		}
+	]
+}
