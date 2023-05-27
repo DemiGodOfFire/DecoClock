@@ -8,10 +8,10 @@ namespace DecoClock.Render
         private ICoreClientAPI capi;
         private BlockPos pos;
         private MeshRef? pendulum;
-        private Matrixf modelMat = new Matrixf();
+        private Matrixf modelMat = new ();
         private float meshAngle;
-        private float i = 0;
-        private int delta = 1;
+        private float pendulumAngle = 0;
+        private int directions = 1;
 
         public PendulumRenderer(ICoreClientAPI capi, BlockPos pos)
         {
@@ -25,7 +25,7 @@ namespace DecoClock.Render
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
             if (pendulum == null) { return; }
-            if (i == -15 || i == 15) { delta *= -1; }
+            if (pendulumAngle == -15 || pendulumAngle == 15) { directions *= -1; }
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             rpi.GlDisableCullFace();
@@ -38,14 +38,14 @@ namespace DecoClock.Render
                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
                .Translate(0.5f, 1.125f, 0.5f)
                .RotateY(meshAngle)
-               .RotateZDeg(i)
+               .RotateZDeg(pendulumAngle)
                .Translate(-0.5f, -1.125f, -0.5625f)
                .Values;
             doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
             doorShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
             rpi.RenderMesh(pendulum);
 
-            i += 0.5f * (float)delta;
+            pendulumAngle += 0.5f * (float)directions;
 
             doorShader.Stop();
 
