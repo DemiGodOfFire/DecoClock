@@ -9,8 +9,6 @@ namespace DecoClock
     {
         InventoryClock inventory;
         BlockPos BlockEntityPosition;
-        AssetLocation OpenSound = new AssetLocation("sounds/block/chestopen");
-        AssetLocation CloseSound = new AssetLocation("sounds/block/chestclose");
 
         public GuiDialogClock(InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(Core.ModId + ":fatherclock-title", capi)
         {
@@ -28,13 +26,14 @@ namespace DecoClock
         }
         private void ComposeDialog()
         {
-            ElementBounds clockBounds = ElementBounds.Fixed(0.0, 0.0, 200.0, 210.0);
+            ElementBounds clockBounds = ElementBounds.Fixed(0.0, 0.0, 200.0, 290.0);
             ElementBounds clockworkSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 30.0, 1, 1);
             ElementBounds tickMarksSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 30.0, 1, 1);
             ElementBounds hourHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 110.0, 1, 1);
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 110.0, 1, 1);
             ElementBounds dialGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 190.0, 1, 1);
             ElementBounds clockPartsSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 190.0, 1, 1);
+            ElementBounds doorGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 270.0, 1, 1);
 
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
@@ -55,6 +54,8 @@ namespace DecoClock
                     .AddItemSlotGrid(inventory, SendInvPacket, 1, new int[] { 3 }, minuteHandBounds)
                     .AddItemSlotGrid(inventory, SendInvPacket, 1, new int[] { 4 }, dialGlassSlotBounds)
                     .AddItemSlotGrid(inventory, SendInvPacket, 1, new int[] { 5 }, clockPartsSlotBounds)
+                    .AddItemSlotGrid(inventory, SendInvPacket, 1, new int[] { 6 }, doorGlassSlotBounds)
+
                 .EndChildElements()
                 .Compose();
 

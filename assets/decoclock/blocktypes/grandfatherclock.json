@@ -22,8 +22,8 @@
 	
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},
-		"doorglass": {"base": "game:block/glass/plain"},
-		"thread": {"base": "game:block/transparent"},
+		"doorglass": {"base":  "game:block/transparent"},
+		"thread": {"base":  "game:block/transparent"},
 		"dialglass": { "base": "game:block/transparent"},		
 		"clockparts": { "base": "game:block/transparent"},
 		"clockwork": { "base": "game:block/transparent"},

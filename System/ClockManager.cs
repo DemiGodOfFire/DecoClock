@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Vintagestory.API.Common;
 
 namespace DecoClock
@@ -21,6 +21,7 @@ namespace DecoClock
             Parts.Add("tickmarks", new());
             Parts.Add("minutehand", new());
             Parts.Add("clockparts", new());
+            Parts.Add("doorglass", new());
 
             foreach (var item in api.World.Items)
             {

@@ -8,12 +8,11 @@ namespace DecoClock
     {
         private ICoreClientAPI capi;
         private BlockPos pos;
-        float meshAngle;
+        private MeshRef? hourHand;
+        private MeshRef? minuteHand;
+        private float meshAngle;
 
-        public MeshRef? hourHand;
-        public MeshRef? minuteHand;
-
-        Matrixf ModelMat = new Matrixf();
+        private Matrixf modelMat = new Matrixf();
 
         public ClockHandRenderer(ICoreClientAPI coreClientAPI, BlockPos pos)
         {
@@ -21,7 +20,7 @@ namespace DecoClock
             this.pos = pos;
         }
 
-        public double RenderOrder => 0.5;
+        public double RenderOrder => 0.37;
         public int RenderRange => 24;
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
@@ -35,33 +34,35 @@ namespace DecoClock
             float minutesFloat = hourOfDay - hour;
             float hourM12 = hourOfDay % 12f;
             float hourRad = hourM12 * (float)Math.PI/6;
-            float mminureRad = 2 * (float)Math.PI * minutesFloat;
+            float minuteRad = 2 * (float)Math.PI * minutesFloat;
 
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             rpi.GlDisableCullFace();
             rpi.GlToggleBlend(true);
+            
             IStandardShaderProgram handShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
             handShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
 
             if (minuteHand != null)
             {
-                handShader.ModelMatrix = ModelMat
+                handShader.ModelMatrix = modelMat
                 .Identity()
                 .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
                 .Translate(0.5f, 1.5f, 0.5f)
                 .RotateY(meshAngle)
-                .RotateZ(-mminureRad)
+                .RotateZ(-minuteRad)
                 .Translate(-0.5f, 0f, -0.601f)
                 .Values;
                 handShader.ViewMatrix = rpi.CameraMatrixOriginf;
                 handShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
                 rpi.RenderMesh(minuteHand);
             }
+
             if (hourHand != null)
             {
                
-                handShader.ModelMatrix = ModelMat
+                handShader.ModelMatrix = modelMat
                 .Identity()
                 .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
                 .Translate(0.5f, 1.5f,0.5f)
@@ -98,12 +99,9 @@ namespace DecoClock
             }
         }
 
-
-
         public void Dispose()
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
-
             hourHand?.Dispose();
             minuteHand?.Dispose();
         }

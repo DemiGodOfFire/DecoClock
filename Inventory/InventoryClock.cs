@@ -30,8 +30,6 @@ namespace DecoClock
 
     public class InventoryClock : InventoryGeneric
     {
-
-
         private ClockItem[] codes;
         public InventoryClock(ClockItem[] codes, BlockPos pos, ICoreAPI api) : base(codes.Length, "DecoClock-ClockInv", pos + "", api)
         {
@@ -41,7 +39,6 @@ namespace DecoClock
                 ResolveCodes();
             }
         }
-
 
         private void ResolveCodes()
         {
@@ -65,7 +62,7 @@ namespace DecoClock
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ItemStack TryGetPart(string type)
+        public ItemStack? TryGetPart(string type)
         {
             for (int i = 0; i < codes.Length; i++)
             {
@@ -81,7 +78,7 @@ namespace DecoClock
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ItemStack TryTakePart(string type)
+        public ItemStack? TryTakePart(string type)
         {
             for (int i = 0; i < codes.Length; i++)
             {
@@ -101,7 +98,7 @@ namespace DecoClock
         /// <param name="item"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public bool TryAddPart(ItemStack item, out ItemStack content)
+        public bool TryAddPart(ItemStack item, out ItemStack? content)
         {
             if (item != null)
             {
