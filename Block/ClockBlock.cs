@@ -28,6 +28,7 @@ namespace DecoClock
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
+            if (!world.Claims.TryAccess(byPlayer, blockSel.Position, EnumBlockAccessFlags.BuildOrBreak)) { return false; }
             BEClock? be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BEClock;
             if (be != null)
             {
