@@ -14,9 +14,7 @@ namespace DecoClock
             AssetLocation blockCode = CodeWithVariants(new Dictionary<string, string>() {
                     { "horizontalorientation", "north" }
                 });
-
             Block block = world.BlockAccessor.GetBlock(blockCode);
-
             return new ItemStack(block);
         }
 

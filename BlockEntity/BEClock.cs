@@ -11,8 +11,10 @@ namespace DecoClock
     internal class BEClock : BlockEntity, ITexPositionSource
     {
         ITexPositionSource textureSource = null!;
+        ILoadedSound tickSound = null!;
         ILoadedSound openSound = null!;
         ILoadedSound closeSound = null!;
+        ILoadedSound chimeSound = null!;
 
         MeshData? baseMesh;
         InventoryClock inventory = null!;
@@ -134,9 +136,30 @@ namespace DecoClock
                 InitInventory();
             }
 
-            if (openSound == null && api.Side == EnumAppSide.Client)
+            if (api is ICoreClientAPI capi)
             {
-                openSound = ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
+
+                tickSound ??= ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
+                {
+                    Location = new AssetLocation("decoclock:sounds/ticking"),
+                    ShouldLoop = false,
+                    Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
+                    DisposeOnFinish = false,
+                    Volume = 0.5f,
+                    Range = 16f
+                });
+
+                chimeSound ??= ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
+                {
+                    Location = new AssetLocation("decoclock:sounds/chimeend1"),
+                    ShouldLoop = false,
+                    Position = Pos.ToVec3f().Add(0.5f, 0.25f, 0.5f),
+                    DisposeOnFinish = false,
+                    Volume = 1f,
+                    Range = 16f
+                });
+
+                openSound ??= ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
                 {
                     Location = new AssetLocation("sounds/block/chestopen"),
                     ShouldLoop = false,
@@ -145,11 +168,8 @@ namespace DecoClock
                     Volume = 1f,
                     Range = 16f
                 });
-            }
 
-            if (closeSound == null && api.Side == EnumAppSide.Client)
-            {
-                closeSound = ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
+                closeSound ??= ((IClientWorldAccessor)api.World).LoadSound(new SoundParams
                 {
                     Location = new AssetLocation("sounds/block/chestclose"),
                     ShouldLoop = false,
@@ -158,10 +178,7 @@ namespace DecoClock
                     Volume = 1f,
                     Range = 16f
                 });
-            }
-
-            if (api is ICoreClientAPI capi)
-            {
+               
                 capi.Event.RegisterRenderer(rendererHand =
                     new ClockHandRenderer(capi, Pos), EnumRenderStage.Opaque);
                 capi.Event.RegisterRenderer(rendererDoor =
@@ -169,7 +186,8 @@ namespace DecoClock
                 capi.Event.RegisterRenderer(rendererPendulum =
                    new PendulumRenderer(capi, Pos), EnumRenderStage.Opaque);
                 textureSource = capi.Tesselator.GetTextureSource(Block);
-
+                rendererHand.MinuteTick += () => { tickSound?.Start(); };
+                rendererHand.HourTick += () => { chimeSound?.Start(); };
                 //var angle = MeshAngle;
                 //if (MeshAngle != 0)
                 //{
@@ -285,7 +303,9 @@ namespace DecoClock
             baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, meshAngle, 0);
             rendererHand.Update(GetItemMesh("hourhand"), GetItemMesh("minutehand"), meshAngle);
             rendererDoor.Update(GetMesh("door"), meshAngle);
-            rendererPendulum.Update(GetItemMesh("clockparts", "pendulum"), meshAngle);
+            rendererPendulum.Update(GetItemMesh("clockparts", "pendulum"),
+                GetItemMesh("clockparts", "weight"), meshAngle);
+
         }
 
         #endregion
@@ -334,10 +354,14 @@ namespace DecoClock
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
+            tickSound?.Stop();
+            tickSound?.Dispose();
             openSound?.Stop();
             openSound?.Dispose();
             closeSound?.Stop();
             closeSound?.Dispose();
+            chimeSound?.Stop();
+            chimeSound?.Dispose();
             dialogClock?.TryClose();
             rendererHand?.Dispose();
             rendererDoor?.Dispose();
@@ -361,8 +385,10 @@ namespace DecoClock
             rendererHand?.Dispose();
             rendererDoor?.Dispose();
             rendererPendulum?.Dispose();
+            tickSound?.Dispose();
             openSound?.Dispose();
             closeSound?.Dispose();
+            chimeSound?.Dispose();
         }
     }
 }

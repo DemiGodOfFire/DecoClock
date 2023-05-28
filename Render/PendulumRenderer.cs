@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 
@@ -7,10 +8,10 @@ namespace DecoClock.Render
     {
         private ICoreClientAPI capi;
         private BlockPos pos;
-        private MeshRef? pendulum;
+        private MeshRef? weight;
+        private MeshRef? pendulum; 
         private Matrixf modelMat = new ();
         private float meshAngle;
-        private float pendulumAngle = 0;
         private int directions = 1;
 
         public PendulumRenderer(ICoreClientAPI capi, BlockPos pos)
@@ -25,41 +26,50 @@ namespace DecoClock.Render
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
             if (pendulum == null) { return; }
-            if (pendulumAngle == -15 || pendulumAngle == 15) { directions *= -1; }
+            float hourOfDay = capi.World.Calendar.HourOfDay;
+            float hour = capi.World.Calendar.FullHourOfDay / capi.World.Calendar.HoursPerDay * 24f;
+            float minutesFloat = hourOfDay - hour;
+            float cosMinute = (float)(Math.Cos((double)minutesFloat*1200 / Math.PI));
+            float angleDeg = 15f * cosMinute;
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             rpi.GlDisableCullFace();
             rpi.GlToggleBlend(true);
 
-            IStandardShaderProgram doorShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
-            doorShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
-            doorShader.ModelMatrix = modelMat
+            IStandardShaderProgram pendulumShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+            pendulumShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
+            pendulumShader.ModelMatrix = modelMat
                .Identity()
                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
                .Translate(0.5f, 1.125f, 0.5f)
                .RotateY(meshAngle)
-               .RotateZDeg(pendulumAngle)
+               .RotateZDeg(angleDeg)
                .Translate(-0.5f, -1.125f, -0.5625f)
                .Values;
-            doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
-            doorShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+            pendulumShader.ViewMatrix = rpi.CameraMatrixOriginf;
+            pendulumShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
             rpi.RenderMesh(pendulum);
-
-            pendulumAngle += 0.5f * (float)directions;
-
-            doorShader.Stop();
+            pendulumShader.Stop();
 
         }
 
-        public void Update(MeshData? door, float angleMesh)
+        public void Update(MeshData? pendulum, MeshData? weight, float angleMesh)
         {
             this.meshAngle = angleMesh;
             this.pendulum?.Dispose();
             this.pendulum = null;
 
-            if (door != null)
+            if (pendulum != null)
             {
-                this.pendulum = capi.Render.UploadMesh(door);
+                this.pendulum = capi.Render.UploadMesh(pendulum);
+            }
+
+            this.weight?.Dispose();
+            this.weight = null;
+
+            if (weight != null)
+            {
+                this.weight = capi.Render.UploadMesh(weight);
             }
         }
 

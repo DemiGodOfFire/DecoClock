@@ -6,21 +6,28 @@ namespace DecoClock
 {
     public class ClockHandRenderer : IRenderer
     {
+        float hourMemory;
+        float minuteMemory;
+        private float meshAngle;
         private readonly ICoreClientAPI capi;
-        private readonly BlockPos pos ;
+        private readonly BlockPos pos;
+        private readonly Matrixf modelMat = new();
         private MeshRef? hourHand;
         private MeshRef? minuteHand;
-        private readonly Matrixf modelMat = new ();
-        private float meshAngle;
+        public event Action? HourTick;
+        public event Action? ZeroTick;
+        public event Action? MinuteTick;
+        public event Action? MiddayTick;
+        public event Action? MidnightTick;
+
+        public double RenderOrder => 0.37;
+        public int RenderRange => 24;
 
         public ClockHandRenderer(ICoreClientAPI coreClientAPI, BlockPos pos)
         {
             capi = coreClientAPI;
             this.pos = pos;
         }
-
-        public double RenderOrder => 0.37;
-        public int RenderRange => 24;
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
@@ -31,9 +38,28 @@ namespace DecoClock
             float hourOfDay = capi.World.Calendar.HourOfDay;
             float hour = capi.World.Calendar.FullHourOfDay / capi.World.Calendar.HoursPerDay * 24;
             float minutesFloat = hourOfDay - hour;
-            float hourM12 = (int)Math.Floor(hourOfDay % 12f*60)/60f;
+
+            float hourM12 = (int)(Math.Floor(hourOfDay % 12f * 60)) / 60f;
             float hourRad = hourM12 * (float)Math.PI / 6;
-            float minuteRad = 2 * (float)Math.PI * (int)(minutesFloat*60)/60;
+            float minute = ((int)(minutesFloat * 60)) / 30f;
+            float minuteRad = (float)Math.PI * minute;
+
+            if (hourMemory != hour)
+            {
+                hourMemory = hour;
+                if (minute == 0)
+                {
+                    HourTick?.Invoke();
+                    if (hour == 0) { MidnightTick?.Invoke(); }
+                    if (hour == 12) { MiddayTick?.Invoke(); }
+                    if (hour == 0 || hour == 12) { ZeroTick?.Invoke(); }
+                }
+            }
+            if (minuteMemory != minute)
+            {
+                minuteMemory = minute;
+                MinuteTick?.Invoke();
+            }
 
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
