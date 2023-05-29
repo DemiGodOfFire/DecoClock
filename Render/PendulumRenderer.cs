@@ -6,11 +6,11 @@ namespace DecoClock.Render
 {
     internal class PendulumRenderer : IRenderer
     {
-        private ICoreClientAPI capi;
-        private BlockPos pos;
+        private readonly ICoreClientAPI capi;
+        private readonly Matrixf modelMat = new();
+        private readonly BlockPos pos;
         private MeshRef? weight;
         private MeshRef? pendulum; 
-        private Matrixf modelMat = new ();
         private float meshAngle;
         private int directions = 1;
 
@@ -53,9 +53,9 @@ namespace DecoClock.Render
 
         }
 
-        public void Update(MeshData? pendulum, MeshData? weight, float angleMesh)
+        public void Update(MeshData? pendulum, MeshData? weight, float meshAngle)
         {
-            this.meshAngle = angleMesh;
+            this.meshAngle = meshAngle;
             this.pendulum?.Dispose();
             this.pendulum = null;
 

@@ -8,6 +8,7 @@ namespace DecoClock
     {
         float hourMemory;
         float minuteMemory;
+        private bool isWork;
         private float meshAngle;
         private readonly ICoreClientAPI capi;
         private readonly BlockPos pos;
@@ -35,31 +36,40 @@ namespace DecoClock
             {
                 return;
             }
-            float hourOfDay = capi.World.Calendar.HourOfDay;
-            float hour = capi.World.Calendar.FullHourOfDay / capi.World.Calendar.HoursPerDay * 24;
-            float minutesFloat = hourOfDay - hour;
 
-            float hourM12 = (int)(Math.Floor(hourOfDay % 12f * 60)) / 60f;
-            float hourRad = hourM12 * (float)Math.PI / 6;
-            float minute = ((int)(minutesFloat * 60)) / 30f;
-            float minuteRad = (float)Math.PI * minute;
+            float hourRad = 0f;
+            float minuteRad = 1.5708f;
 
-            if (hourMemory != hour)
+            if (isWork)
             {
-                hourMemory = hour;
-                if (minute == 0)
+
+                float hourOfDay = capi.World.Calendar.HourOfDay;
+                int hour = (int)(capi.World.Calendar.FullHourOfDay / capi.World.Calendar.HoursPerDay * 24);
+                float minutesFloat = hourOfDay - hour;
+                float hourM12 = (int)(Math.Floor(hourOfDay % 12f * 60)) / 60f;
+                float minute = ((int)(minutesFloat * 60)) / 30f;
+                
+
+                if ((int)hourMemory != hour)
                 {
-                    HourTick?.Invoke();
-                    if (hour == 0) { MidnightTick?.Invoke(); }
-                    if (hour == 12) { MiddayTick?.Invoke(); }
-                    if (hour == 0 || hour == 12) { ZeroTick?.Invoke(); }
+                    hourMemory = hourM12;
+                    if (minute == 0)
+                    {
+                        HourTick?.Invoke();
+                        if (hour == 0) { MidnightTick?.Invoke(); }
+                        if (hour == 12) { MiddayTick?.Invoke(); }
+                        if (hour == 0 || hour == 12) { ZeroTick?.Invoke(); }
+                    }
+                }
+                if (minuteMemory != minute)
+                {
+                    minuteMemory = minute;
+                    MinuteTick?.Invoke();
                 }
             }
-            if (minuteMemory != minute)
-            {
-                minuteMemory = minute;
-                MinuteTick?.Invoke();
-            }
+            hourRad = hourMemory * (float)Math.PI / 6;
+            minuteRad = (float)Math.PI * minuteMemory;
+
 
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
@@ -104,12 +114,12 @@ namespace DecoClock
 
         }
 
-        public void Update(MeshData? hourHand, MeshData? minuteHand, float angleMesh)
+        public void Update(MeshData? hourHand, MeshData? minuteHand, float meshAngle, bool isWork)
         {
-            this.meshAngle = angleMesh;
+            this.isWork = isWork;
+            this.meshAngle = meshAngle;
             this.hourHand?.Dispose();
             this.hourHand = null;
-
             if (hourHand != null)
             {
                 this.hourHand = capi.Render.UploadMesh(hourHand);

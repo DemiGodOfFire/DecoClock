@@ -28,8 +28,10 @@ namespace DecoClock
 
         readonly List<ClockItem> _parts = new();
 
+        private bool isWork;
         public float meshAngle;
-
+        public float timeWork;
+        
         protected virtual void AddParts()
         {
             _parts.Add(new("clockwork"));
@@ -303,14 +305,19 @@ namespace DecoClock
             tesselator ??= ((ICoreClientAPI)Api).Tesselator;
             MeshData mesh = GenBaseMesh(tesselator);
             baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, meshAngle, 0);
-            rendererHand.Update(GetItemMesh("hourhand"), GetItemMesh("minutehand"), meshAngle);
+            rendererHand.Update(GetItemMesh("hourhand"), GetItemMesh("minutehand"), meshAngle, IsWork());
             rendererDoor.Update(GetMesh("door"), meshAngle);
             rendererPendulum.Update(GetItemMesh("clockparts", "pendulum"),
                 GetItemMesh("clockparts", "weight"), meshAngle);
-
+            
         }
 
         #endregion
+
+        private bool IsWork()
+        {
+            return (inventory.IsExist("clockwork") && inventory.IsExist("clockparts"));
+        }
 
         public void DropContents()
         {
@@ -348,6 +355,7 @@ namespace DecoClock
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
+          //  Api.World.Logger.Warning("To tree attributes");
             base.ToTreeAttributes(tree);
             tree.SetFloat("meshAngle", meshAngle);
             inventory?.ToTreeAttributes(tree);

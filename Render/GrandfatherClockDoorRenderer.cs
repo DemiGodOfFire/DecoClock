@@ -51,9 +51,9 @@ namespace DecoClock.Render
 
         }
 
-        public void Update(MeshData? door, float angleMesh)
+        public void Update(MeshData? door, float meshAngle)
         {
-            this.meshAngle = angleMesh;
+            this.meshAngle = meshAngle;
             this.door?.Dispose();
             this.door = null;
 

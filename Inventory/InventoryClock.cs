@@ -1,3 +1,4 @@
+using OpenTK.Graphics.ES10;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -56,6 +57,23 @@ namespace DecoClock
             }
         }
 
+
+        /// <summary>
+        /// Show content if exist
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>true/false</returns>
+        public bool IsExist(string type)
+        {
+            for (int i = 0; i < codes.Length; i++)
+            {
+                if (codes[i].Type == type)
+                {
+                    if (!slots[i].Empty) { return true; }
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// Show content if exist
