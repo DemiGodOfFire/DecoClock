@@ -15,10 +15,14 @@
 		{
 			"code": "type",
       "states": [
-       "firstquarter3",
-	   "secondquarter3",
-	   "thirdquarter3",
-	   "fourthquarter3"
+		"firstquarter2",
+		"secondquarter2",
+		"thirdquarter2",
+		"fourthquarter2",
+		"firstquarter3",
+		"secondquarter3",
+		"thirdquarter3",
+		"fourthquarter3"
       ]
 		},
 		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel"] },
