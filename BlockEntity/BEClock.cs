@@ -191,7 +191,7 @@ namespace DecoClock
                    new PendulumRenderer(capi, Pos), EnumRenderStage.Opaque);
                 textureSource = capi.Tesselator.GetTextureSource(Block);
                 rendererHand.MinuteTick += () => { tickSound?.Start(); };
-                rendererHand.HourTick += () => { chimeSound?.Start(); };
+                rendererHand.HourTick += (_) => { chimeSound?.Start(); };
                 //var angle = MeshAngle;
                 //if (MeshAngle != 0)
                 //{
