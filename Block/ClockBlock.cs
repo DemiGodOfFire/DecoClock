@@ -56,7 +56,6 @@ namespace DecoClock
                     be.MarkDirty(true);
                 }
             }
-
             return val;
         }
     }

@@ -144,6 +144,10 @@ namespace DecoClock
         {
             base.LateInitialize(inventoryID, api);
             ResolveCodes();
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].MaxSlotStackSize = 1;
+            }
         }
 
         //public override void ToTreeAttributes(ITreeAttribute invtree)
