@@ -1,0 +1,43 @@
+{
+  "Code": "wood",
+  "variants": [
+    {
+      "Code": "birch"
+    },
+    {
+      "Code": "oak"
+    },
+    {
+      "Code": "maple"
+    },
+    {
+      "Code": "pine"
+    },
+    {
+      "Code": "acacia"
+    },
+    {
+      "Code": "kapok"
+    },
+    {
+      "Code": "baldcypress"
+    },
+    {
+      "Code": "larch"
+    },
+    {
+      "Code": "redwood"
+    },
+    {
+      "Code": "ebony"
+    },
+    {
+      "Code": "walnut"
+    },
+    {
+      "Code": "purpleheart"
+    },
+	{
+		"Code": "aged"	}
+  ]
+}

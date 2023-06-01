@@ -1,7 +1,7 @@
 {
 	"code": "bigclock",
 	"class": "bigclock",
-	"entityClass": "bebigclock",
+	"entityClass": "beclock",
 	"attributes":{
 		"properties": {
 			"*": {

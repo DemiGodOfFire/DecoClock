@@ -148,7 +148,9 @@ namespace DecoClock
             {
                 slots[i].MaxSlotStackSize = 1;
             }
+            //slots[0].CanHold
         }
+
 
         //public override void ToTreeAttributes(ITreeAttribute invtree)
         //{

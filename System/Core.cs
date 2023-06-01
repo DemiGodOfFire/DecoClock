@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Server;
 
 namespace DecoClock
 {
@@ -16,11 +9,13 @@ namespace DecoClock
         public override void Start(ICoreAPI api)
         {
             ModId = Mod.Info.ModID;
-            api.RegisterBlockClass("grandfatherclock", typeof(ClockBlock));
-            api.RegisterBlockClass("wallclock", typeof(ClockBlock));
+            api.RegisterBlockClass("rotatableclock", typeof(GrandfatherClockBlock));
+            api.RegisterBlockClass("wallclock", typeof(WallClockBlock));
+            api.RegisterBlockClass("bewallclock", typeof(BEClock));
+
             //api.RegisterBlockClass("alarmclock", typeof(AlarmClock));
             //api.RegisterBlockEntityClass("beclock", typeof(BEClock));
-            api.RegisterBlockEntityClass("begrandfatherclock", typeof(BEClock));
+            api.RegisterBlockEntityClass("begrandfatherclock", typeof(BEGrandfatherClock));
 
         }
     }
