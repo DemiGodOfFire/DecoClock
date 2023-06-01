@@ -18,10 +18,10 @@ namespace DecoClock
     {
         public string Type { get; private set; }
         public string Dependency { get; private set; }
-        public AssetLocation[] Codes { get; set; }
+        public AssetLocation[]? Codes { get; set; }
 
-        public ClockItem() { }
-        public ClockItem(string type, string dependency = null, AssetLocation[] codes = null)
+        //public ClockItem() { }
+        public ClockItem(string type, string? dependency = null, AssetLocation[]? codes = null)
         {
             Type = type;
             Codes = codes;
@@ -56,7 +56,6 @@ namespace DecoClock
                 }
             }
         }
-
 
         /// <summary>
         /// Show content if exist

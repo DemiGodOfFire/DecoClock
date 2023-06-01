@@ -2,6 +2,7 @@ using DecoClock.Render;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -123,6 +124,7 @@ namespace DecoClock
         private void InitInventory()
         {
             inventory ??= new InventoryClock(Parts.ToArray(), Pos, Api);
+            inventory.SlotModified += OnSlotModifid;
         }
 
         public override void Initialize(ICoreAPI api)
@@ -132,11 +134,14 @@ namespace DecoClock
             if (inventory != null)
             {
                 inventory.LateInitialize(inventory.InventoryID, api);
+
             }
             else
             {
                 InitInventory();
             }
+
+
 
             if (api is ICoreClientAPI capi)
             {
@@ -312,6 +317,11 @@ namespace DecoClock
             
         }
 
+        private void OnSlotModifid(int slot)
+        {
+            MarkDirty(true);
+        }
+
         #endregion
 
         private bool IsWork()
@@ -332,13 +342,36 @@ namespace DecoClock
             if (packetid < 1000)
             {
                 inventory.InvNetworkUtil.HandleClientPacket(player, packetid, data);
-
                 // Tell server to save this chunk to disk again
                 Api.World.BlockAccessor.GetChunkAtBlockPos(Pos.X, Pos.Y, Pos.Z).MarkModified();
                 MarkDirty(true);
                 return;
             }
+
+            if (packetid == 1000)
+            {
+                IPlayerInventoryManager inventoryManager = player.InventoryManager;
+                if (inventoryManager == null)
+                {
+                    return;
+                }
+                inventoryManager.OpenInventory(inventory);
+            }
+
+            if (packetid == 1001)
+            {
+                IPlayerInventoryManager inventoryManager = player.InventoryManager;
+                if (inventoryManager != null)
+                {
+                    inventoryManager.CloseInventory(inventory);
+                }
+            }
+
+            base.OnReceivedClientPacket(player, packetid, data);
+
         }
+
+        
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
