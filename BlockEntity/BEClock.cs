@@ -121,7 +121,7 @@ namespace DecoClock
             if (api is ICoreClientAPI capi)
             {
                 LoadSound(capi);
-                RegisterRenderer();
+                RegisterRenderer(capi);
                 TextureSource = capi.Tesselator.GetTextureSource(Block);
                 //rendererHand.HourTick += (_) => { chimeSound?.Start(); };
                 UpdateMesh();
@@ -235,14 +235,8 @@ namespace DecoClock
             });
 
         }
-        public abstract void RegisterRenderer();
-        //{
+        public abstract void RegisterRenderer(ICoreClientAPI capi);
 
-        //        capi.Event.RegisterRenderer(rendererHand =
-        //            new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
-        //        rendererHand.MinuteTick += () => { TickSound?.Start();
-
-        //}
 
         public void DropContents()
         {

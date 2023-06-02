@@ -8,7 +8,7 @@
 			"name": "material",
 			"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
 			"quantity": 3},
-		"M": {"type": "item", "code": "metal-part"}
+		"M": {"type": "block", "code": "game:metal-parts"}
 	},
 	"width": 3,
 	"height": 3,

@@ -36,7 +36,7 @@ namespace DecoClock
             {
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEWallClock be)
                 {
-                    be.meshAngle = meshAngle;
+                    be.MeshAngle = meshAngle;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();

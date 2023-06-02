@@ -30,7 +30,7 @@ namespace DecoClock
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEBigClock be)
                 {
                     float deg90 = (float)Math.PI / 2;
-                    be.meshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90;
+                    be.MeshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90;
                     //be.meshAngle = SuggestedHVOrientation(byPlayer, blockSel).First().Index * (float)Math.PI/2;
                     if (world.Side == EnumAppSide.Client)
                     {
