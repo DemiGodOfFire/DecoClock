@@ -1,3 +1,4 @@
+using Cairo;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -7,26 +8,13 @@ using Vintagestory.API.Server;
 
 namespace DecoClock
 {
-    internal class BEBigClock : BlockEntity, ITexPositionSource
+    internal class BEBigClock :BEClock
     {
-        ITexPositionSource textureSource = null!;
-        ILoadedSound tickSound = null!;
-        //ILoadedSound chimeSound = null!;
+        GuiDialogBigClock dialogClock;
 
-        MeshData? baseMesh;
-        InventoryClock inventory = null!;
-        GuiDialogClock dialogClock = null!;
-        ClockRenderer rendererHand = null!;
+        public override string PathBlock => "decoclock:shapes/block/clock/";
 
-        public Size2i AtlasSize => textureSource.AtlasSize;
-        List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
-
-        readonly List<ClockItem> _parts = new();
-
-        public float meshAngle;
-        internal string path;
-
-        protected virtual void AddParts()
+        public override void AddParts()
         {
             _parts.Add(new("hourhand"));
             _parts.Add(new("minutehand"));
@@ -34,92 +22,13 @@ namespace DecoClock
             _parts.Add(new("tickmarks"));
         }
 
-
-        public virtual TextureAtlasPosition? this[string textureCode]
-        {
-            //get
-            //{
-            //    if (inventory.TryGetPart("clockparts") != null)
-            //    {
-            //        if (textureCode == "thread") return textureSource["string"];
-            //    }
-
-            //    ItemStack stack = inventory.TryGetPart(textureCode);
-            //    if (stack is not null)
-            //    {
-            //        var capi = Api as ICoreClientAPI;
-            //        if (stack.Class == EnumItemClass.Item)
-            //        {
-            //            var tex = stack.Item.FirstTexture;
-            //            AssetLocation texturePath = tex.Baked.BakedName;
-            //            // return capi.ItemTextureAtlas[tex.Base];
-            //            //   return capi.ItemTextureAtlas.GetPosition(stack.Item);
-            //            return GetOrCreateTexPos(texturePath, capi);
-            //        }
-            //        else
-            //        {
-            //            // var tex = stack.Block.FirstTexture;
-            //            return capi.BlockTextureAtlas.GetPosition(stack.Block);
-            //        }
-            //    }
-            //    return textureSource[textureCode];
-            //}
-            get
-            {
-                ItemStack? stack = inventory.TryGetPart(textureCode);
-                if (stack is not null)
-                {
-                    var capi = (ICoreClientAPI)Api;
-                    if (stack.Class == EnumItemClass.Item)
-                    {
-                        var tex = stack.Item.FirstTexture;
-                        AssetLocation texturePath = tex.Baked.BakedName;
-                        return GetOrCreateTexPos(texturePath, capi);
-                    }
-                    else
-                    {
-                        var tex = stack.Block.FirstTextureInventory;
-                        AssetLocation texturePath = tex.Baked.BakedName;
-                        return GetOrCreateTexPos(texturePath, capi);
-                    }
-                }
-                return textureSource[textureCode];
-            }
-        }
-
-        protected TextureAtlasPosition? GetOrCreateTexPos(AssetLocation texturePath, ICoreClientAPI capi)
-        {
-            TextureAtlasPosition? texpos = capi.BlockTextureAtlas[texturePath];
-
-            if (texpos == null)
-            {
-                IAsset texAsset = capi.Assets.TryGet(texturePath.Clone().WithPathPrefixOnce("textures/").WithPathAppendixOnce(".png"));
-                if (texAsset != null)
-                {
-                    capi.BlockTextureAtlas.GetOrInsertTexture(texturePath, out _, out texpos, () => texAsset.ToBitmap(capi));
-                }
-                else
-                {
-                    capi.World.Logger.Warning("For render in block " + Block.Code + ", item {0} defined texture {1}, no such texture found.", texturePath);
-                }
-            }
-            return texpos;
-        }
-
-         internal virtual void InitInventory()
-        {
-            inventory ??= new InventoryClock(Parts.ToArray(), Pos, Api);
-            inventory.SlotModified += OnSlotModifid;
-        }
-
         public override void Initialize(ICoreAPI api)
         {
-            path = "decoclock:shapes/block/clock/";
             base.Initialize(api);
 
-            if (inventory != null)
+            if (Inventory != null)
             {
-                inventory.LateInitialize(inventory.InventoryID, api);
+                Inventory.LateInitialize(inventory.InventoryID, api);
 
             }
             else
@@ -135,7 +44,7 @@ namespace DecoClock
                 capi.Event.RegisterRenderer(rendererHand =
                     new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
 
-                textureSource = capi.Tesselator.GetTextureSource(Block);
+                TextureSource = capi.Tesselator.GetTextureSource(Block);
                 rendererHand.MinuteTick += () => { tickSound?.Start(); };
                 //rendererHand.HourTick += (_) => { chimeSound?.Start(); };
 
@@ -143,11 +52,12 @@ namespace DecoClock
             }
         }
 
-        public virtual bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
+        public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
+       
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
-                dialogClock = new GuiDialogClock(inventory, Pos, (ICoreClientAPI)Api);
+                dialogClock = new GuiDialogBigClock(Inventory, Pos, (ICoreClientAPI)Api);
                 dialogClock.OnOpened += () =>
                 {
                     //openSound?.Start();
@@ -273,6 +183,13 @@ namespace DecoClock
 
         }
 
+       
+
+        public override void RegisterRenderer()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void DropContents()
         {
             inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
@@ -373,5 +290,7 @@ namespace DecoClock
             //closeSound?.Dispose();
             //chimeSound?.Dispose();
         }
+
+       
     }
 }

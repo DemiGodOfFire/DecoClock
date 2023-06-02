@@ -7,31 +7,24 @@ using Vintagestory.API.Server;
 
 namespace DecoClock
 {
-    internal abstract class BEClock : BlockEntity, ITexPositionSource
+    public abstract class BEClock : BlockEntity, ITexPositionSource
     {
-        ITexPositionSource TextureSource { get; set; }
-        ILoadedSound TickSound { get; set; }
+        public ITexPositionSource TextureSource { get; set; }
+        public ILoadedSound TickSound { get; set; }
         //ILoadedSound chimeSound = null!;
 
-        MeshData? baseMesh;
-        InventoryClock inventory = null!;
-        GuiDialogClock dialogClock = null!;
-        ClockRenderer rendererHand = null!;
+        public MeshData? BaseMesh { get; set; }
+        public InventoryClock Inventory { get; set; }
 
         public Size2i AtlasSize => TextureSource.AtlasSize;
         List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
 
-        readonly List<ClockItem> _parts = new();
+        public readonly List<ClockItem> _parts = new();
 
         public float MeshAngle { get; set; }
-        public string Path { get; set; }
+        public abstract string PathBlock { get; }
 
-        protected virtual void AddParts()
-        {
-            _parts.Add(new("hourhand"));
-            _parts.Add(new("minutehand"));
-            _parts.Add(new("tickmarks"));
-        }
+        public abstract void AddParts();
 
 
         public virtual TextureAtlasPosition? this[string textureCode]
@@ -65,7 +58,7 @@ namespace DecoClock
             //}
             get
             {
-                ItemStack? stack = inventory.TryGetPart(textureCode);
+                ItemStack? stack = Inventory.TryGetPart(textureCode);
                 if (stack is not null)
                 {
                     var capi = (ICoreClientAPI)Api;
@@ -86,7 +79,7 @@ namespace DecoClock
             }
         }
 
-        protected TextureAtlasPosition? GetOrCreateTexPos(AssetLocation texturePath, ICoreClientAPI capi)
+        protected virtual TextureAtlasPosition? GetOrCreateTexPos(AssetLocation texturePath, ICoreClientAPI capi)
         {
             TextureAtlasPosition? texpos = capi.BlockTextureAtlas[texturePath];
 
@@ -105,20 +98,19 @@ namespace DecoClock
             return texpos;
         }
 
-         internal virtual void InitInventory()
+        private void InitInventory()
         {
-            inventory ??= new InventoryClock(Parts.ToArray(), Pos, Api);
-            inventory.SlotModified += OnSlotModifid;
+            Inventory ??= new InventoryClock(Parts.ToArray(), Pos, Api);
+            Inventory.SlotModified += OnSlotModifid;
         }
 
         public override void Initialize(ICoreAPI api)
         {
-            Path = "decoclock:shapes/block/clock/";
             base.Initialize(api);
 
-            if (inventory != null)
+            if (Inventory != null)
             {
-                inventory.LateInitialize(inventory.InventoryID, api);
+                Inventory.LateInitialize(Inventory.InventoryID, api);
 
             }
             else
@@ -129,41 +121,15 @@ namespace DecoClock
             if (api is ICoreClientAPI capi)
             {
                 LoadSound(capi);
-
-
-                capi.Event.RegisterRenderer(rendererHand =
-                    new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
-
+                RegisterRenderer();
                 TextureSource = capi.Tesselator.GetTextureSource(Block);
-                rendererHand.MinuteTick += () => { TickSound?.Start(); };
                 //rendererHand.HourTick += (_) => { chimeSound?.Start(); };
-
                 UpdateMesh();
             }
         }
 
-        public virtual bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
-        {
-            if (dialogClock == null && Api.Side == EnumAppSide.Client)
-            {
-                dialogClock = new GuiDialogClock(inventory, Pos, (ICoreClientAPI)Api);
-                dialogClock.OnOpened += () =>
-                {
-                    //openSound?.Start();
-                };
-                dialogClock.OnClosed += () =>
-                {
-                    //closeSound?.Start();
-                };
-            }
-
-            if (Api.Side == EnumAppSide.Client)
-            {
-                dialogClock?.TryOpen();
-            }
-            return false;
-        }
-
+        public abstract bool OnInteract(IPlayer byPlayer, BlockSelection blockSel);
+       
         #region meshing
 
         public MeshData GenBaseMesh(ITesselatorAPI tesselator)
@@ -190,13 +156,13 @@ namespace DecoClock
 
         public MeshData? GetItemMesh(string item)
         {
-            if (inventory != null)
+            if (Inventory != null)
             {
-                var inv = inventory.TryGetPart(item);
+                var inv = Inventory.TryGetPart(item);
                 if (inv != null)
                 {
                     ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
-                    string path = this.Path+$"{item}.json";
+                    string path = this.PathBlock + $"{item}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
                     tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
@@ -207,13 +173,13 @@ namespace DecoClock
 
         public MeshData? GetItemMesh(string item, string part)
         {
-            if (inventory != null)
+            if (Inventory != null)
             {
-                var inv = inventory.TryGetPart(item);
+                var inv = Inventory.TryGetPart(item);
                 if (inv != null)
                 {
                     ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
-                    string path = this.Path + $"{part}.json";
+                    string path = this.PathBlock + $"{part}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
                     tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
@@ -226,7 +192,7 @@ namespace DecoClock
         public MeshData? GetMesh(string part)
         {
             ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
-            string path = this.Path + $"{part}.json";
+            string path = this.PathBlock + $"{part}.json";
             Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
             tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
             return mesh;
@@ -234,9 +200,9 @@ namespace DecoClock
 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            if (baseMesh != null)
+            if (BaseMesh != null)
             {
-                mesher.AddMeshData(baseMesh);
+                mesher.AddMeshData(BaseMesh);
             }
             return true;
         }
@@ -245,7 +211,7 @@ namespace DecoClock
         {
             tesselator ??= ((ICoreClientAPI)Api).Tesselator;
             MeshData mesh = GenBaseMesh(tesselator);
-            baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
         }
 
         private void OnSlotModifid(int slot)
@@ -269,10 +235,18 @@ namespace DecoClock
             });
 
         }
+        public abstract void RegisterRenderer();
+        //{
+
+        //        capi.Event.RegisterRenderer(rendererHand =
+        //            new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
+        //        rendererHand.MinuteTick += () => { TickSound?.Start();
+
+        //}
 
         public void DropContents()
         {
-            inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            Inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
         }
 
         #region Events
@@ -282,7 +256,7 @@ namespace DecoClock
         {
             if (packetid < 1000)
             {
-                inventory.InvNetworkUtil.HandleClientPacket(player, packetid, data);
+                Inventory.InvNetworkUtil.HandleClientPacket(player, packetid, data);
                 // Tell server to save this chunk to disk again
                 Api.World.BlockAccessor.GetChunkAtBlockPos(Pos.X, Pos.Y, Pos.Z).MarkModified();
                 MarkDirty(true);
@@ -296,18 +270,14 @@ namespace DecoClock
                 {
                     return;
                 }
-                inventoryManager.OpenInventory(inventory);
+                inventoryManager.OpenInventory(Inventory);
             }
 
             if (packetid == 1001)
             {
                 IPlayerInventoryManager inventoryManager = player.InventoryManager;
-                if (inventoryManager != null)
-                {
-                    inventoryManager.CloseInventory(inventory);
-                }
+                inventoryManager?.CloseInventory(Inventory);
             }
-
             base.OnReceivedClientPacket(player, packetid, data);
 
         }
@@ -319,7 +289,7 @@ namespace DecoClock
             base.FromTreeAttributes(tree, worldForResolving);
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
             InitInventory();
-            inventory.FromTreeAttributes(tree);
+            Inventory.FromTreeAttributes(tree);
             if (Api is ICoreClientAPI)
             {
                 UpdateMesh();
@@ -332,7 +302,7 @@ namespace DecoClock
             //  Api.World.Logger.Warning("To tree attributes");
             base.ToTreeAttributes(tree);
             tree.SetFloat("meshAngle", MeshAngle);
-            inventory?.ToTreeAttributes(tree);
+            Inventory?.ToTreeAttributes(tree);
         }
 
         public override void OnBlockRemoved()
@@ -340,14 +310,6 @@ namespace DecoClock
             base.OnBlockRemoved();
             TickSound?.Stop();
             TickSound?.Dispose();
-            //openSound?.Stop();
-            //openSound?.Dispose();
-            //closeSound?.Stop();
-            //closeSound?.Dispose();
-            //chimeSound?.Stop();
-            //chimeSound?.Dispose();
-            dialogClock?.TryClose();
-            rendererHand?.Dispose();
         }
 
         public override void OnBlockBroken(IPlayer? byPlayer = null)
@@ -355,7 +317,7 @@ namespace DecoClock
             base.OnBlockBroken(byPlayer);
             if (Api.World is IServerWorldAccessor)
             {
-                inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                Inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
             }
         }
 
@@ -364,11 +326,7 @@ namespace DecoClock
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
-            rendererHand?.Dispose();
             TickSound?.Dispose();
-            //openSound?.Dispose();
-            //closeSound?.Dispose();
-            //chimeSound?.Dispose();
         }
     }
 }

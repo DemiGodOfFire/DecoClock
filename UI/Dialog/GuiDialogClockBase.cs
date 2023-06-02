@@ -9,7 +9,7 @@ namespace DecoClock
         internal InventoryClock Inventory { get; set; }
         internal BlockPos Pos { get; set; }
 
-        public GuiDialogClockBase(InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(Core.ModId + ":fatherclock-title", capi)
+        public GuiDialogClockBase(string dialogTitle,InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, capi)
         {
             Inventory = inventory;
             Pos = blockEntityPos;
@@ -23,10 +23,8 @@ namespace DecoClock
             // inventory.SlotModified += OnSlotModifid;
             return base.TryOpen();
         }
-        public virtual void ComposeDialog()
-        {
+        public abstract void ComposeDialog();
 
-        }
         public override void OnFinalizeFrame(float dt)
         {
             base.OnFinalizeFrame(dt);

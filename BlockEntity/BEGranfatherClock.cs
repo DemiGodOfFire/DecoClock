@@ -208,7 +208,7 @@ namespace DecoClock
         {
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
-                dialogClock = new GuiDialogGrandfatherClock(inventory, Pos, (ICoreClientAPI)Api);
+                dialogClock = new GuiDialogGrandfatherClock(Core.ModId + ":fatherclock-title", inventory, Pos, (ICoreClientAPI)Api);
                 dialogClock.OnOpened += () =>
                 {
                     openSound?.Start();

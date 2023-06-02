@@ -6,7 +6,8 @@ namespace DecoClock
     //internal class GuiDialogClock :  GuiDialogBlockEntity
     internal class GuiDialogGrandfatherClock : GuiDialogClockBase
     {
-        public GuiDialogGrandfatherClock(InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(inventory, blockEntityPos, capi)
+        public GuiDialogGrandfatherClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi)
+            : base(dialogTitle, inventory, blockEntityPos, capi)
         {
            
         }

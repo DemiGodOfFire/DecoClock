@@ -10,9 +10,9 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    internal class GuiDialogClock: GuiDialogClockBase
+    internal class GuiDialogBigClock: GuiDialogClockBase
     {
-        public GuiDialogClock(InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(inventory, blockEntityPos, capi)
+        public GuiDialogBigClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, inventory, blockEntityPos, capi)
         {
 
         }
