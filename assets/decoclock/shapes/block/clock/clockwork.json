@@ -1,0 +1,68 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 16.0, 16.0, 16.0 ],
+			"rotationOrigin": [ 8.0, 0.0, 0.0 ],
+			"faces": {
+				"north": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"east": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"south": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"west": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"up": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"down": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+			}
+		},
+		{
+			"name": "tribe",
+			"from": [ 7.25, 7.25, 16.0 ],
+			"to": [ 8.75, 8.75, 17.5 ],
+			"rotationOrigin": [ 7.7, 7.7, 16.0 ],
+			"faces": {
+				"east": { "texture": "#clockwork", "uv": [ 1.0, 13.5, 2.5, 15.0 ] },
+				"south": { "texture": "#clockwork", "uv": [ 0.0, 0.0, 1.5, 1.5 ] },
+				"west": { "texture": "#clockwork", "uv": [ 11.5, 13.5, 13.0, 15.0 ] },
+				"up": { "texture": "#clockwork", "uv": [ 1.5, 5.0, 3.0, 6.5 ] },
+				"down": { "texture": "#clockwork", "uv": [ 2.5, 13.5, 4.0, 15.0 ] }
+			},
+			"children": [
+				{
+					"name": "tribe1",
+					"from": [ 0.25, 0.25, 1.5 ],
+					"to": [ 1.25, 1.25, 2.0 ],
+					"rotationOrigin": [ 0.75, 0.75, 0.5 ],
+					"faces": {
+						"east": { "texture": "#clockwork", "uv": [ 1.0, 13.5, 1.5, 14.5 ] },
+						"west": { "texture": "#clockwork", "uv": [ 11.5, 13.5, 12.0, 14.5 ] },
+						"up": { "texture": "#clockwork", "uv": [ 1.5, 5.0, 2.5, 5.5 ] },
+						"down": { "texture": "#clockwork", "uv": [ 2.5, 13.5, 3.5, 14.0 ] }
+					}
+				},
+				{
+					"name": "tribe2",
+					"from": [ -0.25, -0.25, 2.0 ],
+					"to": [ 1.75, 1.75, 2.2 ],
+					"rotationOrigin": [ -0.25, -0.25, 2.0 ],
+					"faces": {
+						"north": { "texture": "#clockwork", "uv": [ 0.0, 8.5, 2.0, 10.5 ] },
+						"east": { "texture": "#clockwork", "uv": [ 4.5, 12.5, 5.0, 14.5 ] },
+						"south": { "texture": "#clockwork", "uv": [ 10.5, 12.5, 12.5, 14.5 ] },
+						"west": { "texture": "#clockwork", "uv": [ 4.5, 9.0, 5.0, 11.0 ] },
+						"up": { "texture": "#clockwork", "uv": [ 13.0, 12.0, 15.0, 12.5 ] },
+						"down": { "texture": "#clockwork", "uv": [ 3.5, 10.5, 5.5, 11.0 ] }
+					}
+				}
+			]
+		}
+	]}

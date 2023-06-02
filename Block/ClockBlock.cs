@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -16,7 +14,7 @@ namespace DecoClock
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             if (!world.Claims.TryAccess(byPlayer, blockSel.Position, EnumBlockAccessFlags.BuildOrBreak)) { return false; }
-            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEClock be)
+            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEBigClock be)
             {
                 return be.OnInteract(byPlayer, blockSel);
             }
@@ -29,9 +27,11 @@ namespace DecoClock
 
             if (val)
             {
-                if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEClock be)
+                if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEBigClock be)
                 {
-                    be.meshAngle = 90 * SuggestedHVOrientation(byPlayer, blockSel).First().Index;
+                    float deg90 = (float)Math.PI / 2;
+                    be.meshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90;
+                    //be.meshAngle = SuggestedHVOrientation(byPlayer, blockSel).First().Index * (float)Math.PI/2;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();

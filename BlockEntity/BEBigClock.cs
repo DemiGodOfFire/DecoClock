@@ -7,10 +7,10 @@ using Vintagestory.API.Server;
 
 namespace DecoClock
 {
-    internal abstract class BEClock : BlockEntity, ITexPositionSource
+    internal class BEBigClock : BlockEntity, ITexPositionSource
     {
-        ITexPositionSource TextureSource { get; set; }
-        ILoadedSound TickSound { get; set; }
+        ITexPositionSource textureSource = null!;
+        ILoadedSound tickSound = null!;
         //ILoadedSound chimeSound = null!;
 
         MeshData? baseMesh;
@@ -18,18 +18,19 @@ namespace DecoClock
         GuiDialogClock dialogClock = null!;
         ClockRenderer rendererHand = null!;
 
-        public Size2i AtlasSize => TextureSource.AtlasSize;
+        public Size2i AtlasSize => textureSource.AtlasSize;
         List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
 
         readonly List<ClockItem> _parts = new();
 
-        public float MeshAngle { get; set; }
-        public string Path { get; set; }
+        public float meshAngle;
+        internal string path;
 
         protected virtual void AddParts()
         {
             _parts.Add(new("hourhand"));
             _parts.Add(new("minutehand"));
+            _parts.Add(new("disguise"));
             _parts.Add(new("tickmarks"));
         }
 
@@ -82,7 +83,7 @@ namespace DecoClock
                         return GetOrCreateTexPos(texturePath, capi);
                     }
                 }
-                return TextureSource[textureCode];
+                return textureSource[textureCode];
             }
         }
 
@@ -113,7 +114,7 @@ namespace DecoClock
 
         public override void Initialize(ICoreAPI api)
         {
-            Path = "decoclock:shapes/block/clock/";
+            path = "decoclock:shapes/block/clock/";
             base.Initialize(api);
 
             if (inventory != null)
@@ -134,8 +135,8 @@ namespace DecoClock
                 capi.Event.RegisterRenderer(rendererHand =
                     new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
 
-                TextureSource = capi.Tesselator.GetTextureSource(Block);
-                rendererHand.MinuteTick += () => { TickSound?.Start(); };
+                textureSource = capi.Tesselator.GetTextureSource(Block);
+                rendererHand.MinuteTick += () => { tickSound?.Start(); };
                 //rendererHand.HourTick += (_) => { chimeSound?.Start(); };
 
                 UpdateMesh();
@@ -196,7 +197,7 @@ namespace DecoClock
                 if (inv != null)
                 {
                     ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
-                    string path = this.Path+$"{item}.json";
+                    string path = this.path+$"{item}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
                     tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
@@ -213,7 +214,7 @@ namespace DecoClock
                 if (inv != null)
                 {
                     ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
-                    string path = this.Path + $"{part}.json";
+                    string path = this.path + $"{part}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
                     tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
@@ -226,7 +227,7 @@ namespace DecoClock
         public MeshData? GetMesh(string part)
         {
             ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
-            string path = this.Path + $"{part}.json";
+            string path = this.path + $"{part}.json";
             Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
             tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
             return mesh;
@@ -245,7 +246,9 @@ namespace DecoClock
         {
             tesselator ??= ((ICoreClientAPI)Api).Tesselator;
             MeshData mesh = GenBaseMesh(tesselator);
-            baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            baseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, meshAngle, 0);
+            //rendererHand.Update(GetItemMesh("hourhand"), 0.11f, GetItemMesh("minutehand"), 0.101f, 1f, meshAngle);
+            rendererHand.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.62f, 0f, meshAngle);
         }
 
         private void OnSlotModifid(int slot)
@@ -257,7 +260,7 @@ namespace DecoClock
 
         public virtual void LoadSound(ICoreClientAPI capi)
         {
-            TickSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
+            tickSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
             {
                 Location = new AssetLocation("decoclock:sounds/ticking"),
                 ShouldLoop = false,
@@ -317,7 +320,7 @@ namespace DecoClock
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
-            MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
+            meshAngle = tree.GetFloat("meshAngle", meshAngle);
             InitInventory();
             inventory.FromTreeAttributes(tree);
             if (Api is ICoreClientAPI)
@@ -331,15 +334,15 @@ namespace DecoClock
         {
             //  Api.World.Logger.Warning("To tree attributes");
             base.ToTreeAttributes(tree);
-            tree.SetFloat("meshAngle", MeshAngle);
+            tree.SetFloat("meshAngle", meshAngle);
             inventory?.ToTreeAttributes(tree);
         }
 
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-            TickSound?.Stop();
-            TickSound?.Dispose();
+            tickSound?.Stop();
+            tickSound?.Dispose();
             //openSound?.Stop();
             //openSound?.Dispose();
             //closeSound?.Stop();
@@ -365,7 +368,7 @@ namespace DecoClock
         {
             base.OnBlockUnloaded();
             rendererHand?.Dispose();
-            TickSound?.Dispose();
+            tickSound?.Dispose();
             //openSound?.Dispose();
             //closeSound?.Dispose();
             //chimeSound?.Dispose();

@@ -2,7 +2,7 @@
 
 namespace DecoClock
 {
-    internal class BEWallClock:BEClock
+    internal class BEWallClock:BEBigClock
     {
 
     }

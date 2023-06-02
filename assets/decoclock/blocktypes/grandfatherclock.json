@@ -15,8 +15,7 @@
 		{ "code": "wood", "states": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] }
 	],
 	"creativeinventory": { "general": ["*"], "decorative": ["*"], "decoclock": ["*"] },
-	"blockmaterial": "Wood",
-	
+	"blockmaterial": "Wood",	
 	"shape": { "base": "block/grandfatherclock/complete"},
 	
 	"textures": {

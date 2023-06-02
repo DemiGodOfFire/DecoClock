@@ -22,6 +22,7 @@ namespace DecoClock
             Parts.Add("minutehand", new());
             Parts.Add("clockparts", new());
             Parts.Add("doorglass", new());
+            Parts.Add("disguise", new());
 
             foreach (var item in api.World.Items)
             {

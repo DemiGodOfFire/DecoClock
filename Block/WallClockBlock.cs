@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -6,7 +7,7 @@ namespace DecoClock
     internal class WallClockBlock : ClockBlock
     {
         string code;
-        int meshAngle;
+        float meshAngle;
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -49,7 +50,7 @@ namespace DecoClock
         {
             BlockFacing[] horVer = SuggestedHVOrientation(byPlayer, blockSel);
             code = horVer[0].Opposite.Code;
-            meshAngle = 90 * horVer[0].Opposite.Index;
+            meshAngle = horVer[0].Opposite.Index * (float)Math.PI / 2f;
             bool ret = AbleToAttach(world, code, blockSel.Position);
             if (!ret)
             {

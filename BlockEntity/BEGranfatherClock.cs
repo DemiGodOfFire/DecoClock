@@ -18,7 +18,7 @@ namespace DecoClock
 
         MeshData? baseMesh;
         InventoryClock inventory = null!;
-        GuiDialogClock dialogClock = null!;
+        GuiDialogGrandfatherClock dialogClock = null!;
         ClockHandRenderer rendererHand = null!;
         PendulumRenderer rendererPendulum = null!;
         GrandfatherClockDoorRenderer rendererDoor = null!;
@@ -208,7 +208,7 @@ namespace DecoClock
         {
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
-                dialogClock = new GuiDialogClock(inventory, Pos, (ICoreClientAPI)Api);
+                dialogClock = new GuiDialogGrandfatherClock(inventory, Pos, (ICoreClientAPI)Api);
                 dialogClock.OnOpened += () =>
                 {
                     openSound?.Start();

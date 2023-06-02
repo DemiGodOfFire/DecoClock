@@ -1,18 +1,19 @@
 {
-	"ingredientPattern": "GGG,PGP,GGG",
+	"ingredientPattern": "GGG,PMP,GGG",
 	"ingredients": {
-		"G": { "type": "item", "code": "gear-iron" },
+		"G": { "type": "item", "code": "gear-iron"},
 		"P": { 
 			"type": "item",
 			"code": "game:metalplate-*",
 			"name": "material",
-			"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ]},
+			"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
+			"quantity": 3},
+		"M": {"type": "item", "code": "metal-part"}
 	},
 	"width": 3,
 	"height": 3,
 	"output": { 
-		"type": "item", 
+		"type": "block", 
 		"code": "clockwork-{material}"
-		
 	}
 }

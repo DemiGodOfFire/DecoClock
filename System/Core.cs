@@ -9,14 +9,12 @@ namespace DecoClock
         public override void Start(ICoreAPI api)
         {
             ModId = Mod.Info.ModID;
-            api.RegisterBlockClass("rotatableclock", typeof(GrandfatherClockBlock));
+            api.RegisterBlockClass("clock", typeof(ClockBlock));
             api.RegisterBlockClass("wallclock", typeof(WallClockBlock));
-            api.RegisterBlockClass("bewallclock", typeof(BEClock));
-
-            //api.RegisterBlockClass("alarmclock", typeof(AlarmClock));
-            //api.RegisterBlockEntityClass("beclock", typeof(BEClock));
+            api.RegisterBlockClass("grandfatherclock", typeof(GrandfatherClockBlock));
+            api.RegisterBlockEntityClass("bebigclock", typeof(BEBigClock));
+            api.RegisterBlockEntityClass("bewallclock", typeof(BEWallClock));
             api.RegisterBlockEntityClass("begrandfatherclock", typeof(BEGrandfatherClock));
-
         }
     }
 }
