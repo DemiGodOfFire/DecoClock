@@ -30,7 +30,7 @@ namespace DecoClock
                     float angleHor = (float)Math.Atan2(dx, dz);
                     float deg22dot5rad = GameMath.PIHALF / 4;
                     float roundRad = (int)Math.Round(angleHor / deg22dot5rad) * deg22dot5rad;
-                    be.meshAngle = roundRad;
+                    be.MeshAngle = roundRad;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();

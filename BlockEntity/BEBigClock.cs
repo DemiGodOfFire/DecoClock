@@ -5,8 +5,8 @@ namespace DecoClock
 {
     internal class BEBigClock : BEClock
     {
-        GuiDialogBigClock dialogClock;
-        ClockRenderer rendererClock;
+        GuiDialogBigClock? dialogClock;
+        ClockRenderer? rendererClock;
         public override string PathBlock => "decoclock:shapes/block/clock/";
 
         public override void AddParts()
@@ -23,14 +23,14 @@ namespace DecoClock
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
                 dialogClock = new GuiDialogBigClock(Core.ModId + ":bigclock-title", Inventory, Pos, (ICoreClientAPI)Api);
-                dialogClock.OnOpened += () =>
-                {
-                    //openSound?.Start();
-                };
-                dialogClock.OnClosed += () =>
-                {
-                    //closeSound?.Start();
-                };
+                //dialogClock.OnOpened += () =>
+                //{
+                //    //openSound?.Start();
+                //};
+                //dialogClock.OnClosed += () =>
+                //{
+                //    //closeSound?.Start();
+                //};
             }
 
             if (Api.Side == EnumAppSide.Client)
@@ -47,13 +47,13 @@ namespace DecoClock
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
             base.UpdateMesh(tesselator);
-            rendererClock.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.62f, 0f, MeshAngle);
+            rendererClock?.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.62f, 0f, MeshAngle);
         }
 
 
         #endregion
 
-        public virtual void LoadSound(ICoreClientAPI capi)
+        public override void LoadSound(ICoreClientAPI capi)
         {
             TickSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
             {
@@ -68,8 +68,6 @@ namespace DecoClock
 
         }
 
-
-
         public override void RegisterRenderer(ICoreClientAPI capi)
         {
             capi.Event.RegisterRenderer(rendererClock = new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
@@ -78,40 +76,18 @@ namespace DecoClock
                 TickSound?.Start();
             };
         }
-
-        public void DropContents()
-        {
-            Inventory?.DropAll(Pos.ToVec3d().Add(0.5, 0.5, 0.5));
-        }
-
-        #region Events
-
-
+            
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-            //openSound?.Stop();
-            //openSound?.Dispose();
-            //closeSound?.Stop();
-            //closeSound?.Dispose();
-            //chimeSound?.Stop();
-            //chimeSound?.Dispose();
             dialogClock?.TryClose();
             rendererClock?.Dispose();
         }
-
-
-        #endregion
-
+      
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
             rendererClock?.Dispose();
-            //openSound?.Dispose();
-            //closeSound?.Dispose();
-            //chimeSound?.Dispose();
         }
-
-
     }
 }

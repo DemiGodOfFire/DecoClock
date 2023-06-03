@@ -1,4 +1,5 @@
 using System;
+using System.IO.Ports;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 
@@ -66,7 +67,7 @@ namespace DecoClock
                 MinuteTick?.Invoke();
             }
 
-            BuildRenderer(minuteRad, hourRad);
+            AddRenderer(hourRad, minuteRad);
         }
 
         public virtual void Update(MeshData? hourHand, float dzHour, MeshData? minuteHand, float dzMinute, float dy, float meshAngle)
@@ -92,7 +93,7 @@ namespace DecoClock
             }
         }
 
-        internal virtual void BuildRenderer(float minuteRad, float hourRad)
+        public virtual void AddRenderer(float hourRad, float minuteRad)
         {
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
@@ -101,40 +102,39 @@ namespace DecoClock
 
             IStandardShaderProgram handShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
             handShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
-           
+
+            BuildShader(rpi, camPos, handShader, hourRad, minuteRad);
+
+            handShader.Stop();
+        }
+
+        public virtual void BuildShader(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram handShader, float hourRad, float minuteRad)
+        {
             if (hourHand != null)
             {
-                handShader.ModelMatrix = modelMat
-                .Identity()
-                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-                .Translate(0.5f, 0.5f + dy, 0.5f)
-                .RotateY(meshAngle)
-                .RotateZ(-hourRad)
-                //.Translate(-0.5f, 0f, -0.61f)
-                .Translate(-0.5f, -0.5f, -0.5f + dzHour)
-                .Values;
-                handShader.ViewMatrix = rpi.CameraMatrixOriginf;
-                handShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                rpi.RenderMesh(hourHand);
+                HandRender(rpi, camPos, handShader, hourHand, hourRad, dzHour);
             }
 
             if (minuteHand != null)
             {
-                handShader.ModelMatrix = modelMat
-                .Identity()
-                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-                .Translate(0.5f, 0.5f + dy, 0.5f)
-                .RotateY(meshAngle)
-                .RotateZ(-minuteRad)
-                //.Translate(-0.5f, 0f, -0.601f)
-                .Translate(-0.5f, -0.5f, -0.5f + dzMinute)
-                .Values;
-                handShader.ViewMatrix = rpi.CameraMatrixOriginf;
-                handShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                rpi.RenderMesh(minuteHand);
+                HandRender(rpi, camPos, handShader, minuteHand, minuteRad, dzMinute);
             }
+        }
 
-            handShader.Stop();
+        public virtual void HandRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram handShader, MeshRef mesh, float angleRad, float dz)
+        {
+            handShader.ModelMatrix = modelMat
+               .Identity()
+               .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
+               .Translate(0.5f, 0.5f + dy, 0.5f)
+               .RotateY(meshAngle)
+               .RotateZ(-angleRad)
+               //.Translate(-0.5f, 0f, -0.601f)
+               .Translate(-0.5f, -0.5f, -0.5f + dz)
+               .Values;
+            handShader.ViewMatrix = rpi.CameraMatrixOriginf;
+            handShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+            rpi.RenderMesh(mesh);
         }
 
         public virtual void Dispose()
