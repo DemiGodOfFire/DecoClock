@@ -1,10 +1,6 @@
 using DecoClock.Render;
-using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Datastructures;
-using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 
 namespace DecoClock
 {
@@ -23,7 +19,7 @@ namespace DecoClock
 
         private bool isWork;
         public float timeWork;
-        
+
         public override void AddParts()
         {
             _parts.Add(new("clockwork"));
@@ -35,7 +31,7 @@ namespace DecoClock
             _parts.Add(new("doorglass"));
         }
 
-      
+
 
         public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -71,9 +67,9 @@ namespace DecoClock
             rendererDoor.Update(GetMesh("door"), MeshAngle);
             rendererPendulum.Update(GetItemMesh("clockparts", "pendulum"),
                 GetItemMesh("clockparts", "weight"), MeshAngle);
-            
+
         }
-       
+
 
         #endregion
 

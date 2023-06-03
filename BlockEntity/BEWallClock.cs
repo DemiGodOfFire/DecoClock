@@ -13,6 +13,7 @@ namespace DecoClock
 
         public override void AddParts()
         {
+            _parts.Add(new("clockwork"));
             _parts.Add(new("hourhand"));
             _parts.Add(new("minutehand"));
             _parts.Add(new("dialglass"));
@@ -43,7 +44,7 @@ namespace DecoClock
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
             base.UpdateMesh(tesselator);
-            rendererClock?.Update(GetItemMesh("hourhand"), -0.45f, GetItemMesh("minutehand"), -0.42f, 0f, MeshAngle);
+            rendererClock?.Update(GetItemMesh("hourhand"), 0.005f, GetItemMesh("minutehand"), 0.005f, 0f, MeshAngle);
         }
 
         public override void RegisterRenderer(ICoreClientAPI capi)

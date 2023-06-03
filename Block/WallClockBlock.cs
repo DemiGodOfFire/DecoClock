@@ -6,7 +6,7 @@ namespace DecoClock
 {
     internal class WallClockBlock : ClockBlock
     {
-        int code;
+        string code;
         float meshAngle;
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
@@ -19,12 +19,12 @@ namespace DecoClock
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
 
-        public bool AbleToAttach(IWorldAccessor world, int rotation, BlockPos blockPos)
+        public bool AbleToAttach(IWorldAccessor world, string rotation, BlockPos blockPos)
         {
-            if (rotation == 0) return world.BlockAccessor.GetBlock(blockPos.NorthCopy()).SideSolid[BlockFacing.SOUTH.Index];
-            if (rotation == 1) return world.BlockAccessor.GetBlock(blockPos.WestCopy()).SideSolid[BlockFacing.EAST.Index];
-            if (rotation == 2) return world.BlockAccessor.GetBlock(blockPos.SouthCopy()).SideSolid[BlockFacing.NORTH.Index];
-            if (rotation == 3) return world.BlockAccessor.GetBlock(blockPos.EastCopy()).SideSolid[BlockFacing.WEST.Index];
+            if (rotation == "north") return world.BlockAccessor.GetBlock(blockPos.SouthCopy()).SideSolid[BlockFacing.NORTH.Index];
+            if (rotation == "east") return world.BlockAccessor.GetBlock(blockPos.WestCopy()).SideSolid[BlockFacing.EAST.Index];
+            if (rotation == "south") return world.BlockAccessor.GetBlock(blockPos.NorthCopy()).SideSolid[BlockFacing.SOUTH.Index];
+            if (rotation == "west") return world.BlockAccessor.GetBlock(blockPos.EastCopy()).SideSolid[BlockFacing.WEST.Index];
             return false;
         }
 
@@ -36,7 +36,8 @@ namespace DecoClock
             {
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEWallClock be)
                 {
-                    be.MeshAngle = meshAngle;
+                    float deg90 = GameMath.PIHALF;
+                    be.MeshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90; ;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
@@ -48,10 +49,9 @@ namespace DecoClock
         }
         public override bool TryPlaceBlock(IWorldAccessor world, IPlayer byPlayer, ItemStack itemstack, BlockSelection blockSel, ref string failureCode)
         {
-            float deg90 = GameMath.PIHALF;
             BlockFacing[] horVer = SuggestedHVOrientation(byPlayer, blockSel);
-            code = (int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1;
-            meshAngle = code * deg90;
+            code = horVer[0].Opposite.Code;
+            meshAngle =  horVer[0].Opposite.Index *(float) Math.PI / 2f;
             bool ret = AbleToAttach(world, code, blockSel.Position);
             if (!ret)
             {

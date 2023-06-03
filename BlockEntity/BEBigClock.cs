@@ -8,6 +8,7 @@ namespace DecoClock
         GuiDialogBigClock? dialogClock;
         ClockRenderer? rendererClock;
         public override string PathBlock => "decoclock:shapes/block/clock/";
+        public int Radius { get; set; }
 
         public override void AddParts()
         {
@@ -61,8 +62,8 @@ namespace DecoClock
                 ShouldLoop = false,
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,
-                Volume = 0.5f,
-                Range = 16f,
+                Volume = 1f,
+                Range = 48f,
                 SoundType = EnumSoundType.Ambient
             });
 

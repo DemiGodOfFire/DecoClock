@@ -13,6 +13,7 @@ namespace DecoClock
         {
             ElementBounds clockBounds = ElementBounds.Fixed(0.0, 0.0, 200.0, 290.0);
             ElementBounds tickMarksSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 30.0, 1, 1);
+            ElementBounds clockWork = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 30.0, 1, 1);
             ElementBounds hourHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 110.0, 1, 1);
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 110.0, 1, 1);
             ElementBounds dialGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 190.0, 1, 1);
@@ -29,11 +30,11 @@ namespace DecoClock
                 .AddDialogBG(bgBounds, true)
             .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 0 }, hourHandBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, minuteHandBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, dialGlassSlotBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, tickMarksSlotBounds)
-
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 0 }, clockWork)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, hourHandBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, minuteHandBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, dialGlassSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, tickMarksSlotBounds)
                 .EndChildElements()
                 .Compose();
         }

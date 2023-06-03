@@ -31,7 +31,6 @@ namespace DecoClock
                 {
                     float deg90 = GameMath.PIHALF;
                     be.MeshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90;
-                    //be.meshAngle = SuggestedHVOrientation(byPlayer, blockSel).First().Index * (float)Math.PI/2;
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
