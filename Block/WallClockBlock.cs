@@ -21,9 +21,9 @@ namespace DecoClock
 
         public bool AbleToAttach(IWorldAccessor world, int rotation, BlockPos blockPos)
         {
-            if (rotation == 0) return world.BlockAccessor.GetBlock(blockPos.SouthCopy()).SideSolid[BlockFacing.NORTH.Index];
+            if (rotation == 0) return world.BlockAccessor.GetBlock(blockPos.NorthCopy()).SideSolid[BlockFacing.SOUTH.Index];
             if (rotation == 1) return world.BlockAccessor.GetBlock(blockPos.WestCopy()).SideSolid[BlockFacing.EAST.Index];
-            if (rotation == 2) return world.BlockAccessor.GetBlock(blockPos.NorthCopy()).SideSolid[BlockFacing.SOUTH.Index];
+            if (rotation == 2) return world.BlockAccessor.GetBlock(blockPos.SouthCopy()).SideSolid[BlockFacing.NORTH.Index];
             if (rotation == 3) return world.BlockAccessor.GetBlock(blockPos.EastCopy()).SideSolid[BlockFacing.WEST.Index];
             return false;
         }
