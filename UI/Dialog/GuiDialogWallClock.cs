@@ -8,6 +8,14 @@ namespace DecoClock
         public GuiDialogWallClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, inventory, blockEntityPos, capi)
         {
         }
+        public override string[] Parts { get; } = new string[]
+        {
+            "clockwork",
+            "tickmarks",
+            "hourhand",
+            "minutehand",
+            "dialglass"
+        };
 
         public override void ComposeDialog()
         {
@@ -17,6 +25,7 @@ namespace DecoClock
             ElementBounds hourHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 110.0, 1, 1);
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 110.0, 1, 1);
             ElementBounds dialGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 190.0, 1, 1);
+            ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 200, 26);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -31,10 +40,11 @@ namespace DecoClock
             .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 0 }, clockWork)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, hourHandBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, minuteHandBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, dialGlassSlotBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, tickMarksSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, tickMarksSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, hourHandBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, minuteHandBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, dialGlassSlotBounds)
+                    .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
                 .EndChildElements()
                 .Compose();
         }

@@ -1,13 +1,15 @@
-
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
     internal abstract class GuiDialogClockBase : GuiDialogGeneric
     {
-        internal InventoryClock Inventory { get; set; }
-        internal BlockPos Pos { get; set; }
+        protected BlockPos Pos { get; set; }
+        protected InventoryClock Inventory { get; set; }
+        public abstract string[] Parts { get;}
 
         public GuiDialogClockBase(string dialogTitle,InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, capi)
         {
@@ -20,7 +22,7 @@ namespace DecoClock
         public override bool TryOpen()
         {
             ComposeDialog();
-            // inventory.SlotModified += OnSlotModifid;
+            Inventory.SlotModified += OnSlotModified;
             return base.TryOpen();
         }
         public abstract void ComposeDialog();
@@ -37,9 +39,46 @@ namespace DecoClock
             }
         }
 
+
+        public override bool OnMouseEnterSlot(ItemSlot slot)
+        {
+            if (slot.Empty)
+            {
+                int i = Inventory.GetSlotId(slot);
+                if (i != -1)
+                {
+                    var hoverText = SingleComposer.GetHoverText("hover");
+                    hoverText.SetNewText(Lang.Get($"{Core.ModId}:{Parts[i]}"));
+                    hoverText.SetVisible(true);
+                }
+            }
+            return base.OnMouseEnterSlot(slot);
+        }
+
+        public override bool OnMouseLeaveSlot(ItemSlot itemSlot)
+        {
+            var hoverText = SingleComposer.GetHoverText("hover");
+            hoverText.SetVisible(false);
+            return base.OnMouseLeaveSlot(itemSlot);
+        }
+
+        private void OnSlotModified(int slot)
+        {
+            if (Inventory[slot].Empty)
+            {
+                var hoverText = SingleComposer.GetHoverText("hover");
+                hoverText.SetNewText(Lang.Get($"{Core.ModId}:{Parts[slot]}"));
+                hoverText.SetVisible(true);
+            }
+            else
+            {
+                var hoverText = SingleComposer.GetHoverText("hover");
+                hoverText.SetVisible(false);
+            }
+        }
+
         public override void OnGuiOpened()
         {
-            //inventory.Open(capi.World.Player);
             capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, 1000, null);
             capi.World.Player.InventoryManager.OpenInventory(Inventory);
         }
@@ -47,8 +86,7 @@ namespace DecoClock
         public override void OnGuiClosed()
         {
 
-            //inventory.SlotModified -= OnSlotModifid;
-            //inventory.Close(capi.World.Player);
+            Inventory.SlotModified -= OnSlotModified;
             capi.World.Player.InventoryManager.CloseInventory(Inventory);
             capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, 1001, null);
         }

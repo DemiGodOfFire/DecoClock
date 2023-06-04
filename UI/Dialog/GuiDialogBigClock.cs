@@ -13,6 +13,13 @@ namespace DecoClock
 
         }
 
+        public override string[] Parts { get; } = new string[]
+       {
+            "hourhand",
+            "minutehand",
+            "disguise",
+            "tickmarks"
+       };
 
         public override void ComposeDialog()
         {
@@ -22,6 +29,8 @@ namespace DecoClock
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 160.0, 110.0, 1, 1);
             ElementBounds disguiseSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 80.0, 190.0, 1, 1);
             ElementBounds radiusBounds = ElementBounds.Fixed(0, 250, 40, 30);
+            ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 200, 26);
+
             ElementBounds textBounds = ElementBounds.Fixed(0.0, 0.0, 20.0, 50.0);
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -39,11 +48,8 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, minuteHandBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, disguiseSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, tickMarksSlotBounds)
-                  
-                    .AddHoverText(Lang.Get("Hour hand"), CairoFont.WhiteSmallText(), Lang.Get("Hour hand").Length*9, hourHandBounds)
-                    .AddHoverText(Lang.Get("Minute hand"), CairoFont.WhiteSmallText(), Lang.Get("Minute hand").Length*9, minuteHandBounds)
-                    .AddHoverText(Lang.Get("Disguise"), CairoFont.WhiteSmallText(), Lang.Get("Disguise").Length*9, disguiseSlotBounds)
-                    .AddHoverText(Lang.Get("Dial"), CairoFont.WhiteSmallText(), Lang.Get("Dial").Length*9, tickMarksSlotBounds)
+                    .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
+
                     //.AddNumberInput(radiusBounds,OnRadiusChanged)
                     .AddSlider(OnRadiusChanged,radiusBounds,"radius")
                 .EndChildElements()

@@ -1,13 +1,16 @@
 using Vintagestory.API.Client;
-using Vintagestory.API.Common;
-using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
     internal class GuiDialogGrandfatherClock : GuiDialogClockBase
     {
-        readonly string[] parts =
+        public GuiDialogGrandfatherClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi)
+            : base(dialogTitle, inventory, blockEntityPos, capi)
+        {
+        }
+
+        public override string[] Parts { get; } = new string[]
         {
             "clockwork",
             "tickmarks",
@@ -17,60 +20,6 @@ namespace DecoClock
             "clockparts",
             "doorglass"
         };
-
-        public GuiDialogGrandfatherClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi)
-            : base(dialogTitle, inventory, blockEntityPos, capi)
-        {
-        }
-
-        public override bool TryOpen()
-        {
-             Inventory.SlotModified += OnSlotModified;
-            return base.TryOpen();
-        }
-
-        public override void OnGuiClosed()
-        {
-            Inventory.SlotModified -= OnSlotModified;
-            base.OnGuiClosed();
-        }
-
-        private void OnSlotModified(int slot)
-        {
-            if (Inventory[slot].Empty)
-            {
-                var hoverText = SingleComposer.GetHoverText("hover");
-                hoverText.SetNewText(Lang.Get($"{Core.ModId}:{parts[slot]}"));
-                hoverText.SetVisible(true);
-            }
-            else
-            {
-                var hoverText = SingleComposer.GetHoverText("hover");
-                hoverText.SetVisible(false);
-            }
-        }
-
-        public override bool OnMouseEnterSlot(ItemSlot slot)
-        {
-            if (slot.Empty)
-            {
-                int i = Inventory.GetSlotId(slot);
-                if (i != -1)
-                {
-                    var hoverText = SingleComposer.GetHoverText("hover");
-                    hoverText.SetNewText(Lang.Get($"{Core.ModId}:{parts[i]}"));
-                    hoverText.SetVisible(true);
-                }
-            }
-            return base.OnMouseEnterSlot(slot);
-        }
-
-        public override bool OnMouseLeaveSlot(ItemSlot itemSlot)
-        {
-            var hoverText = SingleComposer.GetHoverText("hover");
-            hoverText.SetVisible(false);
-            return base.OnMouseLeaveSlot(itemSlot);
-        }
 
         public override void ComposeDialog()
         {
