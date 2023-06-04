@@ -1,8 +1,5 @@
-using System;
 using Vintagestory.API.Client;
-using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace DecoClock
 {
@@ -29,7 +26,7 @@ namespace DecoClock
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 160.0, 110.0, 1, 1);
             ElementBounds disguiseSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 80.0, 190.0, 1, 1);
             ElementBounds radiusBounds = ElementBounds.Fixed(0, 250, 40, 30);
-            ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 200, 26);
+            ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
 
             ElementBounds textBounds = ElementBounds.Fixed(0.0, 0.0, 20.0, 50.0);
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);

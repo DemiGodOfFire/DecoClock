@@ -11,7 +11,8 @@ namespace DecoClock
         protected InventoryClock Inventory { get; set; }
         public abstract string[] Parts { get;}
 
-        public GuiDialogClockBase(string dialogTitle,InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, capi)
+        public GuiDialogClockBase(string dialogTitle,InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) :
+            base(Lang.Get(dialogTitle), capi)
         {
             Inventory = inventory;
             Pos = blockEntityPos;

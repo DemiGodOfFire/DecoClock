@@ -33,7 +33,7 @@ namespace DecoClock
             ElementBounds dialGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 190.0, 1, 1);
             ElementBounds clockPartsSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 76.0, 190.0, 1, 1);
             ElementBounds doorGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 190.0, 1, 1);
-            ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 200, 26);
+            ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -42,7 +42,7 @@ namespace DecoClock
             ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog;
             IGuiAPI gui = this.capi.Gui;
 
-            SingleComposer = gui.CreateCompo(Core.ModId + ":fatherclock" + Pos, dialogBounds)
+            SingleComposer = gui.CreateCompo(Core.ModId + ":grandfatherclock" + Pos, dialogBounds)
                 .AddDialogBG(bgBounds, true)
                 .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)
