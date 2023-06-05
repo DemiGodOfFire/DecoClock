@@ -17,15 +17,15 @@ namespace DecoClock
     public class ClockItem
     {
         public string Type { get; private set; }
-        public string Dependency { get; private set; }
+        public string[] Dependent { get; private set; }
         public AssetLocation[]? Codes { get; set; }
 
         //public ClockItem() { }
-        public ClockItem(string type, string? dependency = null, AssetLocation[]? codes = null)
+        public ClockItem(string type, string[]? dependent = null, AssetLocation[]? codes = null)
         {
             Type = type;
             Codes = codes;
-            Dependency = dependency;
+            Dependent = dependent;
         }
     }
 
@@ -90,55 +90,55 @@ namespace DecoClock
             return null;
         }
 
-        /// <summary>
-        /// Take content and remove it if exist
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public ItemStack? TryTakePart(string type)
-        {
-            for (int i = 0; i < codes.Length; i++)
-            {
-                if (codes[i].Type == type)
-                {
-                    if (slots[i].Empty)
-                        return null;
-                    return slots[i].TakeOutWhole();
-                }
-            }
-            return null;
-        }
+        ///// <summary>
+        ///// Take content and remove it if exist
+        ///// </summary>
+        ///// <param name="type"></param>
+        ///// <returns></returns>
+        //public ItemStack? TryTakePart(string type)
+        //{
+        //    for (int i = 0; i < codes.Length; i++)
+        //    {
+        //        if (codes[i].Type == type)
+        //        {
+        //            if (slots[i].Empty)
+        //                return null;
+        //            return slots[i].TakeOutWhole();
+        //        }
+        //    }
+        //    return null;
+        //}
 
-        /// <summary>
-        /// Add part if suitable and return original content if exist 
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="content"></param>
-        /// <returns></returns>
-        public bool TryAddPart(ItemStack item, out ItemStack? content)
-        {
-            if (item != null)
-            {
-                for (int i = 0; i < codes.Length; i++)
-                {
-                    if (codes[i].Codes != null)
-                    {
-                        foreach (var code in codes[i].Codes)
-                        {
-                            if (code == item.Collectible.Code)
-                            {
-                                content = slots[i].Itemstack?.Clone();
-                                slots[i].Itemstack = item.Clone();
-                                slots[i].Itemstack.StackSize = 1;
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            content = null;
-            return false;
-        }
+        ///// <summary>
+        ///// Add part if suitable and return original content if exist 
+        ///// </summary>
+        ///// <param name="item"></param>
+        ///// <param name="content"></param>
+        ///// <returns></returns>
+        //public bool TryAddPart(ItemStack item, out ItemStack? content)
+        //{
+        //    if (item != null)
+        //    {
+        //        for (int i = 0; i < codes.Length; i++)
+        //        {
+        //            if (codes[i].Codes != null)
+        //            {
+        //                foreach (var code in codes[i].Codes)
+        //                {
+        //                    if (code == item.Collectible.Code)
+        //                    {
+        //                        content = slots[i].Itemstack?.Clone();
+        //                        slots[i].Itemstack = item.Clone();
+        //                        slots[i].Itemstack.StackSize = 1;
+        //                        return true;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    content = null;
+        //    return false;
+        //}
 
         public override void LateInitialize(string inventoryID, ICoreAPI api)
         {
@@ -148,10 +148,33 @@ namespace DecoClock
             {
                 slots[i].MaxSlotStackSize = 1;
             }
-            //slots[0].CanHold
+            
         }
 
+        public override bool CanContain(ItemSlot sinkSlot, ItemSlot sourceSlot)
+        {
+            var code = codes[sinkSlot.Inventory.GetSlotId(sinkSlot)].Type;
+            return code switch
+            {
+                "dialglass" or "doorglass" => "glass" == sourceSlot.Itemstack.Collectible.Code.FirstCodePart(),
+                "disguise" => MaxContentDimensions?.CanContain(sourceSlot.Itemstack.Collectible.Dimensions) ?? true,
+                _ => code == sourceSlot.Itemstack.Collectible.Code.FirstCodePart(),
+            };          
+        }
 
+        public override void OnItemSlotModified(ItemSlot slot)
+        {
+            //int id = slot.Inventory.GetSlotId(slot);
+            //string[] dependent = codes[id].Dependent;
+            //for (int i = 0; i < dependent.Length; i++)
+            //{
+                
+            //}
+        }
+        public override void DidModifyItemSlot(ItemSlot slot, ItemStack extractedStack = null)
+        {
+            base.DidModifyItemSlot(slot, extractedStack);
+        }
         //public override void ToTreeAttributes(ITreeAttribute invtree)
         //{
         //    base.ToTreeAttributes(invtree);

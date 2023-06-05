@@ -48,7 +48,7 @@ namespace DecoClock
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
             base.UpdateMesh(tesselator);
-            rendererClock?.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.62f, 0f, MeshAngle);
+            rendererClock?.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.61f, 0f, MeshAngle);
         }
 
 

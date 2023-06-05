@@ -46,7 +46,7 @@ namespace DecoClock
                 .AddDialogBG(bgBounds, true)
                 .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 0 }, clockworkSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 0 }, clockworkSlotBounds,"cw")
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, tickMarksSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, hourHandBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, minuteHandBounds)
@@ -58,5 +58,10 @@ namespace DecoClock
                 .EndChildElements()
                 .Compose();
         }
+
+        //void hj()
+        //{
+        //    SingleComposer.GetSlotGrid("").Bounds.bgDrawY
+        //}
     }
 }

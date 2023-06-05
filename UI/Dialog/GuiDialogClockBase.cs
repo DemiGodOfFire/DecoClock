@@ -20,6 +20,12 @@ namespace DecoClock
         public override double DrawOrder => 0.2;
         public override bool PrefersUngrabbedMouse => false;
 
+        public override void OnGuiOpened()
+        {
+            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, 1000, null);
+            capi.World.Player.InventoryManager.OpenInventory(Inventory);
+        }
+
         public override bool TryOpen()
         {
             ComposeDialog();
@@ -27,19 +33,6 @@ namespace DecoClock
             return base.TryOpen();
         }
         public abstract void ComposeDialog();
-
-        public override void OnFinalizeFrame(float dt)
-        {
-            base.OnFinalizeFrame(dt);
-            if (!IsInRangeOfBlock(Pos))
-            {
-                capi.Event.EnqueueMainThreadTask(delegate
-                {
-                    TryClose();
-                }, "closedlg");
-            }
-        }
-
 
         public override bool OnMouseEnterSlot(ItemSlot slot)
         {
@@ -78,10 +71,18 @@ namespace DecoClock
             }
         }
 
-        public override void OnGuiOpened()
+        //override SlotClick
+
+        public override void OnFinalizeFrame(float dt)
         {
-            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, 1000, null);
-            capi.World.Player.InventoryManager.OpenInventory(Inventory);
+            base.OnFinalizeFrame(dt);
+            if (!IsInRangeOfBlock(Pos))
+            {
+                capi.Event.EnqueueMainThreadTask(delegate
+                {
+                    TryClose();
+                }, "closedlg");
+            }
         }
 
         public override void OnGuiClosed()

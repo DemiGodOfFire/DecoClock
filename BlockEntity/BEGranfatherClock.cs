@@ -11,8 +11,8 @@ namespace DecoClock
         ILoadedSound chimeSound = null!;
 
         GuiDialogGrandfatherClock dialogClock = null!;
-        ClockHandRenderer rendererHand = null!;
-        PendulumRenderer rendererPendulum = null!;
+        ClockRenderer rendererClock = null!;
+        GrandfatherClockRenderer rendererPendulum = null!;
         GrandfatherClockDoorRenderer rendererDoor = null!;
         public override string PathBlock => "decoclock:shapes/block/grandfatherclock/";
 
@@ -63,13 +63,16 @@ namespace DecoClock
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
             base.UpdateMesh(tesselator);
-            rendererHand.Update(GetItemMesh("hourhand"), GetItemMesh("minutehand"), MeshAngle, IsWork());
+            rendererClock.Update(GetItemMesh("hourhand"), -0.11f,
+                GetItemMesh("minutehand"), -0.101f, 1f, MeshAngle);
             rendererDoor.Update(GetMesh("door"), MeshAngle);
-            rendererPendulum.Update(GetItemMesh("clockparts", "pendulum"),
-                GetItemMesh("clockparts", "weight"), MeshAngle);
-
+            rendererPendulum.Update(
+                GetItemMesh("hourhand"), -0.11f,
+                GetItemMesh("minutehand"), -0.101f, 1f,
+                GetItemMesh("clockparts", "pendulum"), -0.0625f, 0.625f,
+              //GetItemMesh("clockparts", "weight")
+                MeshAngle);
         }
-
 
         #endregion
 
@@ -110,14 +113,14 @@ namespace DecoClock
 
         public override void RegisterRenderer(ICoreClientAPI capi)
         {
-            capi.Event.RegisterRenderer(rendererHand =
-                new ClockHandRenderer(capi, Pos), EnumRenderStage.Opaque);
+            capi.Event.RegisterRenderer(rendererClock =
+                new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
             capi.Event.RegisterRenderer(rendererDoor =
                 new GrandfatherClockDoorRenderer(capi, Pos), EnumRenderStage.Opaque);
             capi.Event.RegisterRenderer(rendererPendulum =
-               new PendulumRenderer(capi, Pos), EnumRenderStage.Opaque);
-            rendererHand.MinuteTick += () => { TickSound?.Start(); };
-            rendererHand.HourTick += (_) => { chimeSound?.Start(); };
+               new GrandfatherClockRenderer(capi, Pos), EnumRenderStage.Opaque);
+            rendererClock.MinuteTick += () => { TickSound?.Start(); };
+            rendererClock.HourTick += (_) => { chimeSound?.Start(); };
         }
 
         private bool IsWork()
@@ -137,7 +140,7 @@ namespace DecoClock
             chimeSound?.Stop();
             chimeSound?.Dispose();
             dialogClock?.TryClose();
-            rendererHand?.Dispose();
+            rendererClock?.Dispose();
             rendererDoor?.Dispose();
             rendererPendulum?.Dispose();
         }
@@ -148,7 +151,7 @@ namespace DecoClock
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
-            rendererHand?.Dispose();
+            rendererClock?.Dispose();
             rendererDoor?.Dispose();
             rendererPendulum?.Dispose();
             openSound?.Dispose();
