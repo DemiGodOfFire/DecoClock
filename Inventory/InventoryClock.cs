@@ -1,4 +1,3 @@
-using OpenTK.Graphics.ES10;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -16,23 +15,23 @@ namespace DecoClock
     // [System.Serializable]
     public class ClockItem
     {
-        public string Type { get; private set; }
-        public string[] Dependent { get; private set; }
+        public string Type { get; private set; } 
+        public string? Dependency { get; private set; }
         public AssetLocation[]? Codes { get; set; }
 
-        //public ClockItem() { }
-        public ClockItem(string type, string[]? dependent = null, AssetLocation[]? codes = null)
+        public ClockItem(string type, string? dependency = null, AssetLocation[]? codes = null)
         {
             Type = type;
             Codes = codes;
-            Dependent = dependent;
+            Dependency = dependency;
         }
     }
 
     public class InventoryClock : InventoryGeneric
     {
-        private ClockItem[] codes;
-        public InventoryClock(ClockItem[] codes, BlockPos pos, ICoreAPI api) : base(codes.Length, "DecoClock-ClockInv", pos + "", api)
+        private readonly ClockItem[] codes;
+        public InventoryClock(ClockItem[] codes, BlockPos pos, ICoreAPI api) :
+            base(codes.Length, "DecoClock-ClockInv", pos + "", api, OnNewSlot)
         {
             this.codes = codes;
             if (api != null)
@@ -52,9 +51,17 @@ namespace DecoClock
                 }
                 else
                 {
-                    Api.Logger.Error("Achtung!"+" not found code " + code.Type);
+                    Api.Logger.Error("Achtung!" + " not found code " + code.Type);
                 }
             }
+        }
+      
+        private static ItemSlot OnNewSlot(int slotId, InventoryGeneric self)
+        {
+            return new ClockItemSlot(slotId, (InventoryClock)self)
+            {
+                MaxSlotStackSize = int.MaxValue
+            };
         }
 
         /// <summary>
@@ -78,16 +85,42 @@ namespace DecoClock
         /// Show content if exist
         /// </summary>
         /// <param name="type"></param>
-        /// <returns></returns>
+        /// <returns>ItemStack</returns>
         public ItemStack? TryGetPart(string type)
         {
             for (int i = 0; i < codes.Length; i++)
             {
                 if (codes[i].Type == type)
                     return slots[i].Itemstack?.Clone();
-
             }
             return null;
+        }
+
+        /// <summary>
+        /// Finds inventory slot number by type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>Id</returns>
+        public int IdSlot(string type)
+        {
+            for (int i = 0; i < codes.Length; i++)
+            {
+                if (codes[i].Type == type)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private bool CanAddPart(int id)
+        {
+        //    int id = IdSlot(type);
+            if(codes[id].Dependency!=null)
+            {
+                return !slots[IdSlot(codes[id].Dependency)].Empty;
+            }
+            return true;
         }
 
         ///// <summary>
@@ -148,33 +181,50 @@ namespace DecoClock
             {
                 slots[i].MaxSlotStackSize = 1;
             }
-            
+
         }
 
         public override bool CanContain(ItemSlot sinkSlot, ItemSlot sourceSlot)
         {
-            var code = codes[sinkSlot.Inventory.GetSlotId(sinkSlot)].Type;
+            int id = sinkSlot.Inventory.GetSlotId(sinkSlot);
+            var code = codes[id].Type;
             return code switch
             {
                 "dialglass" or "doorglass" => "glass" == sourceSlot.Itemstack.Collectible.Code.FirstCodePart(),
-                "disguise" => MaxContentDimensions?.CanContain(sourceSlot.Itemstack.Collectible.Dimensions) ?? true,
-                _ => code == sourceSlot.Itemstack.Collectible.Code.FirstCodePart(),
-            };          
+                "disguise" => (sourceSlot.Itemstack.Class == EnumItemClass.Block)&&
+                (MaxContentDimensions?.CanContain(sourceSlot.Itemstack.Collectible.Dimensions) ?? true),
+                _ => code == sourceSlot.Itemstack.Collectible.Code.FirstCodePart() && CanAddPart(id)
+            };
         }
 
-        public override void OnItemSlotModified(ItemSlot slot)
+        public bool CanTake(ItemSlot slot)
         {
-            //int id = slot.Inventory.GetSlotId(slot);
-            //string[] dependent = codes[id].Dependent;
-            //for (int i = 0; i < dependent.Length; i++)
-            //{
-                
-            //}
+
+            string type = codes[slot.Inventory.GetSlotId(slot)].Type;
+            for (int i = 0; i < codes.Length; i++)
+            {
+                if (codes[i].Dependency == type && !slot.Inventory[i].Empty)
+                    return false;
+            }
+            return true;
         }
-        public override void DidModifyItemSlot(ItemSlot slot, ItemStack extractedStack = null)
-        {
-            base.DidModifyItemSlot(slot, extractedStack);
-        }
+
+        //public override void OnItemSlotModified(ItemSlot slot)
+        //{
+        //    string type = codes[slot.Inventory.GetSlotId(slot)].Dependency;
+        //    if (type != null)
+        //    {
+        //        for (int i = 0; i < codes.Length; i++)
+        //        {
+        //            if (codes[i].Type == type)
+        //            {
+        //                slot.Inventory[i].CanTake();
+        //            }
+        //        }
+        //    }
+        //    slot
+        //}
+
         //public override void ToTreeAttributes(ITreeAttribute invtree)
         //{
         //    base.ToTreeAttributes(invtree);

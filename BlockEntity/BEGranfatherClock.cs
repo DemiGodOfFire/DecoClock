@@ -23,11 +23,11 @@ namespace DecoClock
         public override void AddParts()
         {
             _parts.Add(new("clockwork"));
-            _parts.Add(new("tickmarks"));
-            _parts.Add(new("hourhand"));
-            _parts.Add(new("minutehand"));
+            _parts.Add(new("tickmarks", "clockwork"));
+            _parts.Add(new("hourhand", "clockwork"));
+            _parts.Add(new("minutehand", "clockwork"));
             _parts.Add(new("dialglass"));
-            _parts.Add(new("clockparts"));
+            _parts.Add(new("clockparts", "clockwork"));
             _parts.Add(new("doorglass"));
         }
 

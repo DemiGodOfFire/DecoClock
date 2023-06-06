@@ -129,10 +129,10 @@ namespace DecoClock
         }
 
         public abstract bool OnInteract(IPlayer byPlayer, BlockSelection blockSel);
-       
+
         #region meshing
 
-        public MeshData GenBaseMesh(ITesselatorAPI tesselator)
+        public virtual MeshData GenBaseMesh(ITesselatorAPI tesselator)
         {
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
@@ -277,11 +277,15 @@ namespace DecoClock
         }
 
 
+        public virtual void GetVariablesFromTreeAttributes(ITreeAttribute tree)
+        {
+            MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
+        }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
-            MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
+            GetVariablesFromTreeAttributes(tree);
             InitInventory();
             Inventory.FromTreeAttributes(tree);
             if (Api is ICoreClientAPI)

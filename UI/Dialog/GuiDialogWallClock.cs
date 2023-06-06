@@ -37,7 +37,7 @@ namespace DecoClock
 
             SingleComposer = gui.CreateCompo(Core.ModId + ":fatherclock" + Pos, dialogBounds)
                 .AddDialogBG(bgBounds, true)
-            .AddDialogTitleBar(DialogTitle, () => TryClose())
+                .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 0 }, clockWork)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, tickMarksSlotBounds)

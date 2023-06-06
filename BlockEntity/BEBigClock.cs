@@ -1,5 +1,8 @@
+using System.Collections;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
@@ -43,16 +46,48 @@ namespace DecoClock
 
         #region meshing
 
-
+        public override MeshData GenBaseMesh(ITesselatorAPI tesselator)
+        {
+            AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+            Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
+            //tesselator.TesselateBlock(Block, out MeshData mesh)
+            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            return mesh;
+        }
 
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
-            base.UpdateMesh(tesselator);
+            tesselator ??= ((ICoreClientAPI)Api).Tesselator;
+            MeshData mesh;
+            if (Inventory.IsExist("disguise"))
+            {
+                ItemStack itemStack = Inventory.TryGetPart("disguise");
+                tesselator.TesselateBlock(itemStack.Block, out mesh);
+            }
+            else
+            {
+                mesh = GenBaseMesh(tesselator);
+            }
+            BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+
+            //base.UpdateMesh(tesselator);
             rendererClock?.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.61f, 0f, MeshAngle);
         }
 
-
         #endregion
+
+        public override void GetVariablesFromTreeAttributes(ITreeAttribute tree)
+        {
+            base.GetVariablesFromTreeAttributes(tree);
+            Radius = tree.GetInt("radius", Radius);
+
+        }
+
+        public override void ToTreeAttributes(ITreeAttribute tree)
+        {
+            base.ToTreeAttributes(tree);
+            tree.SetInt("radius", Radius);
+        }
 
         public override void LoadSound(ICoreClientAPI capi)
         {
@@ -77,14 +112,14 @@ namespace DecoClock
                 TickSound?.Start();
             };
         }
-            
+
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
             dialogClock?.TryClose();
             rendererClock?.Dispose();
         }
-      
+
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();

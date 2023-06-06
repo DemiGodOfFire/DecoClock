@@ -1,4 +1,5 @@
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -7,7 +8,6 @@ namespace DecoClock
     {
         public GuiDialogBigClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, inventory, blockEntityPos, capi)
         {
-
         }
 
         public override string[] Parts { get; } = new string[]
@@ -45,20 +45,23 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, minuteHandBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, disguiseSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, tickMarksSlotBounds)
-                    
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
 
                     //.AddNumberInput(radiusBounds,OnRadiusChanged)
                     .AddSlider(OnRadiusChanged,radiusBounds,"radius")
                 .EndChildElements()
                 .Compose();
-            SingleComposer.GetSlider("radius").SetValues(1, 1, 5, 1);
+            SingleComposer.GetSlider("radius").SetValues(1, 1, 3, 1);
         }
 
         private bool OnRadiusChanged(int value)
         {
             BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            //be.
+            be.Radius = value;
+            if (capi.World.Side == EnumAppSide.Client)
+            {
+                be.UpdateMesh();
+            }
             return true;
         }
     }
