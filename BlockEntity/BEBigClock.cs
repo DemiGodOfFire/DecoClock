@@ -1,4 +1,3 @@
-using System.Collections;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -9,9 +8,9 @@ namespace DecoClock
     internal class BEBigClock : BEClock
     {
         GuiDialogBigClock? dialogClock;
-        ClockRenderer? rendererClock;
+        BigClockRenderer? rendererClock;
         public override string PathBlock => "decoclock:shapes/block/clock/";
-        public int Radius { get; set; }
+        public int Radius { get; set; } = 1;
 
         public override void AddParts()
         {
@@ -50,9 +49,25 @@ namespace DecoClock
         {
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
-            //tesselator.TesselateBlock(Block, out MeshData mesh)
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
             return mesh;
+        }
+
+        public MeshData? GetItemMesh(string item, int radius)
+        {
+            if (Inventory != null)
+            {
+                var inv = Inventory.TryGetPart(item);
+                if (inv != null)
+                {
+                    ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
+                    string path = this.PathBlock + $"{item}{radius}.json";
+                    Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
+                    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+                    return mesh;
+                }
+            }
+            return null;
         }
 
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
@@ -69,9 +84,11 @@ namespace DecoClock
                 mesh = GenBaseMesh(tesselator);
             }
             BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
-
-            //base.UpdateMesh(tesselator);
-            rendererClock?.Update(GetItemMesh("hourhand"), 0.55f, GetItemMesh("minutehand"), 0.61f, 0f, MeshAngle);
+            rendererClock?.Update(GetItemMesh("hourhand"), 0.55f,
+                GetItemMesh("minutehand"), 0.61f, 0f,
+                GetMesh("tribe2"),
+                GetItemMesh($"tickmarks",Radius), 1f, 0f,
+                MeshAngle);
         }
 
         #endregion
@@ -106,7 +123,7 @@ namespace DecoClock
 
         public override void RegisterRenderer(ICoreClientAPI capi)
         {
-            capi.Event.RegisterRenderer(rendererClock = new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
+            capi.Event.RegisterRenderer(rendererClock = new BigClockRenderer(capi, Pos), EnumRenderStage.Opaque);
             rendererClock.MinuteTick += () =>
             {
                 TickSound?.Start();

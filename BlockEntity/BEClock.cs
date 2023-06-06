@@ -161,15 +161,16 @@ namespace DecoClock
                 var inv = Inventory.TryGetPart(item);
                 if (inv != null)
                 {
-                    ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
+                    ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
                     string path = this.PathBlock + $"{item}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
-                    tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
+                    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
                 }
             }
             return null;
         }
+     
 
         public MeshData? GetItemMesh(string item, string part)
         {
@@ -178,10 +179,10 @@ namespace DecoClock
                 var inv = Inventory.TryGetPart(item);
                 if (inv != null)
                 {
-                    ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
+                    ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
                     string path = this.PathBlock + $"{part}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
-                    tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
+                    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
                 }
             }
@@ -191,10 +192,10 @@ namespace DecoClock
 
         public MeshData? GetMesh(string part)
         {
-            ITesselatorAPI tesselatorHand = ((ICoreClientAPI)Api).Tesselator;
+            ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
             string path = this.PathBlock + $"{part}.json";
             Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
-            tesselatorHand.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
             return mesh;
         }
 

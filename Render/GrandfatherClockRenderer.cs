@@ -40,6 +40,11 @@ namespace DecoClock.Render
             }
         }
 
+        public override bool IsNotRender()
+        {
+            return base.IsNotRender()&& pendulum == null;
+        }
+
         public void Update(MeshData? hourHand, float dzHour, MeshData? minuteHand, float dzMinute, float dyHand,
             MeshData? pendulum, float dzPendulum, float dyPendulum, float meshAngle)
         {

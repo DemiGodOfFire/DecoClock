@@ -125,7 +125,7 @@ namespace DecoClock
 
         private bool IsWork()
         {
-            return (Inventory.IsExist("clockwork") && Inventory.IsExist("clockparts"));
+            return (Inventory.IsExist("clockparts"));
         }
 
         #region Events

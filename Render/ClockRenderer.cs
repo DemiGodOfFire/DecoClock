@@ -32,41 +32,50 @@ namespace DecoClock
 
         public virtual void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
-            if (hourHand == null && minuteHand == null)
+            if (IsNotRender())
             {
                 return;
             }
-            float hourRad;
-            float minuteRad;
+
+            float hourRad=0;
+            float minuteRad=0;
 
 
             Time = (int)Math.Round(capi.World.Calendar.HourOfDay / capi.World.Calendar.HoursPerDay * 24f * 10000);
 
-
-            int hour = Time / 10000;
-            int minute = Time % 10000;
-            int hourM12 = hour % 12;
-            int minute60 = (minute * 6 + 50) / 1000;
-            hourRad = ((hourM12 * 60 + minute60) * 0.5f) * (float)Math.PI / 180;
-            minuteRad = minute60 * (6f) * (float)Math.PI / 180;
-
-            if (hourMemory != hourM12)
+            if(hourHand != null )
             {
-                hourMemory = hourM12;
-                if (minute60 == 0)
+                int hour = Time / 10000;
+                int minute = Time % 10000;
+                int hourM12 = hour % 12;
+                int minute60 = (minute * 6 + 50) / 1000;
+                hourRad = ((hourM12 * 60 + minute60) * 0.5f) * (float)Math.PI / 180;
+
+                if (hourMemory != hourM12)
                 {
-                    HourTick?.Invoke(hour);
+                    hourMemory = hourM12;
+                    if (minute60 == 0)
+                    {
+                        HourTick?.Invoke(hour);
+                    }
                 }
 
+                if (minuteHand != null)
+                {
+                    minuteRad = minute60 * (6f) * (float)Math.PI / 180;
+                    if (minuteMemory != minute60)
+                    {
+                        minuteMemory = (int)minute60;
+                        MinuteTick?.Invoke();
+                    }
+                }
             }
-
-            if (minuteMemory != minute60)
-            {
-                minuteMemory = (int)minute60;
-                MinuteTick?.Invoke();
-            }
-
             AddRenderer(hourRad, minuteRad);
+        }
+
+        public virtual bool IsNotRender()
+        {
+            return hourHand == null && minuteHand == null;
         }
 
         public virtual void Update(MeshData? hourHand, float dzHour, MeshData? minuteHand, float dzMinute,
