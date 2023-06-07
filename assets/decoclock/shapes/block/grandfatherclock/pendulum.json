@@ -38,39 +38,5 @@
 				}
 			]
 		}
-	],
-	"animations": [
-		{
-			"name": "Pendulum",
-			"code": "pendulun",
-			"quantityframes": 60,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		},
-
-		{
-			"name": "opendoor",
-			"code": "opendoor",
-			"quantityframes": 30,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Hold",
-			"keyframes": [
-
-			]
-		},
-
-		{
-			"name": "idle",
-			"code": "idle",
-			"quantityframes": 30,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		}
 	]
 }

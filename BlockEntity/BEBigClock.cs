@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -104,6 +105,17 @@ namespace DecoClock
         {
             base.ToTreeAttributes(tree);
             tree.SetInt("radius", Radius);
+        }
+
+        public override void ClientPackets(IPlayer player, int packetid, byte[] data)
+        {
+            base.ClientPackets(player, packetid, data);
+            if (packetid == Constants.Radius)
+            {
+                //Radius = BitConverter.ToInt32(data,0);
+                Radius = (int)data[0];
+                MarkDirty(true);
+            }
         }
 
         public override void LoadSound(ICoreClientAPI capi)

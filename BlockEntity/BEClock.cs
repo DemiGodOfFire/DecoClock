@@ -249,6 +249,13 @@ namespace DecoClock
 
         public override void OnReceivedClientPacket(IPlayer player, int packetid, byte[] data)
         {
+            ClientPackets(player, packetid, data);
+            base.OnReceivedClientPacket(player, packetid, data);
+
+        }
+
+        public virtual void ClientPackets(IPlayer player, int packetid, byte[] data)
+        {
             if (packetid < 1000)
             {
                 Inventory.InvNetworkUtil.HandleClientPacket(player, packetid, data);
@@ -273,8 +280,6 @@ namespace DecoClock
                 IPlayerInventoryManager inventoryManager = player.InventoryManager;
                 inventoryManager?.CloseInventory(Inventory);
             }
-            base.OnReceivedClientPacket(player, packetid, data);
-
         }
 
 

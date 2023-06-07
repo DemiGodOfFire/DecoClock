@@ -263,17 +263,5 @@
 				}
 			]
 		}
-	],
-	"animations": [
-		{
-			"name": "Pendulum",
-			"code": "pendulun",
-			"quantityframes": 60,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		}
 	]
 }

@@ -58,12 +58,9 @@ namespace DecoClock
         private bool OnRadiusChanged(int value)
         {
             BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            be.Radius = value;
-            if (capi.World.Side == EnumAppSide.Client)
-            {
-                be.UpdateMesh();
-            }
-            be.MarkDirty(true);
+            //be.Radius = value;
+            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.Radius, new byte [(byte)value] );
+            //be.UpdateMesh();
             return true;
         }
 
