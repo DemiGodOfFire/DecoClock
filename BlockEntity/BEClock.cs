@@ -9,12 +9,12 @@ namespace DecoClock
 {
     public abstract class BEClock : BlockEntity, ITexPositionSource
     {
-        public ITexPositionSource TextureSource { get; set; }
-        public ILoadedSound TickSound { get; set; }
+        public ITexPositionSource TextureSource { get; set; } = null!;
+        public ILoadedSound? TickSound { get; set; }
         //ILoadedSound chimeSound = null!;
 
         public MeshData? BaseMesh { get; set; }
-        public InventoryClock Inventory { get; set; }
+        public InventoryClock Inventory { get; set; } = null!;
 
         public Size2i AtlasSize => TextureSource.AtlasSize;
         List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }

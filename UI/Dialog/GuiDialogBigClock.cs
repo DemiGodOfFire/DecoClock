@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -51,7 +52,7 @@ namespace DecoClock
                     .AddSlider(OnRadiusChanged,radiusBounds,"radius")
                 .EndChildElements()
                 .Compose();
-            SingleComposer.GetSlider("radius").SetValues(1, 1, 3, 1);
+            SingleComposer.GetSlider("radius").SetValues(GetRadius(), 1, 3, 1);
         }
 
         private bool OnRadiusChanged(int value)
@@ -62,7 +63,14 @@ namespace DecoClock
             {
                 be.UpdateMesh();
             }
+            be.MarkDirty(true);
             return true;
+        }
+
+        private int GetRadius()
+        {
+            BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
+            return be.Radius;
         }
     }
 }

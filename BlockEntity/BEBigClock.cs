@@ -10,7 +10,7 @@ namespace DecoClock
         GuiDialogBigClock? dialogClock;
         BigClockRenderer? rendererClock;
         public override string PathBlock => "decoclock:shapes/block/clock/";
-        public int Radius { get; set; } = 1;
+        public int Radius { get; set; }
 
         public override void AddParts()
         {
@@ -76,7 +76,7 @@ namespace DecoClock
             MeshData mesh;
             if (Inventory.IsExist("disguise"))
             {
-                ItemStack itemStack = Inventory.TryGetPart("disguise");
+                ItemStack itemStack = Inventory.TryGetPart("disguise")!;
                 tesselator.TesselateBlock(itemStack.Block, out mesh);
             }
             else

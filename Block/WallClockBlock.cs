@@ -6,8 +6,8 @@ namespace DecoClock
 {
     internal class WallClockBlock : ClockBlock
     {
-        string code;
-        float meshAngle;
+        private string code;
+        //private float meshAngle;
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -51,7 +51,7 @@ namespace DecoClock
         {
             BlockFacing[] horVer = SuggestedHVOrientation(byPlayer, blockSel);
             code = horVer[0].Opposite.Code;
-            meshAngle =  horVer[0].Opposite.Index *(float) Math.PI / 2f;
+            //meshAngle =  horVer[0].Opposite.Index *(float) Math.PI / 2f;
             bool ret = AbleToAttach(world, code, blockSel.Position);
             if (!ret)
             {
