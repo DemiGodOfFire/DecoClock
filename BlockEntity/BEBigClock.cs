@@ -112,8 +112,8 @@ namespace DecoClock
             base.ClientPackets(player, packetid, data);
             if (packetid == Constants.Radius)
             {
-                //Radius = BitConverter.ToInt32(data,0);
-                Radius = (int)data[0];
+                Radius = BitConverter.ToInt32(data, 0);
+                //Radius = data.Length;
                 MarkDirty(true);
             }
         }

@@ -1,4 +1,6 @@
+using Jint;
 using Newtonsoft.Json.Linq;
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -59,7 +61,8 @@ namespace DecoClock
         {
             BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
             //be.Radius = value;
-            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.Radius, new byte [(byte)value] );
+            //capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.Radius, new byte [(byte)value] );
+            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.Radius, BitConverter.GetBytes(value));
             //be.UpdateMesh();
             return true;
         }
