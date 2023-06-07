@@ -8,6 +8,7 @@
 	"textureSizes": {
 	},
 	"textures": {
+		"gold": "C:/Games/Vintage Story/1.18.5/assets/survival/textures/block/metal/ingot/gold"
 	},
 	"elements": [
 		{
@@ -16,12 +17,12 @@
 			"to": [ 8.2, 8.2, 8.1 ],
 			"rotationOrigin": [ 8.0, 8.0, 8.0 ],
 			"faces": {
-				"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-				"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+				"north": { "texture": "#gold", "uv": [ 10.5, 14.0, 12.0, 15.5 ], "autoUv": false },
+				"east": { "texture": "#gold", "uv": [ 13.5, 1.0, 14.0, 2.5 ], "autoUv": false },
+				"south": { "texture": "#gold", "uv": [ 3.5, 7.5, 5.0, 9.0 ], "autoUv": false },
+				"west": { "texture": "#gold", "uv": [ 5.0, 10.5, 5.5, 12.0 ], "autoUv": false },
+				"up": { "texture": "#gold", "uv": [ 1.5, 14.0, 3.0, 14.5 ], "autoUv": false },
+				"down": { "texture": "#gold", "uv": [ 8.0, 11.0, 9.5, 11.5 ], "autoUv": false }
 			},
 			"children": [
 				{
@@ -30,12 +31,11 @@
 					"to": [ 0.35, 1.4, 0.1 ],
 					"rotationOrigin": [ 4.1, 4.4, 0.0 ],
 					"faces": {
-						"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 1.0 ] },
-						"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-						"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+						"north": { "texture": "#gold", "uv": [ 4.0, 7.5, 5.0, 10.5 ], "autoUv": false },
+						"east": { "texture": "#gold", "uv": [ 14.0, 8.0, 14.5, 11.0 ], "autoUv": false },
+						"south": { "texture": "#gold", "uv": [ 6.5, 6.5, 7.5, 9.5 ], "autoUv": false },
+						"west": { "texture": "#gold", "uv": [ 1.5, 8.5, 2.0, 11.5 ], "autoUv": false },
+						"up": { "texture": "#gold", "uv": [ 6.0, 2.0, 6.5, 2.5 ] }
 					},
 					"children": [
 						{
@@ -44,12 +44,11 @@
 							"to": [ 0.25, 1.8, 0.1 ],
 							"rotationOrigin": [ 4.15, 5.0, 0.0 ],
 							"faces": {
-								"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-								"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+								"north": { "texture": "#gold", "uv": [ 13.0, 5.5, 14.0, 9.0 ], "autoUv": false },
+								"east": { "texture": "#gold", "uv": [ 11.5, 8.0, 12.0, 11.5 ], "autoUv": false },
+								"south": { "texture": "#gold", "uv": [ 0.0, 8.0, 1.0, 11.5 ], "autoUv": false },
+								"west": { "texture": "#gold", "uv": [ 1.5, 4.0, 2.0, 7.5 ], "autoUv": false },
+								"up": { "texture": "#gold", "uv": [ 3.0, 5.5, 4.0, 6.0 ], "autoUv": false }
 							},
 							"children": [
 								{
@@ -58,12 +57,11 @@
 									"to": [ 0.15, 1.4, 0.1 ],
 									"rotationOrigin": [ 4.2, 4.8, 0.0 ],
 									"faces": {
-										"north": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"east": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"south": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"west": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"up": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
-										"down": { "texture": "#hourhand", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
+										"north": { "texture": "#gold", "uv": [ 9.5, 8.5, 10.0, 11.5 ], "autoUv": false },
+										"east": { "texture": "#gold", "uv": [ 2.0, 9.0, 2.5, 12.0 ], "autoUv": false },
+										"south": { "texture": "#gold", "uv": [ 9.5, 12.0, 10.0, 15.0 ], "autoUv": false },
+										"west": { "texture": "#gold", "uv": [ 13.0, 6.5, 13.5, 9.5 ], "autoUv": false },
+										"up": { "texture": "#gold", "uv": [ 14.0, 12.5, 14.5, 13.0 ] }
 									}
 								}
 							]
@@ -78,6 +76,61 @@
 			"name": "Pendulum",
 			"code": "pendulun",
 			"quantityframes": 60,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "Cuckoo",
+			"code": "Cu_cu",
+			"quantityframes": 45,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "Pendulum",
+			"code": "pendulun",
+			"quantityframes": 60,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "Cuckoo",
+			"code": "Cu_cu",
+			"quantityframes": 40,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "Animation 1",
+			"code": "animation1",
+			"quantityframes": 120,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		},
+
+		{
+			"name": "Animation 1",
+			"code": "animation1",
+			"quantityframes": 120,
 			"onActivityStopped": "Rewind",
 			"onAnimationEnd": "Repeat",
 			"keyframes": [
