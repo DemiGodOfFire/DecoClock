@@ -24,7 +24,7 @@ namespace DecoClock.Render
             base.BuildShader(rpi, camPos, clockShader, hourRad, minuteRad);
             if (pendulum != null)
             {
-                float cosMinute = (float)(Math.Cos(Time % 10000 * 0.12f / Math.PI+ Math.PI/2));
+                float cosMinute = (float)(Math.Cos(Time % 10000 * 0.12f / Math.PI + Math.PI / 2));
                 float angleDeg = 15f * cosMinute;
                 clockShader.ModelMatrix = modelMat
                 .Identity()
@@ -42,7 +42,7 @@ namespace DecoClock.Render
 
         public override bool IsNotRender()
         {
-            return base.IsNotRender()&& pendulum == null;
+            return base.IsNotRender() && pendulum == null;
         }
 
         public void Update(MeshData? hourHand, float dzHour, MeshData? minuteHand, float dzMinute, float dyHand,
@@ -54,9 +54,17 @@ namespace DecoClock.Render
             this.dzPendulum = dzPendulum;
             this.dyPendulum = dyPendulum;
 
+
+
             if (pendulum != null)
             {
                 this.pendulum = capi.Render.UploadMesh(pendulum);
+                IfWork = true;
+            }
+            else
+            {
+                IfWork = false;
+
             }
 
             //this.weight?.Dispose();

@@ -7,10 +7,6 @@ namespace DecoClock
 
     internal class ClockBlock : Block
     {
-        //public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1)
-        //{
-        //    return new ItemStack[] { OnPickBlock(world, pos) };
-        //}
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {

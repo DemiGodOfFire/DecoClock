@@ -11,7 +11,7 @@ namespace DecoClock
         GuiDialogBigClock? dialogClock;
         BigClockRenderer? rendererClock;
         public override string PathBlock => "decoclock:shapes/block/clock/";
-        public int Radius { get; set; }
+        public int Radius { get; set; } = 1;
 
         public override void AddParts()
         {
@@ -113,7 +113,6 @@ namespace DecoClock
             if (packetid == Constants.Radius)
             {
                 Radius = BitConverter.ToInt32(data, 0);
-                //Radius = data.Length;
                 MarkDirty(true);
             }
         }

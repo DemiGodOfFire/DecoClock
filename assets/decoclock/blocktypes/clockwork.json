@@ -2,11 +2,7 @@
   "code": "clockwork",
   "class": "bigclock",
   "entityClass": "bebigclock",
-  "creativeinventory": {
-    "general": [ "*" ],
-    "decorative": [ "*" ],
-    "decoclock": [ "*" ]
-  },
+  "creativeinventory": { "general": [ "*" ], "decorative": [ "*" ], "decoclock": [ "*" ] },
   "variantgroups": [
     {
       "code": "metal",

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -7,18 +5,6 @@ namespace DecoClock
 {
     internal class WallClockBlock : ClockBlock
     {
-        //private float meshAngle;
-
-        //public override ItemStack OnPickBlock(IWorldAccessor world, BlockPos pos)
-        //{
-        //    AssetLocation blockCode = CodeWithVariants(new Dictionary<string, string>() {
-        //            { "horizontalorientation", "north" }
-        //        });
-
-        //    Block block = world.BlockAccessor.GetBlock(blockCode);
-
-        //    return new ItemStack(block);
-        //}
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -30,15 +16,6 @@ namespace DecoClock
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
 
-        //public bool AbleToAttach(IWorldAccessor world, string rotation, BlockPos blockPos)
-        //{
-        //    if (rotation == "north") return world.BlockAccessor.GetBlock(blockPos.SouthCopy()).SideSolid[BlockFacing.NORTH.Index];
-        //    if (rotation == "east") return world.BlockAccessor.GetBlock(blockPos.WestCopy()).SideSolid[BlockFacing.EAST.Index];
-        //    if (rotation == "south") return world.BlockAccessor.GetBlock(blockPos.NorthCopy()).SideSolid[BlockFacing.SOUTH.Index];
-        //    if (rotation == "west") return world.BlockAccessor.GetBlock(blockPos.EastCopy()).SideSolid[BlockFacing.WEST.Index];
-        //    return false;
-        //}
-
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {
             bool val = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
@@ -47,8 +24,15 @@ namespace DecoClock
             {
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEWallClock be)
                 {
-                    float deg90 = GameMath.PIHALF;
-                    be.MeshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90; ;
+                    float deg = GameMath.PI / 180;
+                    switch (this.LastCodePart())
+                    {
+                        case "north": be.MeshAngle = 0 * deg; break;
+                        case "west": be.MeshAngle = 90 * deg; break;
+                        case "south": be.MeshAngle = 180 * deg; break;
+                        case "east": be.MeshAngle = 270 * deg; break;
+                    }
+
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
@@ -57,30 +41,6 @@ namespace DecoClock
                 }
             }
             return val;
-        }
-        //public override bool TryPlaceBlock(IWorldAccessor world, IPlayer byPlayer, ItemStack itemstack, BlockSelection blockSel, ref string failureCode)
-        //{
-        //    BlockFacing[] horVer = SuggestedHVOrientation(byPlayer, blockSel);
-        //    code = horVer[0].Opposite.Code;
-        //    //meshAngle =  horVer[0].Opposite.Index *(float) Math.PI / 2f;
-        //    bool ret = AbleToAttach(world, code, blockSel.Position);
-        //    if (!ret)
-        //    {
-        //        failureCode = "requirehorizontalattachable";
-        //        return false;
-        //    }
-        //    return base.TryPlaceBlock(world, byPlayer, itemstack, blockSel, ref failureCode);
-        //}
-
-        //public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neibpos)
-        //{
-        //    if (!AbleToAttach(world, code, pos))
-        //        world.BlockAccessor.BreakBlock(pos, null);
-        //}
-
-        public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
-        {
-            return base.GetCollisionBoxes(blockAccessor, pos);
         }
     }
 }

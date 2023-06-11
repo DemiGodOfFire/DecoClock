@@ -3,14 +3,7 @@
 	"class": "grandfatherclock",
 	"entityClass": "begrandfatherclock",
 	"behaviors": [{"name": "UnstableFalling"}],
-	"attributes":{
-		"types": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"],
-		"properties": {
-			"*": {
-				"rotatatableInterval": "22.5deg",
-				"shape": {"base": "block/grandfatherclock/base", "rotateY": 180}}	
-		}
-	},
+	
 	"variantgroups": [
 		{ "code": "wood", "states": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] }
 	],

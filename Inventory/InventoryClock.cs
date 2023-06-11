@@ -60,8 +60,8 @@ namespace DecoClock
         {
             return new ClockItemSlot(slotId, (InventoryClock)self)
             {
-                MaxSlotStackSize = int.MaxValue
-            };
+                MaxSlotStackSize = 1
+        };
         }
 
         /// <summary>
@@ -177,10 +177,10 @@ namespace DecoClock
         {
             base.LateInitialize(inventoryID, api);
             ResolveCodes();
-            for (int i = 0; i < slots.Length; i++)
-            {
-                slots[i].MaxSlotStackSize = 1;
-            }
+            //for (int i = 0; i < slots.Length; i++)
+            //{
+            //    slots[i].MaxSlotStackSize = 1;
+            //}
 
         }
 

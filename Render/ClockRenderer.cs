@@ -19,6 +19,7 @@ namespace DecoClock
         public readonly ICoreClientAPI capi;
         public int Time { get; set; } = 50;
         public float MeshAngle { get; set; }
+        public bool IfWork { get; set; } = true;
         public BlockPos Pos { get; }
 
         public double RenderOrder => 0.37;
@@ -40,10 +41,12 @@ namespace DecoClock
             float hourRad=0;
             float minuteRad=0;
 
+            if (IfWork)
+            {
+                Time = (int)Math.Round(capi.World.Calendar.HourOfDay / capi.World.Calendar.HoursPerDay * 24f * 10000);
+            }
 
-            Time = (int)Math.Round(capi.World.Calendar.HourOfDay / capi.World.Calendar.HoursPerDay * 24f * 10000);
-
-            if(hourHand != null )
+            if (hourHand != null )
             {
                 int hour = Time / 10000;
                 int minute = Time % 10000;
