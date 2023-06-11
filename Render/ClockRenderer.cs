@@ -17,7 +17,7 @@ namespace DecoClock
         public event Action<int>? HourTick;
         public event Action? MinuteTick;
         public readonly ICoreClientAPI capi;
-        public int Time { get; set; } = 50;
+        public int Time { get; set; } = 30000;
         public float MeshAngle { get; set; }
         public bool IfWork { get; set; } = true;
         public BlockPos Pos { get; }
