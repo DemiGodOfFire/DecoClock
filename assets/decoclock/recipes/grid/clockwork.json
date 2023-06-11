@@ -1,19 +1,40 @@
-{
-	"ingredientPattern": "GGG,PMP,GGG",
-	"ingredients": {
-		"G": { "type": "item", "code": "gear-iron"},
-		"P": { 
-			"type": "item",
-			"code": "game:metalplate-*",
-			"name": "material",
-			"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
-			"quantity": 3},
-		"M": {"type": "block", "code": "game:metal-parts"}
+[
+	{
+		"ingredientPattern": "GGG,PMP,GGG",
+		"ingredients": {
+			"G": { "type": "item", "code": "gear-iron"},
+			"P": { 
+				"type": "item",
+				"code": "game:metalplate-*",
+				"name": "material",
+				"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
+				"quantity": 3},
+			"M": {"type": "block", "code": "game:metal-parts"}
+		},
+		"width": 3,
+		"height": 3,
+		"output": { 
+			"type": "block", 
+			"code": "clockwork-{material}"
+		}
 	},
-	"width": 3,
-	"height": 3,
-	"output": { 
-		"type": "block", 
-		"code": "clockwork-{material}"
+	{
+		"ingredientPattern": "GGG,PGP,GGG",
+		"requiresTrait": "tinkerer",
+		"ingredients": {
+			"G": { "type": "item", "code": "gear-iron"},
+			"P": { 
+				"type": "item",
+				"code": "game:metalplate-*",
+				"name": "material",
+				"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
+				"quantity": 3}
+		},
+		"width": 3,
+		"height": 3,
+		"output": { 
+			"type": "block", 
+			"code": "clockwork-{material}"
+		}
 	}
-}
+]

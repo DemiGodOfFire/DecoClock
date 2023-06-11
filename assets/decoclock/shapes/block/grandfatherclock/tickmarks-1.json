@@ -1,0 +1,68 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "0",
+			"from": [ 7.9, 11.0, 8.0 ],
+			"to": [ 8.1, 11.5, 8.1 ],
+			"rotationOrigin": [ 8.0, 8.0, 8.0 ],
+			"faces": {
+				"east": { "texture": "#tickmarks", "uv": [ 3.0, 6.5, 3.5, 9.0 ], "autoUv": false },
+				"south": { "texture": "#tickmarks", "uv": [ 2.5, 11.5, 3.5, 14.0 ], "autoUv": false },
+				"west": { "texture": "#tickmarks", "uv": [ 6.5, 10.5, 7.0, 13.0 ], "autoUv": false },
+				"up": { "texture": "#tickmarks", "uv": [ 8.5, 8.0, 9.5, 8.5 ], "autoUv": false },
+				"down": { "texture": "#tickmarks", "uv": [ 4.5, 14.5, 5.5, 15.0 ], "autoUv": false }
+			}
+		},
+		{
+			"name": "3",
+			"from": [ 7.9, 11.0, 8.0 ],
+			"to": [ 8.1, 11.5, 8.1 ],
+			"rotationOrigin": [ 8.0, 8.0, 8.0 ],
+			"rotationZ": -90.0,
+			"faces": {
+				"east": { "texture": "#tickmarks", "uv": [ 12.5, 8.0, 13.0, 10.5 ], "autoUv": false },
+				"south": { "texture": "#tickmarks", "uv": [ 8.5, 1.0, 9.5, 3.5 ], "autoUv": false },
+				"west": { "texture": "#tickmarks", "uv": [ 0.0, 0.0, 0.5, 2.5 ], "autoUv": false },
+				"up": { "texture": "#tickmarks", "uv": [ 9.5, 8.0, 10.5, 8.5 ], "autoUv": false },
+				"down": { "texture": "#tickmarks", "uv": [ 7.0, 9.5, 8.0, 10.0 ], "autoUv": false }
+			}
+		},
+		{
+			"name": "6",
+			"from": [ 7.9, 11.0, 8.0 ],
+			"to": [ 8.1, 11.5, 8.1 ],
+			"rotationOrigin": [ 8.0, 8.0, 8.0 ],
+			"rotationZ": -180.0,
+			"faces": {
+				"east": { "texture": "#tickmarks", "uv": [ 6.0, 6.0, 6.5, 8.5 ], "autoUv": false },
+				"south": { "texture": "#tickmarks", "uv": [ 13.0, 7.5, 14.0, 10.0 ], "autoUv": false },
+				"west": { "texture": "#tickmarks", "uv": [ 14.0, 0.0, 14.5, 2.5 ], "autoUv": false },
+				"up": { "texture": "#tickmarks", "uv": [ 2.5, 4.0, 3.5, 4.5 ], "autoUv": false },
+				"down": { "texture": "#tickmarks", "uv": [ 12.5, 0.5, 13.5, 1.0 ], "autoUv": false }
+			}
+		},
+		{
+			"name": "9",
+			"from": [ 7.9, 11.0, 8.0 ],
+			"to": [ 8.1, 11.5, 8.1 ],
+			"rotationOrigin": [ 8.0, 8.0, 8.0 ],
+			"rotationZ": 90.0,
+			"faces": {
+				"east": { "texture": "#tickmarks", "uv": [ 0.0, 9.5, 0.5, 12.0 ], "autoUv": false },
+				"south": { "texture": "#tickmarks", "uv": [ 0.5, 4.0, 1.5, 6.5 ], "autoUv": false },
+				"west": { "texture": "#tickmarks", "uv": [ 11.5, 9.5, 12.0, 12.0 ], "autoUv": false },
+				"up": { "texture": "#tickmarks", "uv": [ 8.0, 11.0, 9.0, 11.5 ], "autoUv": false },
+				"down": { "texture": "#tickmarks", "uv": [ 9.0, 2.5, 10.0, 3.0 ], "autoUv": false }
+			}
+		}
+	]}

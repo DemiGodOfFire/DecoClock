@@ -2,8 +2,7 @@
 	"code": "grandfatherclock",
 	"class": "grandfatherclock",
 	"entityClass": "begrandfatherclock",
-	"behaviors": [{"name": "UnstableFalling"}],
-	
+	"behaviors": [{"name": "UnstableFalling"}],	
 	"variantgroups": [
 		{ "code": "wood", "states": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] }
 	],
@@ -21,36 +20,10 @@
 		"tickmarks": { "base": "game:block/transparent"},
 		"hourhand": { "base": "game:block/transparent"},
 		"minutehand": { "base": "game:block/transparent"},
-		"string": {"base": "game:block/cloth/burlap/string"},
-		"metal-copper": {"base": "game:block/metal/ingot/copper"}, 
-		"metal-tin": {"base": "game:block/metal/ingot/tin"},
-		"metal-bismuth": {"base": "game:block/metal/ingot/bismuth"},
-		"metal-tinbronze": {"base": "game:block/metal/ingot/tinbronze"},
-		"metal-bismuthbronze": {"base": "game:block/metal/ingot/bismuthbronze"},
-		"metal-blackbronze": {"base": "game:block/metal/ingot/blackbronze"},
-		"metal-brass": {"base": "game:block/metal/ingot/brass"},
-		"metal-silver": {"base": "game:block/metal/ingot/silver"},
-		"metal-gold": {"base": "game:block/metal/ingot/gold"},
-		"metal-iron": {"base": "game:block/metal/ingot/iron"},
-		"metal-meteoriciron": {"base": "game:block/metal/ingot/meteoriciron"},
-		"metal-lead": {"base": "game:block/metal/ingot/lead"},
-		"metal-zinc": {"base": "game:block/metal/ingot/zinc"},
-		"metal-steel": {"base": "game:block/metal/ingot/steel"},
-		"glass-blue": {"base": "game:block/glass/blue"},
-		"glass-brown": {"base": "game:block/glass/brown"},
-		"glass-green": {"base": "game:block/glass/green"},
-		"glass-pink": {"base": "game:block/glass/pink"},
-		"glass-plain": {"base": "game:block/glass/plain"},
-		"glass-quartz": {"base": "game:block/glass/quartz"},
-		"glass-red": {"base": "game:block/glass/red"},
-		"glass-smoky": {"base": "game:block/glass/smoky"},
-		"glass-vintage": {"base": "game:block/glass/vintage"},
-		"glass-violet": {"base": "game:block/glass/violet"},
-		"glass-yellow": {"base": "game:block/glass/yellow"}
+		"string": {"base": "game:block/cloth/burlap/string"}
 	},
 	"facecullmode": "nevercull",
 	"lightAbsorption": 0,
-	"maxStackSize": 1,
 	"sidesolid": {
 		"all": "false"
 	},

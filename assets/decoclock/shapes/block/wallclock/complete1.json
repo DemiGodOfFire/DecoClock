@@ -1,0 +1,128 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 16.0, 16.0, 1.0 ],
+			"rotationOrigin": [ 8.0, 8.0, 0.75 ],
+			"faces": {
+				"north": { "texture": "#frame", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"east": { "texture": "#frame", "uv": [ 15.0, 0.0, 16.0, 16.0 ] },
+				"south": { "texture": "#frame", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"west": { "texture": "#frame", "uv": [ 0.0, 0.0, 1.0, 16.0 ] },
+				"up": { "texture": "#frame", "uv": [ 0.0, 0.0, 16.0, 1.0 ] },
+				"down": { "texture": "#frame", "uv": [ 0.0, 15.0, 16.0, 16.0 ] }
+			},
+			"children": [
+				{
+					"name": "frame2",
+					"from": [ 0.0, 15.0, 1.0 ],
+					"to": [ 16.0, 16.0, 2.0 ],
+					"rotationOrigin": [ 0.0, 15.0, 1.0 ],
+					"faces": {
+						"east": { "texture": "#frame", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+						"south": { "texture": "#frame", "uv": [ 0.0, 2.0, 16.0, 3.0 ] },
+						"west": { "texture": "#frame", "uv": [ 15.0, 0.0, 16.0, 1.0 ] },
+						"up": { "texture": "#frame", "uv": [ 0.0, 1.0, 16.0, 2.0 ] },
+						"down": { "texture": "#frame", "uv": [ 0.0, 3.0, 16.0, 4.0 ] }
+					}
+				},
+				{
+					"name": "frame3",
+					"from": [ 0.0, 0.0, 1.0 ],
+					"to": [ 16.0, 1.0, 2.0 ],
+					"rotationOrigin": [ 0.0, 0.0, 1.0 ],
+					"faces": {
+						"east": { "texture": "#frame", "uv": [ 0.0, 15.0, 1.0, 16.0 ] },
+						"south": { "texture": "#frame", "uv": [ 0.0, 13.0, 16.0, 14.0 ] },
+						"west": { "texture": "#frame", "uv": [ 15.0, 15.0, 16.0, 16.0 ] },
+						"up": { "texture": "#frame", "uv": [ 0.0, 12.0, 16.0, 13.0 ] },
+						"down": { "texture": "#frame", "uv": [ 0.0, 14.0, 16.0, 15.0 ] }
+					}
+				},
+				{
+					"name": "frame1",
+					"from": [ 0.0, 1.0, 1.0 ],
+					"to": [ 1.0, 15.0, 2.0 ],
+					"rotationOrigin": [ 0.0, 1.0, 1.0 ],
+					"faces": {
+						"east": { "texture": "#frame", "uv": [ 3.0, 1.0, 4.0, 15.0 ] },
+						"south": { "texture": "#frame", "uv": [ 2.0, 1.0, 3.0, 15.0 ] },
+						"west": { "texture": "#frame", "uv": [ 1.0, 1.0, 2.0, 15.0 ] }
+					}
+				},
+				{
+					"name": "frame4",
+					"from": [ 15.0, 1.0, 1.0 ],
+					"to": [ 16.0, 15.0, 2.0 ],
+					"rotationOrigin": [ 15.0, 1.0, 1.0 ],
+					"faces": {
+						"east": { "texture": "#frame", "uv": [ 14.0, 1.0, 15.0, 15.0 ] },
+						"south": { "texture": "#frame", "uv": [ 13.0, 1.0, 14.0, 15.0 ], "windMode": [-1,-1,-1,-1] },
+						"west": { "texture": "#frame", "uv": [ 12.0, 1.0, 13.0, 15.0 ] }
+					}
+				},
+				{
+					"name": "tribe",
+					"from": [ 7.8, 8.2, 1.0 ],
+					"to": [ 8.2, 8.7, 1.4 ],
+					"rotationOrigin": [ 7.8, 8.2, 1.0 ],
+					"rotationX": 90.0,
+					"faces": {
+						"north": { "texture": "#clockwork", "uv": [ 8.0, 0.0, 10.0, 2.0 ], "autoUv": false },
+						"east": { "texture": "#clockwork", "uv": [ 6.5, 1.0, 8.5, 3.0 ], "autoUv": false },
+						"south": { "texture": "#clockwork", "uv": [ 0.5, 13.0, 2.5, 15.0 ], "autoUv": false },
+						"west": { "texture": "#clockwork", "uv": [ 2.5, 10.0, 4.5, 12.0 ], "autoUv": false }
+					},
+					"children": [
+						{
+							"name": "rivet",
+							"from": [ -0.1, 0.5, -0.1 ],
+							"to": [ 0.5, 0.6, 0.5 ],
+							"rotationOrigin": [ -0.1, 0.5, -0.1 ],
+							"faces": {
+								"north": { "texture": "#clockwork", "uv": [ 12.0, 4.0, 14.0, 4.5 ], "autoUv": false },
+								"east": { "texture": "#clockwork", "uv": [ 6.5, 8.5, 8.5, 9.0 ], "autoUv": false },
+								"south": { "texture": "#clockwork", "uv": [ 4.0, 4.5, 6.0, 5.0 ], "autoUv": false },
+								"west": { "texture": "#clockwork", "uv": [ 12.5, 13.0, 14.5, 13.5 ], "autoUv": false },
+								"up": { "texture": "#clockwork", "uv": [ 2.0, 10.0, 4.0, 12.0 ], "autoUv": false },
+								"down": { "texture": "#clockwork", "uv": [ 1.5, 10.5, 3.5, 12.5 ], "autoUv": false }
+							}
+						}
+					]
+				},
+				{
+					"name": "glass",
+					"from": [ 1.0, 1.0, 0.8 ],
+					"to": [ 15.0, 15.0, 1.8 ],
+					"rotationOrigin": [ 1.0, 1.0, 0.8 ],
+					"faces": {
+						"south": { "texture": "#dialglass", "uv": [ 1.0, 1.0, 15.0, 15.0 ], "windMode": [-1,-1,-1,-1] }
+					}
+				}
+			]
+		}
+	],
+	"animations": [
+		{
+			"name": "Animation 1",
+			"code": "animation1",
+			"quantityframes": 120,
+			"onActivityStopped": "Rewind",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+
+			]
+		}
+	]
+}

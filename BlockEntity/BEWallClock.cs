@@ -1,5 +1,6 @@
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
@@ -39,10 +40,25 @@ namespace DecoClock
             }
             return false;
         }
+
+        private MeshData GenBaseMesh(ITesselatorAPI tesselator, int type)
+        {
+            string path = this.PathBlock + $"complete{type}.json";
+            Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
+            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            return mesh;
+        }
+
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
-            base.UpdateMesh(tesselator);
-            rendererClock?.Update(GetItemMesh("hourhand"), 0.005f, GetItemMesh("minutehand"), 0.005f, 0f, MeshAngle);
+            tesselator ??= ((ICoreClientAPI)Api).Tesselator;
+            MeshData mesh = GenBaseMesh(tesselator, 1);
+            BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            rendererClock?.Update(
+                GetItemMesh("hourhand"), 0.005f,
+                GetItemMesh("minutehand"), 0.005f, 0f,
+                GetItemMesh("tickmarks", 2), -0.439f, 0f,
+                MeshAngle);
         }
 
         public override void RegisterRenderer(ICoreClientAPI capi)

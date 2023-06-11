@@ -9,7 +9,7 @@
 		}
 	},	
 	"drawtype": "json",
-	
+	"maxstacksize": 64,
 	"variantgroups": [
 		{ "code": "metal", "states": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ] }
 	],

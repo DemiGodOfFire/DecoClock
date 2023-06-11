@@ -3,6 +3,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace DecoClock
 {
@@ -54,7 +55,7 @@ namespace DecoClock
             return mesh;
         }
 
-        public MeshData? GetItemMesh(string item, int radius)
+        public MeshData? GetItemMesh(string item, int radius, int type)
         {
             if (Inventory != null)
             {
@@ -62,7 +63,7 @@ namespace DecoClock
                 if (inv != null)
                 {
                     ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
-                    string path = this.PathBlock + $"{item}{radius}.json";
+                    string path = this.PathBlock + $"{item}{radius}-{type}.json";
                     Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
                     tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
                     return mesh;
@@ -78,7 +79,16 @@ namespace DecoClock
             if (Inventory.IsExist("disguise"))
             {
                 ItemStack itemStack = Inventory.TryGetPart("disguise")!;
-                tesselator.TesselateBlock(itemStack.Block, out mesh);
+                if(itemStack.Block is BlockChisel)
+                {
+                    var bem = new BlockEntityMicroBlock();
+                    bem.FromTreeAttributes(itemStack.Attributes, Api.World);
+                    mesh = BlockEntityMicroBlock.CreateMesh((ICoreClientAPI)Api, bem.VoxelCuboids, bem.MaterialIds, Pos);
+                }
+                else
+                {
+                    tesselator.TesselateBlock(itemStack.Block, out mesh);
+                }
             }
             else
             {
@@ -87,8 +97,8 @@ namespace DecoClock
             BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
             rendererClock?.Update(GetItemMesh("hourhand"), 0.55f,
                 GetItemMesh("minutehand"), 0.61f, 0f,
+                GetItemMesh($"tickmarks",Radius,1), 1f, 0f,
                 GetMesh("tribe2"),
-                GetItemMesh($"tickmarks",Radius), 1f, 0f,
                 MeshAngle);
         }
 

@@ -7,9 +7,7 @@ namespace DecoClock
     {
         private readonly Matrixf modelMat = new();
         MeshRef? tribe;
-        MeshRef? dial;
-        float dyDial;
-        float dzDial;
+      
 
         public BigClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos) : base(coreClientAPI, pos)
         {
@@ -30,49 +28,28 @@ namespace DecoClock
                 clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
                 rpi.RenderMesh(tribe);
             }
-            if (dial != null)
-            {
-                clockShader.ModelMatrix = modelMat
-               .Identity()
-               .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
-               .Translate(0.5f, 0.5f + dyDial, 0.5f)
-               .RotateY(MeshAngle)
-               .Translate(-0.5f, -0.5f, -0.5f + dzDial)
-               .Values;
-                clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
-                clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                rpi.RenderMesh(dial);
-            }
+            
         }
         public override bool IsNotRender()
         {
-            return base.IsNotRender() && tribe == null && dial == null;
+            return base.IsNotRender() && tribe == null;
         }
 
-        public void Update(MeshData? hourHand, float dzHour,
+        public void Update(
+            MeshData? hourHand, float dzHour,
             MeshData? minuteHand, float dzMinute, float dyHand,
+            MeshData? dial, float dzDial, float dyDial,
             MeshData? tribe,
-            MeshData? dial, float dzDial, float dyDial, float meshAngle)
+            float meshAngle)
         {
-            base.Update(hourHand, dzHour, minuteHand, dzMinute, dyHand, meshAngle);
+            base.Update(hourHand, dzHour, minuteHand, dzMinute, dyHand, dial, dzDial, dyDial, meshAngle);
             this.tribe?.Dispose();
             this.tribe = null;
 
             if (tribe != null)
             {
                 this.tribe = capi.Render.UploadMesh(tribe);
-            }
-
-            this.dial?.Dispose();
-            this.dial = null;
-            this.dzDial = dzDial;
-            this.dyDial = dyDial;
-
-            if (dial != null)
-            {
-                this.dial = capi.Render.UploadMesh(dial);
-            }
-
+            }                  
         }
         public override void AddRenderer(float hourRad, float minuteRad)
         {
@@ -82,7 +59,6 @@ namespace DecoClock
         public override void Dispose()
         {
             base.Dispose();
-            dial?.Dispose();
             tribe?.Dispose();
         }
     }

@@ -65,7 +65,8 @@ namespace DecoClock
             rendererGrandfatherClock.Update(
                 GetItemMesh("hourhand"), -0.11f,
                 GetItemMesh("minutehand"), -0.101f, 1f,
-                GetItemMesh("clockparts", "pendulum"), -0.0625f, 0.625f,
+                GetItemMesh("tickmarks", 3), -0.113f, 1.0f,
+                GetPartItemMesh("clockparts", "pendulum"), -0.0625f, 0.625f,
               //GetItemMesh("clockparts", "weight")
                 MeshAngle);
         }

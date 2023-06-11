@@ -170,9 +170,26 @@ namespace DecoClock
             }
             return null;
         }
-     
 
-        public MeshData? GetItemMesh(string item, string part)
+        public MeshData? GetItemMesh(string item, int type)
+        {
+            if (Inventory != null)
+            {
+                var inv = Inventory.TryGetPart(item);
+                if (inv != null)
+                {
+                    ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
+                    string path = this.PathBlock + $"{item}-{type}.json";
+                    Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
+                    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+                    return mesh;
+                }
+            }
+            return null;
+        }
+
+
+        public MeshData? GetPartItemMesh(string item, string part)
         {
             if (Inventory != null)
             {

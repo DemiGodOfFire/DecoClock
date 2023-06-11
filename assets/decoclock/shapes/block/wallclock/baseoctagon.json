@@ -965,17 +965,5 @@
 				"down": { "texture": "#oak", "uv": [ 0.0, 0.0, 7.5, 1.0 ] }
 			}
 		}
-	],
-	"animations": [
-		{
-			"name": "Animation 1",
-			"code": "animation1",
-			"quantityframes": 120,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		}
 	]
 }

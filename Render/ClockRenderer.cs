@@ -6,12 +6,15 @@ namespace DecoClock
 {
     public class ClockRenderer : IRenderer
     {
+        private float dyDial;
+        private float dzDial;
         private float dyHand;
         private float dzHourHand;
         private float dzMinuteHand;
         private int hourMemory;
         private int minuteMemory;
         private readonly Matrixf modelMat = new();
+        private MeshRef? dial;
         private MeshRef? hourHand;
         private MeshRef? minuteHand;
         public event Action<int>? HourTick;
@@ -38,15 +41,15 @@ namespace DecoClock
                 return;
             }
 
-            float hourRad=0;
-            float minuteRad=0;
+            float hourRad = 0;
+            float minuteRad = 0;
 
             if (IfWork)
             {
                 Time = (int)Math.Round(capi.World.Calendar.HourOfDay / capi.World.Calendar.HoursPerDay * 24f * 10000);
             }
 
-            if (hourHand != null )
+            if (hourHand != null || minuteHand != null)
             {
                 int hour = Time / 10000;
                 int minute = Time % 10000;
@@ -62,27 +65,27 @@ namespace DecoClock
                         HourTick?.Invoke(hour);
                     }
                 }
-
-                if (minuteHand != null)
+                minuteRad = minute60 * (6f) * (float)Math.PI / 180;
+                if (minuteMemory != minute60)
                 {
-                    minuteRad = minute60 * (6f) * (float)Math.PI / 180;
-                    if (minuteMemory != minute60)
-                    {
-                        minuteMemory = (int)minute60;
-                        MinuteTick?.Invoke();
-                    }
+                    minuteMemory = (int)minute60;
+                    MinuteTick?.Invoke();
                 }
+
             }
             AddRenderer(hourRad, minuteRad);
         }
 
         public virtual bool IsNotRender()
         {
-            return hourHand == null && minuteHand == null;
+            return hourHand == null && minuteHand == null && dial == null;
         }
 
-        public virtual void Update(MeshData? hourHand, float dzHour, MeshData? minuteHand, float dzMinute,
-            float dyHand, float meshAngle)
+        public virtual void Update(
+            MeshData? hourHand, float dzHour,
+            MeshData? minuteHand, float dzMinute, float dyHand,
+            MeshData? dial, float dzDial, float dyDial,
+            float meshAngle)
         {
             this.dyHand = dyHand;
             this.dzHourHand = dzHour;
@@ -102,6 +105,16 @@ namespace DecoClock
             if (minuteHand != null)
             {
                 this.minuteHand = capi.Render.UploadMesh(minuteHand);
+            }
+
+            this.dial?.Dispose();
+            this.dial = null;
+            this.dzDial = dzDial;
+            this.dyDial = dyDial;
+
+            if (dial != null)
+            {
+                this.dial = capi.Render.UploadMesh(dial);
             }
         }
 
@@ -132,6 +145,11 @@ namespace DecoClock
             {
                 HandRender(rpi, camPos, clockShader, minuteHand, minuteRad, dzMinuteHand);
             }
+
+            if (dial != null)
+            {
+                DialRender(rpi, camPos, clockShader);
+            }
         }
 
         public virtual void HandRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader,
@@ -150,9 +168,28 @@ namespace DecoClock
             rpi.RenderMesh(mesh);
         }
 
+        public virtual void DialRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader)
+        {
+            if (dial != null)
+            {
+                clockShader.ModelMatrix = modelMat
+               .Identity()
+               .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
+               .Translate(0.5f, 0.5f + dyDial, 0.5f)
+               .RotateY(MeshAngle)
+               .Translate(-0.5f, -0.5f, -0.5f + dzDial)
+               .Values;
+                clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
+                clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+                rpi.RenderMesh(dial);
+            }
+        }
+
+
         public virtual void Dispose()
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
+            dial?.Dispose();
             hourHand?.Dispose();
             minuteHand?.Dispose();
         }
