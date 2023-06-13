@@ -1,0 +1,113 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"0": [16,16]
+	},
+	"textures": {
+		"oak": "C:/Users/Maksym/source/repos/DemiGodOfFire/VSMods/DecoClock/assets/decoclock/textures/octagon/oak"
+	},
+	"elements": [
+		{
+			"name": "Cube.110",
+			"from": [ 3.9984, 1.119, 1.0E-4 ],
+			"to": [ 12.0016, 2.1188, 2.0001 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0011 ],
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 2.5, 5.5, 10.5, 6.0 ] },
+				"east": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 1.5 ] },
+				"south": { "texture": "#oak", "uv": [ 3.5, 7.0, 11.5, 7.5 ] },
+				"west": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 1.5 ] },
+				"up": { "texture": "#oak", "uv": [ 2.0, 6.5, 10.0, 8.5 ] },
+				"down": { "texture": "#oak", "uv": [ 4.0, 1.0, 12.0, 3.0 ] }
+			}
+		},
+		{
+			"name": "Cube.111",
+			"from": [ 3.9984, 1.119, 0.0011 ],
+			"to": [ 12.0016, 1.7188, 2.0011 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0011 ],
+			"rotationZ": 60.0,
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 2.5, 8.5, 10.5, 9.0 ] },
+				"east": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 1.5 ] },
+				"south": { "texture": "#oak", "uv": [ 3.0, 8.5, 11.0, 9.0 ] },
+				"west": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 1.5 ] },
+				"up": { "texture": "#oak", "uv": [ 3.5, 7.5, 11.5, 9.5 ] },
+				"down": { "texture": "#oak", "uv": [ 4.0, 1.0, 12.0, 3.0 ] }
+			}
+		},
+		{
+			"name": "Cube.112",
+			"from": [ 13.9312, 4.0484, 1.0E-4 ],
+			"to": [ 14.931, 12.0516, 2.0001 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0011 ],
+			"rotationZ": 30.0,
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 9.0 ] },
+				"east": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 9.0 ] },
+				"south": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 9.0 ] },
+				"west": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 9.0 ] },
+				"up": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 3.0 ] },
+				"down": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 3.0 ] }
+			}
+		},
+		{
+			"name": "Cube.113",
+			"from": [ 3.9984, 13.9812, 0.0011 ],
+			"to": [ 12.0016, 14.981, 2.0011 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0011 ],
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 3.5, 5.5, 11.5, 6.0 ] },
+				"east": { "texture": "#oak", "uv": [ 4.0, 4.0, 6.0, 4.5 ] },
+				"south": { "texture": "#oak", "uv": [ 3.0, 5.0, 11.0, 5.5 ] },
+				"west": { "texture": "#oak", "uv": [ 4.5, 4.0, 6.5, 4.5 ] },
+				"up": { "texture": "#oak", "uv": [ 2.5, 7.0, 10.5, 9.0 ] },
+				"down": { "texture": "#oak", "uv": [ 4.0, 1.0, 12.0, 3.0 ] }
+			}
+		},
+		{
+			"name": "Cube.114",
+			"from": [ 3.9984, 13.9812, 1.0E-4 ],
+			"to": [ 12.0016, 14.981, 2.0001 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0011 ],
+			"rotationZ": 60.0,
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 2.5, 5.0, 10.5, 5.5 ] },
+				"east": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 1.5 ] },
+				"south": { "texture": "#oak", "uv": [ 4.0, 5.5, 12.0, 6.0 ] },
+				"west": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 1.5 ] },
+				"up": { "texture": "#oak", "uv": [ 2.5, 5.0, 10.5, 7.0 ] },
+				"down": { "texture": "#oak", "uv": [ 4.0, 1.0, 12.0, 3.0 ] }
+			}
+		},
+		{
+			"name": "Cube.115",
+			"from": [ 1.069, 4.0484, 0.0011 ],
+			"to": [ 2.0688, 12.0516, 2.0011 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0011 ],
+			"rotationZ": 30.0,
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 9.0 ] },
+				"east": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 9.0 ] },
+				"south": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 9.0 ] },
+				"west": { "texture": "#oak", "uv": [ 4.0, 1.0, 6.0, 9.0 ] },
+				"up": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 3.0 ] },
+				"down": { "texture": "#oak", "uv": [ 4.0, 1.0, 4.5, 3.0 ] }
+			}
+		},
+		{
+			"name": "Cube.116",
+			"from": [ 0.76, 1.7883, 0.0211 ],
+			"to": [ 15.2474, 14.3117, 0.5211 ],
+			"rotationOrigin": [ 8.0, 8.05, 0.0211 ],
+			"faces": {
+				"north": { "texture": "#oak", "uv": [ 0.0, 1.0, 14.0, 13.5 ], "windMode": [-1,-1,-1,-1] },
+				"south": { "texture": "#oak", "uv": [ 0.0, 1.0, 14.0, 13.5 ] }
+			}
+		}
+	]}

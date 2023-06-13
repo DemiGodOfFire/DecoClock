@@ -56,8 +56,8 @@ namespace DecoClock
             BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
             rendererClock?.Update(
                 GetItemMesh("hourhand"), 0.005f,
-                GetItemMesh("minutehand"), 0.005f, 0f,
-                GetItemMesh("tickmarks", 2), -0.439f, 0f,
+                GetItemMesh("minutehand"), 0f, 0.005f,
+                GetItemMesh("tickmarks", TypeDial), 0f, -0.439f,
                 MeshAngle);
         }
 

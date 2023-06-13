@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Linq;
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
@@ -10,6 +12,7 @@ namespace DecoClock
         protected BlockPos Pos { get; set; }
         protected InventoryClock Inventory { get; set; }
         public abstract string[] Parts { get;}
+        public int Type { get; set; }
 
         public GuiDialogClockBase(string dialogTitle,InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) :
             base(Lang.Get(dialogTitle), capi)
@@ -33,6 +36,7 @@ namespace DecoClock
             return base.TryOpen();
         }
         public abstract void ComposeDialog();
+        public abstract int GetTypeDial();
 
         public override bool OnMouseEnterSlot(ItemSlot slot)
         {
@@ -97,5 +101,11 @@ namespace DecoClock
             capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, p);
         }
 
+        public bool OnDialChanged(int value)
+        {
+            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.TypeDial, BitConverter.GetBytes(value));
+            return true;
+        }
+        
     }
 }

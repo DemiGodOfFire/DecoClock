@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -21,6 +22,7 @@ namespace DecoClock
 
         public readonly List<ClockItem> _parts = new();
 
+        public int TypeDial { get; set; } = 1;
         public float MeshAngle { get; set; }
         public abstract string PathBlock { get; }
 
@@ -297,12 +299,19 @@ namespace DecoClock
                 IPlayerInventoryManager inventoryManager = player.InventoryManager;
                 inventoryManager?.CloseInventory(Inventory);
             }
+
+            if(packetid == Constants.TypeDial)
+            {
+                TypeDial = BitConverter.ToInt32(data, 0);
+                MarkDirty(true);
+            }
         }
 
 
         public virtual void GetVariablesFromTreeAttributes(ITreeAttribute tree)
         {
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
+            TypeDial = tree.GetInt("typedial", TypeDial);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -323,6 +332,7 @@ namespace DecoClock
             //  Api.World.Logger.Warning("To tree attributes");
             base.ToTreeAttributes(tree);
             tree.SetFloat("meshAngle", MeshAngle);
+            tree.SetInt("typedial", TypeDial);
             Inventory?.ToTreeAttributes(tree);
         }
 

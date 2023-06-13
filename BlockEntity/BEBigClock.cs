@@ -55,22 +55,22 @@ namespace DecoClock
             return mesh;
         }
 
-        public MeshData? GetItemMesh(string item, int radius, int type)
-        {
-            if (Inventory != null)
-            {
-                var inv = Inventory.TryGetPart(item);
-                if (inv != null)
-                {
-                    ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
-                    string path = this.PathBlock + $"{item}{radius}-{type}.json";
-                    Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
-                    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
-                    return mesh;
-                }
-            }
-            return null;
-        }
+        //public MeshData? GetItemMesh(string item, int type)
+        //{
+        //    if (Inventory != null)
+        //    {
+        //        var inv = Inventory.TryGetPart(item);
+        //        if (inv != null)
+        //        {
+        //            ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
+        //            string path = this.PathBlock + $"{item}-{type}.json";
+        //            Shape shape = Api.Assets.TryGet(path).ToObject<Shape>();
+        //            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+        //            return mesh;
+        //        }
+        //    }
+        //    return null;
+        //}
 
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
@@ -95,10 +95,11 @@ namespace DecoClock
                 mesh = GenBaseMesh(tesselator);
             }
             BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
-            rendererClock?.Update(GetItemMesh("hourhand"), 0.55f,
-                GetItemMesh("minutehand"), 0.61f, 0f,
-                GetItemMesh($"tickmarks",Radius,1), 1f, 0f,
-                GetMesh("tribe2"),
+            rendererClock?.Update(GetItemMesh("hourhand"), 0.6f,
+                GetItemMesh("minutehand"), 0f, 0.75f,
+                GetItemMesh("tickmarks",TypeDial), 0f, 0.5f,
+                GetMesh("tribe"),
+                Radius,
                 MeshAngle);
         }
 

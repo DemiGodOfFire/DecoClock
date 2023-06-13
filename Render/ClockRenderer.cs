@@ -5,25 +5,27 @@ using Vintagestory.API.MathTools;
 namespace DecoClock
 {
     public class ClockRenderer : IRenderer
-    {
-        private float dyDial;
-        private float dzDial;
-        private float dyHand;
+    {        
         private float dzHourHand;
         private float dzMinuteHand;
         private int hourMemory;
         private int minuteMemory;
         private readonly Matrixf modelMat = new();
-        private MeshRef? dial;
         private MeshRef? hourHand;
         private MeshRef? minuteHand;
         public event Action<int>? HourTick;
         public event Action? MinuteTick;
         public readonly ICoreClientAPI capi;
+        public BlockPos Pos { get; }
+        public MeshRef? Dial { get; set; }
         public int Time { get; set; } = 30000;
         public float MeshAngle { get; set; }
+        public float DyDial { get; set; }
+        public float DzDial { get; set; }
+        public float DyHand { get; set; }
         public bool IfWork { get; set; } = true;
-        public BlockPos Pos { get; }
+
+
 
         public double RenderOrder => 0.37;
         public int RenderRange => 24;
@@ -78,16 +80,16 @@ namespace DecoClock
 
         public virtual bool IsNotRender()
         {
-            return hourHand == null && minuteHand == null && dial == null;
+            return hourHand == null && minuteHand == null && Dial == null;
         }
 
         public virtual void Update(
             MeshData? hourHand, float dzHour,
-            MeshData? minuteHand, float dzMinute, float dyHand,
-            MeshData? dial, float dzDial, float dyDial,
+            MeshData? minuteHand, float dyHand, float dzMinute,
+            MeshData? dial, float dyDial, float dzDial,
             float meshAngle)
         {
-            this.dyHand = dyHand;
+            this.DyHand = dyHand;
             this.dzHourHand = dzHour;
             this.dzMinuteHand = dzMinute;
             MeshAngle = meshAngle;
@@ -107,14 +109,14 @@ namespace DecoClock
                 this.minuteHand = capi.Render.UploadMesh(minuteHand);
             }
 
-            this.dial?.Dispose();
-            this.dial = null;
-            this.dzDial = dzDial;
-            this.dyDial = dyDial;
+            this.Dial?.Dispose();
+            this.Dial = null;
+            this.DyDial = dyDial;
+            this.DzDial = dzDial;
 
             if (dial != null)
             {
-                this.dial = capi.Render.UploadMesh(dial);
+                this.Dial = capi.Render.UploadMesh(dial);
             }
         }
 
@@ -146,7 +148,7 @@ namespace DecoClock
                 HandRender(rpi, camPos, clockShader, minuteHand, minuteRad, dzMinuteHand);
             }
 
-            if (dial != null)
+            if (Dial != null)
             {
                 DialRender(rpi, camPos, clockShader);
             }
@@ -158,7 +160,7 @@ namespace DecoClock
             clockShader.ModelMatrix = modelMat
                .Identity()
                .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
-               .Translate(0.5f, 0.5f + dyHand, 0.5f)
+               .Translate(0.5f, 0.5f + DyHand, 0.5f)
                .RotateY(MeshAngle)
                .RotateZ(-angleRad)
                .Translate(-0.5f, -0.5f, -0.5f + dz)
@@ -170,26 +172,23 @@ namespace DecoClock
 
         public virtual void DialRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader)
         {
-            if (dial != null)
-            {
-                clockShader.ModelMatrix = modelMat
-               .Identity()
-               .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
-               .Translate(0.5f, 0.5f + dyDial, 0.5f)
-               .RotateY(MeshAngle)
-               .Translate(-0.5f, -0.5f, -0.5f + dzDial)
-               .Values;
-                clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
-                clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                rpi.RenderMesh(dial);
-            }
+            clockShader.ModelMatrix = modelMat
+           .Identity()
+           .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
+           .Translate(0.5f, 0.5f + DyDial, 0.5f)
+           .RotateY(MeshAngle)
+           .Translate(-0.5f, -0.5f, -0.5f + DzDial)
+           .Values;
+            clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
+            clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+            rpi.RenderMesh(Dial);
         }
 
 
         public virtual void Dispose()
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
-            dial?.Dispose();
+            Dial?.Dispose();
             hourHand?.Dispose();
             minuteHand?.Dispose();
         }

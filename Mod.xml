@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<Name>Decorative clock</Name>
 		<ModId>decoclock</ModId>
-		<Version>0.1.2</Version>
+		<Version>0.7.0</Version>
 		<Authors>Svarozhich</Authors>
 		<GameVersion>1.18.5</GameVersion>
 		<Description></Description>

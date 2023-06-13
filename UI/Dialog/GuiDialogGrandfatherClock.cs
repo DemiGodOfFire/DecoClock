@@ -34,6 +34,7 @@ namespace DecoClock
             ElementBounds clockPartsSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 76.0, 190.0, 1, 1);
             ElementBounds doorGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 190.0, 1, 1);
             ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
+            ElementBounds typeDialBounds = ElementBounds.Fixed(0, 40, 50, 30);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -53,15 +54,17 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, dialGlassSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 5 }, clockPartsSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 6 }, doorGlassSlotBounds)
+                    .AddSlider(OnDialChanged, typeDialBounds, "typedial")
 
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
                 .EndChildElements()
                 .Compose();
+            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 3, 1);
         }
-
-        //void hj()
-        //{
-        //    SingleComposer.GetSlotGrid("").Bounds.bgDrawY
-        //}
+        public override int GetTypeDial()
+        {
+            BEGrandfatherClock be = (BEGrandfatherClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
+            return be.TypeDial;
+        }
     }
 }

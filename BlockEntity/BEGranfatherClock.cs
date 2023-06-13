@@ -64,8 +64,8 @@ namespace DecoClock
             rendererDoor.Update(GetMesh("door"), MeshAngle);
             rendererGrandfatherClock.Update(
                 GetItemMesh("hourhand"), -0.11f,
-                GetItemMesh("minutehand"), -0.101f, 1f,
-                GetItemMesh("tickmarks", 3), -0.113f, 1.0f,
+                GetItemMesh("minutehand"), 1f, -0.101f,
+                GetItemMesh("tickmarks", TypeDial), 1.0f, -0.113f,
                 GetPartItemMesh("clockparts", "pendulum"), -0.0625f, 0.625f,
               //GetItemMesh("clockparts", "weight")
                 MeshAngle);
