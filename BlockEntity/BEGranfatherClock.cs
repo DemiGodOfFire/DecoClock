@@ -66,7 +66,7 @@ namespace DecoClock
                 GetItemMesh("hourhand"), -0.11f,
                 GetItemMesh("minutehand"), 1f, -0.101f,
                 GetItemMesh("tickmarks", TypeDial), 1.0f, -0.113f,
-                GetPartItemMesh("clockparts", "pendulum"), -0.0625f, 0.625f,
+                GetPartItemMesh("clockparts", "pendulum"), -0.05f, 0.625f,
               //GetItemMesh("clockparts", "weight")
                 MeshAngle);
         }
