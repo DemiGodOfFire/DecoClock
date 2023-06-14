@@ -1,10 +1,11 @@
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using static OpenTK.Graphics.OpenGL.GL;
 
 namespace DecoClock
 {
-    internal class GrandfatherClockBlock : ClockBlock
+    internal class GrandfatherClockBlock : ClockBlock//, IMultiBlockInteract
     {
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -39,6 +40,56 @@ namespace DecoClock
                 }
             }
             return val;
+        }
+
+        public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
+        {
+            BEGrandfatherClock be = (BEGrandfatherClock)blockAccessor.GetBlockEntity(pos);
+            if (be != null)
+            {
+                Cuboidf[] selectionBoxes = new Cuboidf[1];
+                float angleDeg = be.MeshAngle * GameMath.RAD2DEG;
+                float roundedAngle = (float)Math.Round(angleDeg / 90f) * 90f;
+                if (roundedAngle < 0)
+                {
+                    roundedAngle += 360;
+                }
+                switch (roundedAngle)
+                {
+                    case 0:
+
+                        selectionBoxes[0] = SelectionBoxes[0];
+                        break;
+
+                    case 90:
+
+                        selectionBoxes[0] = SelectionBoxes[1];
+                        break;
+
+                    case 180:
+
+                        selectionBoxes[0] = SelectionBoxes[2];
+                        break;
+
+                    case 270:
+
+                        selectionBoxes[0] = SelectionBoxes[3];
+                        break;
+                    default:
+                        selectionBoxes[0] = SelectionBoxes[0];
+                        api.Logger.Error("Achtung! Angle not correct!");
+                        break;
+                }
+
+                return selectionBoxes;
+            }
+
+            return base.GetSelectionBoxes(blockAccessor, pos);
+        }
+
+        public override Cuboidf[] GetCollisionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
+        {
+            return GetSelectionBoxes(blockAccessor, pos);
         }
     }
 }

@@ -1,6 +1,7 @@
 using DecoClock.Render;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
@@ -12,7 +13,7 @@ namespace DecoClock
 
         GuiDialogGrandfatherClock dialogClock = null!;
         GrandfatherClockRenderer rendererGrandfatherClock = null!;
-        GrandfatherClockDoorRenderer rendererDoor = null!;
+        GrandfatherClockDoorRenderer rendererDoor = null!;       
         public override string PathBlock => "decoclock:shapes/block/grandfatherclock/";
 
 
@@ -28,9 +29,7 @@ namespace DecoClock
             _parts.Add(new("clockparts", "clockwork"));
             _parts.Add(new("doorglass"));
         }
-
-
-
+               
         public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
