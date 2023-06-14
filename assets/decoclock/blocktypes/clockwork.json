@@ -13,7 +13,11 @@
   "shapeInventory": { "base": "item/clockwork" },
   "textures": {
     "clockwork": { "base": "game:block/metal/ingot/{metal}" },
-    "disguise": { "base": "game:block/metal/sheet/{metal}1" }
+    "disguise": { "base": "game:block/metal/sheet/{metal}1" ,
+	"alternates": [{ "base": "game:block/metal/sheet/{metal}2"},
+	{ "base": "game:block/metal/sheet/{metal}3" },
+	{ "base": "game:block/metal/sheet/{metal}4" },
+	{ "base": "game:block/metal/sheet/{metal}5" }]}
   },
   "sidesolid": { "all": false },
   "sideopaque": { "all": false },

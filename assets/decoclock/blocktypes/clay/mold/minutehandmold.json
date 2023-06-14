@@ -18,7 +18,7 @@
 	],
 	attributesByType: {
 		"toolmold-burned-minutehand": {
-			"requiredUnits": 100,
+			"requiredUnits": 50,
 			"fillHeight": 1,		
 			"drop": { 
 				type: "item", 

@@ -1,6 +1,8 @@
 using System;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
 
 namespace DecoClock
 {
@@ -36,6 +38,18 @@ namespace DecoClock
                 }
             }
             return val;
+        }
+
+        public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer)
+        {
+            return new WorldInteraction[]
+            {
+                new WorldInteraction
+                {
+                    ActionLangCode = "blockhelp-chest-open",
+                    MouseButton = EnumMouseButton.Right
+                }
+            }.Append(base.GetPlacedBlockInteractionHelp(world, selection, forPlayer));
         }
     }
 }

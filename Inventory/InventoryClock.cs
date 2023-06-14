@@ -1,4 +1,6 @@
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -118,7 +120,14 @@ namespace DecoClock
         //    int id = IdSlot(type);
             if(codes[id].Dependency!=null)
             {
-                return !slots[IdSlot(codes[id].Dependency)].Empty;
+                if (slots[IdSlot(codes[id].Dependency)].Empty)
+                {
+                    if (Api is ICoreClientAPI capi)
+                    {
+                        capi.TriggerIngameError(this, "missingclocwork", Lang.Get("Missing clocwork"));
+                    }
+                    return false;
+                }
             }
             return true;
         }
@@ -204,7 +213,13 @@ namespace DecoClock
             for (int i = 0; i < codes.Length; i++)
             {
                 if (codes[i].Dependency == type && !slot.Inventory[i].Empty)
+                {
+                    if (Api is ICoreClientAPI capi)
+                    {
+                        capi.TriggerIngameError(this, "notemptydependency", Lang.Get("Remove other elements first"));
+                    }
                     return false;
+                }
             }
             return true;
         }

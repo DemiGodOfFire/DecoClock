@@ -2,13 +2,12 @@
   "code": "wallclock",
   "class": "wallclock",
   "entityClass": "bewallclock",
-  "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "decoclock": ["*-north"] },
-  "behaviors": [ {"name": "HorizontalAttachable", "properties": {  "dropBlockFace": "north" }} ],
- 
+  "behaviors": [ {"name": "HorizontalAttachable", "properties": {  "dropBlockFace": "north" }} ], 
   "variantgroups": [
     { "code": "wood", "states": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] },
  	{ "code":"side", "loadFromProperties": "abstract/horizontalorientation"}
-    ],
+    ],	
+  "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "decoclock": ["*-north"] },
   	"shape": { "base": "block/wallclock/complete1"},
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},
@@ -36,10 +35,10 @@
     ], 
     "guiTransform": {
     "rotate": false,
-    "translation": { "x": -1, "y": 0, "z": 0 },
+    "translation": { "x": -2, "y": 0, "z": 8 },
     "rotation": { "x": -10, "y": -135, "z": 0 },
     "origin": { "x": 0.15, "y": 0.6, "z": 0.5 },
-    "scale": 1.38
+    "scale": 1.20
   },
   "groundTransform": {
     "translation": { "x": 0.4, "y": 0, "z": -0.4 },

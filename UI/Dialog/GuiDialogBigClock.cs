@@ -61,7 +61,6 @@ namespace DecoClock
 
         private bool OnRadiusChanged(int value)
         {
-           // BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
             capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.Radius, BitConverter.GetBytes(value));
             return true;
         }
