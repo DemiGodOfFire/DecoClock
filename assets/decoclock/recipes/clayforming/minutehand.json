@@ -1,0 +1,19 @@
+{
+	"ingredient": { "type": "item", "code": "game:clay-*", "name": "type", "allowedVariants": ["blue", "fire"] },
+	"pattern": [[
+		"#########",
+		"#########",
+		"#########",
+		"#########",
+		"#########",
+	],
+	[	
+		"#########",
+		"######_##",
+		"#_____#_#",
+		"######_##",
+		"#########",
+	]],
+	"name": "Minutehand Mold",
+	"output": { "type": "block", "code": "toolmold-raw-minutehand"  }
+}

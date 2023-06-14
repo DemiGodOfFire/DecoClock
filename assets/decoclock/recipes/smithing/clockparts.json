@@ -6,15 +6,15 @@
 		"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel"]
 		 },
   "pattern": [[
-   "#__#_",
-   "#__#_",
-   "#__#_",
-   "_#_#_",
-   "_#_#_",
-   "_#_#_",
-   "#_###",
-   "#_###",
-   "#_###"
+   "__#__",
+   "__#__",
+   "__#__",
+   "#_#_#",
+   "#_#_#",
+   "#_#_#",
+   "_###_",
+   "_###_",
+   "_###_"
    ]],
   "name": "Clock Parts",
   "output": { "type": "item", "code": "clockparts-{metal}" }

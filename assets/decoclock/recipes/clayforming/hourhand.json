@@ -1,0 +1,19 @@
+{
+	"ingredient": { "type": "item", "code": "game:clay-*", "name": "type", "allowedVariants": ["blue", "fire"] },
+	"pattern": [[
+		"########",
+		"########",
+		"########",
+		"########",
+		"########",
+	],
+	[	
+		"########",
+		"#####_##",
+		"#____#_#",
+		"#####_##",
+		"########",
+	]],
+	"name": "Hourhand Mold",
+	"output": { "type": "block", "code": "toolmold-raw-hourhand"  }
+}
