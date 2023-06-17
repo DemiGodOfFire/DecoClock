@@ -125,5 +125,9 @@
 	"dialglass": "Стекло циферблата",
 	"doorglass": "Стекло дверцы",
 
+	"mute": "Заглушить",
+	"radius": "Размер часов",
+	"typedial": "Тип циферблата",
+	
 	"game:tabname-decoclock": "DecoClock"
 }

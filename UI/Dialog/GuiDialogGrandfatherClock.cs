@@ -1,4 +1,5 @@
 using Vintagestory.API.Client;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -35,6 +36,8 @@ namespace DecoClock
             ElementBounds doorGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 190.0, 1, 1);
             ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
             ElementBounds typeDialBounds = ElementBounds.Fixed(0, 40, 50, 30);
+            ElementBounds muteSoundsBounds = ElementBounds.Fixed(168, 255, 50, 50);
+
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -55,16 +58,26 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 5 }, clockPartsSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 6 }, doorGlassSlotBounds)
                     .AddSlider(OnDialChanged, typeDialBounds, "typedial")
+                    .AddSwitch(OnMuteChanged, muteSoundsBounds,"mutesounds")
 
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:typedial"), CairoFont.WhiteSmallText(), 200, typeDialBounds)
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:mute"), CairoFont.WhiteSmallText(), 200, muteSoundsBounds)
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
                 .EndChildElements()
                 .Compose();
             SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 3, 1);
+            SingleComposer.GetSwitch("mutesounds").SetValue(GetMuteSounds());
         }
         public override int GetTypeDial()
         {
             BEGrandfatherClock be = (BEGrandfatherClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
             return be.TypeDial;
+        }
+
+        public override bool GetMuteSounds()
+        {
+            BEGrandfatherClock be = (BEGrandfatherClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
+            return be.MuteSounds;
         }
     }
 }

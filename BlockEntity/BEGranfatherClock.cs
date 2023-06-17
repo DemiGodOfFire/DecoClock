@@ -1,7 +1,6 @@
 using DecoClock.Render;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
@@ -13,11 +12,8 @@ namespace DecoClock
 
         GuiDialogGrandfatherClock dialogClock = null!;
         GrandfatherClockRenderer rendererGrandfatherClock = null!;
-        GrandfatherClockDoorRenderer rendererDoor = null!;       
+        GrandfatherClockDoorRenderer rendererDoor = null!;
         public override string PathBlock => "decoclock:shapes/block/grandfatherclock/";
-
-
-        public float timeWork;
 
         public override void AddParts()
         {
@@ -29,7 +25,7 @@ namespace DecoClock
             _parts.Add(new("clockparts", "clockwork"));
             _parts.Add(new("doorglass"));
         }
-               
+
         public override bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
         {
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
@@ -65,9 +61,11 @@ namespace DecoClock
                 GetItemMesh("hourhand"), -0.11f,
                 GetItemMesh("minutehand"), 1f, -0.101f,
                 GetItemMesh("tickmarks", TypeDial), 1.0f, -0.113f,
-                GetPartItemMesh("clockparts", "pendulum"), -0.05f, 0.625f,
-              //GetItemMesh("clockparts", "weight")
+                GetPartItemMesh("clockparts", "pendulum"), 0.625f, -0.05f,
+                GetPartItemMesh("clockparts", "weight"), 0.15f, 0.7f, -0.05f,
                 MeshAngle);
+            Api.World.Logger.Warning("Mute "+ MuteSounds);
+
         }
 
         #endregion
@@ -113,14 +111,9 @@ namespace DecoClock
                 new GrandfatherClockDoorRenderer(capi, Pos), EnumRenderStage.Opaque);
             capi.Event.RegisterRenderer(rendererGrandfatherClock =
                new GrandfatherClockRenderer(capi, Pos), EnumRenderStage.Opaque);
-            rendererGrandfatherClock.MinuteTick += () => { TickSound?.Start(); };
-            rendererGrandfatherClock.HourTick += (_) => { chimeSound?.Start(); };
+            rendererGrandfatherClock.MinuteTick += () => { if (!MuteSounds) TickSound?.Start(); };
+            rendererGrandfatherClock.HourTick += (_) => { if (!MuteSounds) chimeSound?.Start(); };
         }
-
-        //private bool IsWork()
-        //{
-        //    return (Inventory.IsExist("clockparts"));
-        //}
 
         #region Events
 

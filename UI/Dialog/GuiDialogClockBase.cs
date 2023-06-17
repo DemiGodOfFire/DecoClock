@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -11,10 +10,10 @@ namespace DecoClock
     {
         protected BlockPos Pos { get; set; }
         protected InventoryClock Inventory { get; set; }
-        public abstract string[] Parts { get;}
+        public abstract string[] Parts { get; }
         public int Type { get; set; }
 
-        public GuiDialogClockBase(string dialogTitle,InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) :
+        public GuiDialogClockBase(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) :
             base(Lang.Get(dialogTitle), capi)
         {
             Inventory = inventory;
@@ -37,6 +36,7 @@ namespace DecoClock
         }
         public abstract void ComposeDialog();
         public abstract int GetTypeDial();
+        public abstract bool GetMuteSounds();
 
         public override bool OnMouseEnterSlot(ItemSlot slot)
         {
@@ -75,8 +75,6 @@ namespace DecoClock
             }
         }
 
-        //override SlotClick
-
         public override void OnFinalizeFrame(float dt)
         {
             base.OnFinalizeFrame(dt);
@@ -106,6 +104,10 @@ namespace DecoClock
             capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.TypeDial, BitConverter.GetBytes(value));
             return true;
         }
-        
+
+        public void OnMuteChanged(bool value)                       //What is the music of life?
+        {
+            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.MuteSounds, BitConverter.GetBytes(value));
+        }
     }
 }

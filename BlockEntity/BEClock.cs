@@ -25,6 +25,7 @@ namespace DecoClock
         public int TypeDial { get; set; } = 1;
         public float MeshAngle { get; set; }
         public abstract string PathBlock { get; }
+        public bool MuteSounds { get; set; } = false;
 
         public abstract void AddParts();
 
@@ -60,7 +61,13 @@ namespace DecoClock
             //}
             get
             {
+                if (Inventory.IsExist("clockparts"))
+                    {
+                    if (textureCode == "thread") return TextureSource["string"];
+                }
+
                 ItemStack? stack = Inventory.TryGetPart(textureCode);
+
                 if (stack is not null)
                 {
                     var capi = (ICoreClientAPI)Api;
@@ -141,20 +148,6 @@ namespace DecoClock
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
             return mesh;
         }
-
-        //public MeshData GenMesh(string type, ITesselatorAPI? tesselator = null)
-        //{
-        //    if (tesselator == null)
-        //    {
-        //        tesselator = ((ICoreClientAPI)Api).Tesselator;
-        //    }
-        //    AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/");
-        //    assetLocation.Path = assetLocation.Path.Replace("/complete", $"/{type}.json");
-        //    Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
-        //    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
-
-        //    return mesh;
-        //}
 
         public MeshData? GetItemMesh(string item)
         {
@@ -300,9 +293,15 @@ namespace DecoClock
                 inventoryManager?.CloseInventory(Inventory);
             }
 
-            if(packetid == Constants.TypeDial)
+            if (packetid == Constants.TypeDial)
             {
                 TypeDial = BitConverter.ToInt32(data, 0);
+                MarkDirty(true);
+            }
+
+            if(packetid == Constants.MuteSounds)                //Silence, my brother.
+            {
+                MuteSounds = BitConverter.ToBoolean(data, 0);
                 MarkDirty(true);
             }
         }
@@ -312,6 +311,7 @@ namespace DecoClock
         {
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
             TypeDial = tree.GetInt("typedial", TypeDial);
+            MuteSounds = tree.GetBool("mutesoudns", MuteSounds);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -333,6 +333,7 @@ namespace DecoClock
             base.ToTreeAttributes(tree);
             tree.SetFloat("meshAngle", MeshAngle);
             tree.SetInt("typedial", TypeDial);
+            tree.SetBool("mutesoudns", MuteSounds);
             Inventory?.ToTreeAttributes(tree);
         }
 

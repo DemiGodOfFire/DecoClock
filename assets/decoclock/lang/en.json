@@ -125,5 +125,9 @@
 	"dialglass": "Dial glass",	
 	"doorglass": "Door glass",
 	
+	"mute": "Mute",
+	"radius": "Clock size",
+	"typedial": "Type dial",
+	
 	"game:tabname-decoclock": "DecoClock"	
 }

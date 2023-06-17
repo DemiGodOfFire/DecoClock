@@ -1,4 +1,5 @@
 using Vintagestory.API.Client;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -27,6 +28,7 @@ namespace DecoClock
             ElementBounds dialGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 76.0, 30.0, 1, 1);
             ElementBounds typeDialBounds = ElementBounds.Fixed(0, 200, 50, 30);
             ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
+            ElementBounds muteSoundsBounds = ElementBounds.Fixed(168, 255, 50, 50);
 
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
@@ -47,6 +49,9 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, dialGlassSlotBounds)
                     .AddSlider(OnDialChanged, typeDialBounds, "typedial")
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
+                    .AddSwitch(OnMuteChanged, muteSoundsBounds, "mutesounds")
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:typedial"), CairoFont.WhiteSmallText(), 200, typeDialBounds)
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:mute"), CairoFont.WhiteSmallText(), 200, muteSoundsBounds)
                 .EndChildElements()
                 .Compose();
             SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 2, 1);
@@ -55,6 +60,12 @@ namespace DecoClock
         {
             BEWallClock be = (BEWallClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
             return be.TypeDial;
+        }
+
+        public override bool GetMuteSounds()
+        {
+            BEWallClock be = (BEWallClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
+            return be.MuteSounds;
         }
     }
 }

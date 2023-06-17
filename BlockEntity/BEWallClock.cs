@@ -64,10 +64,7 @@ namespace DecoClock
         public override void RegisterRenderer(ICoreClientAPI capi)
         {
             capi.Event.RegisterRenderer(rendererClock = new ClockRenderer(capi, Pos), EnumRenderStage.Opaque);
-            rendererClock.MinuteTick += () =>
-            {
-                TickSound?.Start();
-            };
+            rendererClock.MinuteTick += () => { if (!MuteSounds) TickSound?.Start(); };
         }
 
         public override void OnBlockRemoved()

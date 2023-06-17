@@ -1,13 +1,11 @@
-using Jint;
-using Newtonsoft.Json.Linq;
 using System;
 using Vintagestory.API.Client;
-using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    internal class GuiDialogBigClock: GuiDialogClockBase
+    internal class GuiDialogBigClock : GuiDialogClockBase
     {
         public GuiDialogBigClock(string dialogTitle, InventoryClock inventory, BlockPos blockEntityPos, ICoreClientAPI capi) : base(dialogTitle, inventory, blockEntityPos, capi)
         {
@@ -31,6 +29,7 @@ namespace DecoClock
             ElementBounds radiusBounds = ElementBounds.Fixed(0, 250, 50, 30);
             ElementBounds typeDialBounds = ElementBounds.Fixed(80, 90, 50, 30);
             ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
+            ElementBounds muteSoundsBounds = ElementBounds.Fixed(168, 255, 50, 50);
 
             //ElementBounds textBounds = ElementBounds.Fixed(0.0, 0.0, 20.0, 50.0);
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
@@ -50,9 +49,12 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, disguiseSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, tickMarksSlotBounds)
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
-                    .AddSlider(OnRadiusChanged,radiusBounds,"radius")
+                    .AddSlider(OnRadiusChanged, radiusBounds, "radius")
                     .AddSlider(OnDialChanged, typeDialBounds, "typedial")
-
+                    .AddSwitch(OnMuteChanged, muteSoundsBounds, "mutesounds")
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:typedial"), CairoFont.WhiteSmallText(), 200, typeDialBounds)
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:radius"), CairoFont.WhiteSmallText(), 200, radiusBounds)
+                    .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:mute"), CairoFont.WhiteSmallText(), 200, muteSoundsBounds)
                 .EndChildElements()
                 .Compose();
             SingleComposer.GetSlider("radius").SetValues(GetRadius(), 1, 7, 1);
@@ -71,10 +73,16 @@ namespace DecoClock
             return be.Radius;
         }
 
-        public override  int GetTypeDial()
+        public override int GetTypeDial()
         {
             BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
             return be.TypeDial;
+        }
+
+        public override bool GetMuteSounds()
+        {
+            BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
+            return be.MuteSounds;
         }
     }
 }
