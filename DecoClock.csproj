@@ -20,5 +20,6 @@
 	<ItemGroup>
 		<Folder Include="Assets\" />
 		<Folder Include="Mods\" />
+		<Folder Include="Releases\" />
 	</ItemGroup>
 </Project>

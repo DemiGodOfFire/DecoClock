@@ -6,7 +6,7 @@
 	{ "name": "Multiblock", "properties": { "sizex": 1, "sizey": 2, "sizez": 1, "cposition": { "x": 0, "y": 0, "z": 0 } } }
 	],
 	"variantgroups": [
-		{ "code": "wood", "states": ["aged", "birch", "oak", "maple", "pine", "acacia", "kapok", "baldcypress", "larch", "redwood", "ebony", "walnut", "purpleheart"] }
+		{ "code": "wood", "loadFromProperties": "decoclock:block/wood"}
 	],
 	"creativeinventory": { "general": ["*"], "decorative": ["*"], "decoclock": ["*"] },
 	"blockmaterial": "Wood",	

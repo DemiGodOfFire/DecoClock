@@ -6,8 +6,8 @@
 			"P": { 
 				"type": "item",
 				"code": "game:metalplate-*",
-				"name": "material",
-				"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
+				"name": "material",    
+				"allowedVariants": [ "copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
 				"quantity": 3},
 			"M": {"type": "block", "code": "game:metal-parts"}
 		},
@@ -27,7 +27,7 @@
 				"type": "item",
 				"code": "game:metalplate-*",
 				"name": "material",
-				"allowedVariants": ["copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
+				"allowedVariants": [ "copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ],
 				"quantity": 3}
 		},
 		"width": 3,

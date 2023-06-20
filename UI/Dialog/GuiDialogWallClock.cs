@@ -38,7 +38,7 @@ namespace DecoClock
             IGuiAPI gui = this.capi.Gui;
 
 
-            SingleComposer = gui.CreateCompo(Core.ModId + ":fatherclock" + Pos, dialogBounds)
+            SingleComposer = gui.CreateCompo(Core.ModId + ":wallclock" + Pos, dialogBounds)
                 .AddDialogBG(bgBounds, true)
                 .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)
@@ -54,7 +54,7 @@ namespace DecoClock
                     .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:mute"), CairoFont.WhiteSmallText(), 200, muteSoundsBounds)
                 .EndChildElements()
                 .Compose();
-            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 2, 1);
+            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 9, 1);
         }
         public override int GetTypeDial()
         {

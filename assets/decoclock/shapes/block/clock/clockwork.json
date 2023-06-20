@@ -16,12 +16,13 @@
 			"to": [ 16.0, 16.0, 16.0 ],
 			"rotationOrigin": [ 8.0, 0.0, 0.0 ],
 			"faces": {
-				"north": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-				"east": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-				"south": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-				"west": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-				"up": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-				"down": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+				"north": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "reflectiveMode": 3  },
+				"east": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "reflectiveMode": 3  },
+				"south": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "reflectiveMode": 3  },
+				"west": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "reflectiveMode": 3  },
+				"up": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "reflectiveMode": 3  },
+				"down": { "texture": "#disguise", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "reflectiveMode": 3  }
 			}
 		}
-	]}
+	]
+}

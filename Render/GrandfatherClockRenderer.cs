@@ -105,35 +105,6 @@ namespace DecoClock.Render
             }
         }
 
-        //public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
-        //{
-        //    if (pendulum == null) { return; }
-        //    float hourOfDay = capi.World.Calendar.HourOfDay;
-        //    float hour = capi.World.Calendar.FullHourOfDay / capi.World.Calendar.HoursPerDay * 24f;
-        //    float minutesFloat = hourOfDay - hour;
-        //    float cosMinute = (float)(Math.Cos((double)minutesFloat*1200 / Math.PI));
-        //    float angleDeg = 15f * cosMinute;
-        //    IRenderAPI rpi = capi.Render;
-        //    Vec3d camPos = capi.World.Player.Entity.CameraPos;
-        //    rpi.GlDisableCullFace();
-        //    rpi.GlToggleBlend(true);
-
-        //    IStandardShaderProgram pendulumShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
-        //    pendulumShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
-        //    pendulumShader.ModelMatrix = modelMat
-        //       .Identity()
-        //       .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-        //       .Translate(0.5f, 1.125f, 0.5f)
-        //       .RotateY(meshAngle)
-        //       .RotateZDeg(angleDeg)
-        //       .Translate(-0.5f, -1.125f, -0.5625f)
-        //       .Values;
-        //    pendulumShader.ViewMatrix = rpi.CameraMatrixOriginf;
-        //    pendulumShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-        //    rpi.RenderMesh(pendulum);
-        //    pendulumShader.Stop();
-        //}
-
         public override void Dispose()
         {
             base.Dispose();

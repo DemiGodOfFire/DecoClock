@@ -113,17 +113,5 @@
 				"south": { "texture": "#oak", "uv": [ 0.0, 1.0, 15.5, 14.5 ] }
 			}
 		}
-	],
-	"animations": [
-		{
-			"name": "Animation 1",
-			"code": "animation1",
-			"quantityframes": 120,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		}
 	]
 }

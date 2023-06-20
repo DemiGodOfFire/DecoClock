@@ -1,0 +1,93 @@
+{
+  "code": "wood",
+  "variants": [
+    {
+      "code": "birch"
+    },
+    {
+      "code": "oak"
+    },
+    {
+      "code": "maple"
+    },
+    {
+      "code": "pine"
+    },
+    {
+      "code": "acacia"
+    },
+    {
+      "code": "kapok"
+    },
+    {
+      "code": "baldcypress"
+    },
+    {
+      "code": "larch"
+    },
+    {
+      "code": "redwood"
+    },
+    {
+      "code": "ebony"
+    },
+    {
+      "code": "walnut"
+    },
+    {
+      "code": "purpleheart"
+    },
+    {
+      "code": "aged"
+    },
+    {
+      "code": "bearnut"
+    },
+    {
+      "code": "beech"
+    },
+    {
+      "code": "blackpoplar"
+    },
+    {
+      "code": "catalpa"
+    },
+    {
+      "code": "cedar"
+    },
+    {
+      "code": "douglasfir"
+    },
+    {
+      "code": "elm"
+    },
+    {
+      "code": "eucalyptus"
+    },
+    {
+      "code": "honeylocust"
+    },
+    {
+      "code": "mahogany",
+    },
+	{
+      "code": "pyramidalpoplar"
+    },
+    {
+      "code": "sal"
+    },
+    {
+      "code": "saxaul"
+    },
+    {
+      "code": "spruce"
+    },
+    {
+      "code": "sycamore"
+    },
+    {
+      "code": "willow"
+    }
+    
+  ]
+}

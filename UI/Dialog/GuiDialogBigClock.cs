@@ -40,7 +40,7 @@ namespace DecoClock
             IGuiAPI gui = this.capi.Gui;
 
 
-            SingleComposer = gui.CreateCompo(Core.ModId + ":fatherclock" + Pos, dialogBounds)
+            SingleComposer = gui.CreateCompo(Core.ModId + ":bigclock" + Pos, dialogBounds)
                 .AddDialogBG(bgBounds, true)
                 .AddDialogTitleBar(DialogTitle, () => TryClose())
                 .BeginChildElements(bgBounds)

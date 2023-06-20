@@ -372,17 +372,5 @@
 				}
 			]
 		}
-	],
-	"animations": [
-		{
-			"name": "Animation 1",
-			"code": "animation1",
-			"quantityframes": 120,
-			"onActivityStopped": "Rewind",
-			"onAnimationEnd": "Repeat",
-			"keyframes": [
-
-			]
-		}
 	]
 }

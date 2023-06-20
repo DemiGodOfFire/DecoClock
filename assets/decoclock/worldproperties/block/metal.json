@@ -1,0 +1,47 @@
+{ 
+  "code": "metal",
+  "variants": [
+    {
+      "code": "copper"
+    },
+    {
+      "code": "tin"
+    },
+    {
+      "code": "bismuth"
+    },
+    {
+      "code": "tinbronze"
+    },
+    {
+      "code": "bismuthbronze"
+    },
+    {
+      "code": "blackbronze"
+    },
+    {
+      "code": "brass"
+    },
+    {
+      "code": "silver"
+    },
+    {
+      "code": "gold"
+    },
+    {
+      "code": "iron"
+    },
+    {
+      "code": "meteoriciron"
+    },
+    {
+      "code": "lead"
+    },
+    {
+      "code": "zinc"
+    },
+    {
+      "code": "steel"
+    }    
+  ]
+}

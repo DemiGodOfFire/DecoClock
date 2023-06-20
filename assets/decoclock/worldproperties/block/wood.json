@@ -1,43 +1,44 @@
 {
-  "Code": "wood",
+  "code": "wood",
   "variants": [
     {
-      "Code": "birch"
+      "code": "birch"
     },
     {
-      "Code": "oak"
+      "code": "oak"
     },
     {
-      "Code": "maple"
+      "code": "maple"
     },
     {
-      "Code": "pine"
+      "code": "pine"
     },
     {
-      "Code": "acacia"
+      "code": "acacia"
     },
     {
-      "Code": "kapok"
+      "code": "kapok"
     },
     {
-      "Code": "baldcypress"
+      "code": "baldcypress"
     },
     {
-      "Code": "larch"
+      "code": "larch"
     },
     {
-      "Code": "redwood"
+      "code": "redwood"
     },
     {
-      "Code": "ebony"
+      "code": "ebony"
     },
     {
-      "Code": "walnut"
+      "code": "walnut"
     },
     {
-      "Code": "purpleheart"
+      "code": "purpleheart"
     },
-	{
-		"Code": "aged"	}
+    {
+      "code": "aged"
+    }
   ]
 }

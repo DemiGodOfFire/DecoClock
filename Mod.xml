@@ -1,11 +1,11 @@
 <Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://raw.githubusercontent.com/DArkHekRoMaNT/VSMods/master/Mod.xsd">
 	<PropertyGroup>
-		<Name>Decorative clock</Name>
+		<Name>DecO'Clock</Name>
 		<ModId>decoclock</ModId>
-		<Version>0.7.0</Version>
+		<Version>0.8.6</Version>
 		<Authors>Svarozhich</Authors>
 		<GameVersion>1.18.5</GameVersion>
-		<Description></Description>
+		<Description>Adds to the game several types of mechanical clocks showing the current game time</Description>
 		<Website></Website>
 	</PropertyGroup>
 	<ItemGroup>		
