@@ -65,7 +65,7 @@ namespace DecoClock
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
                 .EndChildElements()
                 .Compose();
-            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 3, 1);
+            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 9, 1);
             SingleComposer.GetSwitch("mutesounds").SetValue(GetMuteSounds());
         }
         public override int GetTypeDial()

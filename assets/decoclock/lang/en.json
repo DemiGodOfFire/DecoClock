@@ -1,6 +1,6 @@
-{		
+{
 	"item-gear-iron": "Iron gear",
-	
+
 	"block-toolmold-burned-tickmarks": "Tick marks mold",
 	"block-toolmold-raw-tickmarks": "Raw tick marks mold",
 	"block-toolmold-burned-clockparts": "Clock parts mold",
@@ -9,7 +9,7 @@
 	"block-toolmold-raw-hourhand": "Raw hour hand mold",
 	"block-toolmold-burned-minutehand": "Minute hand mold",
 	"block-toolmold-raw-minutehand": "Raw minute hand mold",
-	
+
 	"block-grandfatherclock-aged": "Aged grandfather clock",
 	"block-grandfatherclock-birch": "Birch grandfather clock",
 	"block-grandfatherclock-oak": "Oak grandfather clock",
@@ -23,8 +23,25 @@
 	"block-grandfatherclock-ebony": "Ebony grandfather clock",
 	"block-grandfatherclock-walnut": "Walnut grandfather clock",
 	"block-grandfatherclock-purpleheart": "Purpleheart grandfather clock",
-	
-	"block-wallclock-aged-north": "Aged wall clock",
+
+	"block-grandfatherclock-bearnut": "Bearnut grandfather clock",
+	"block-grandfatherclock-beech": "Beech grandfather clock",
+	"block-grandfatherclock-blackpoplar": "Blackpoplar grandfather clock",
+	"block-grandfatherclock-catalpa": "Catalpa grandfather clock",
+	"block-grandfatherclock-cedar": "Cedar grandfather clock",
+	"block-grandfatherclock-douglasfir": "Douglasfir grandfather clock",
+	"block-grandfatherclock-elm": "Elm grandfather clock",
+	"block-grandfatherclock-eucalyptus": "Eucalyptus grandfather clock",
+	"block-grandfatherclock-honeylocust": "Honeylocust grandfather clock",
+	"block-grandfatherclock-mahogany": "Mahogany grandfather clock",
+	"block-grandfatherclock-pyramidalpoplar": "Pyramidalpoplar grandfather clock",
+	"block-grandfatherclock-sal": "Sal grandfather clock",
+	"block-grandfatherclock-saxaul": "Saxaul grandfather clock",
+	"block-grandfatherclock-spruce": "Spruce grandfather clock",
+	"block-grandfatherclock-sycamore": "Sycamore grandfather clock",
+	"block-grandfatherclock-willow": "Willow grandfather clock",
+
+	"block-wallclock-aged-*": "Aged wall clock",
 	"block-wallclock-birch-*": "Birch wall clock",
 	"block-wallclock-oak-*": "Oak wall clock",
 	"block-wallclock-maple-*": "Maple wall clock",
@@ -37,7 +54,24 @@
 	"block-wallclock-ebony-*": "Ebony wall clock",
 	"block-wallclock-walnut-*": "Walnut wall clock",
 	"block-wallclock-purpleheart-*": "Purpleheart wall clock",
-	
+
+	"block-wallclock-bearnut-*": "Bearnut wall clock",
+	"block-wallclock-beech-*": "Beech wall clock",
+	"block-wallclock-blackpoplar-*": "Blackpoplar wall clock",
+	"block-wallclock-catalpa-*": "Catalpa wall clock",
+	"block-wallclock-cedar-*": "Cedar wall clock",
+	"block-wallclock-douglasfir-*": "Douglasfir wall clock",
+	"block-wallclock-elm-*": "Elm wall clock",
+	"block-wallclock-eucalyptus-*": "Eucalyptus wall clock",
+	"block-wallclock-honeylocust-*": "Honeylocust wall clock",
+	"block-wallclock-mahogany-*": "Mahogany wall clock",
+	"block-wallclock-pyramidalpoplar-*": "Pyramidalpoplar wall clock",
+	"block-wallclock-sal-*": "Sal wall clock",
+	"block-wallclock-saxaul-*": "Saxaul wall clock",
+	"block-wallclock-spruce-*": "Spruce wall clock",
+	"block-wallclock-sycamore-*": "Sycamore wall clock",
+	"block-wallclock-willow-*": "Willow wall clock",
+
 	"block-clockwork-copper": "Copper clockwork",
 	"block-clockwork-tin": "Tin clockwork",
 	"block-clockwork-bismuth": "Bismuth clockwork",
@@ -52,7 +86,7 @@
 	"block-clockwork-lead": "Lead clockwork",
 	"block-clockwork-zinc": "Zinc clockwork",
 	"block-clockwork-steel": "Steel clockwork",
-	
+
 	"item-clockparts-copper": "Copper clock parts",
 	"item-clockparts-tin": "Tin clock parts",
 	"item-clockparts-bismuth": "Bismuth clock parts",
@@ -67,7 +101,7 @@
 	"item-clockparts-lead": "Lead clock parts",
 	"item-clockparts-zinc": "Zinc clock parts",
 	"item-clockparts-steel": "Steel clock parts",
-	
+
 	"item-hourhand-copper": "Copper hour hand",
 	"item-hourhand-tin": "Tin hour hand",
 	"item-hourhand-bismuth": "Bismuth hour hand",
@@ -82,7 +116,7 @@
 	"item-hourhand-lead": "Lead hour hand",
 	"item-hourhand-zinc": "Zinc hour hand",
 	"item-hourhand-steel": "Steel hour hand",
-	
+
 	"item-minutehand-copper": "Copper minute hand",
 	"item-minutehand-tin": "Tin minute hand",
 	"item-minutehand-bismuth": "Bismuth minute hand",
@@ -97,7 +131,7 @@
 	"item-minutehand-lead": "Lead minute hand",
 	"item-minutehand-zinc": "Zinc minute hand",
 	"item-minutehand-steel": "Steel minute hand",
-	
+
 	"item-tickmarks-copper": "Copper tick marks",
 	"item-tickmarks-tin": "Tin tick marks",
 	"item-tickmarks-bismuth": "Bismuth tick marks",
@@ -112,22 +146,22 @@
 	"item-tickmarks-lead": "Lead tick marks",
 	"item-tickmarks-zinc": "Zinc tick marks",
 	"item-tickmarks-steel": "Steel tick marks",
-	
+
 	"grandfatherclock-title": "grandfather clock",
 	"wallclock-title": "wall clock",
 	"bigclock-title": "Big clock",
-	
+
 	"hourhand": "Hour hand",
 	"minutehand": "Minute hand",
 	"clockwork": "Clockwork",
 	"tickmarks": "Tick marks",
 	"disguise": "Camouflage Block",
-	"dialglass": "Dial glass",	
+	"dialglass": "Dial glass",
 	"doorglass": "Door glass",
-	
+
 	"mute": "Mute",
 	"radius": "Clock size",
 	"typedial": "Type dial",
-	
-	"game:tabname-decoclock": "DecoClock"	
+
+	"game:tabname-decoclock": "DecoClock"
 }

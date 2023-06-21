@@ -58,7 +58,7 @@ namespace DecoClock
                 .EndChildElements()
                 .Compose();
             SingleComposer.GetSlider("radius").SetValues(GetRadius(), 1, 7, 1);
-            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 4, 1);
+            SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 9, 1);
         }
 
         private bool OnRadiusChanged(int value)

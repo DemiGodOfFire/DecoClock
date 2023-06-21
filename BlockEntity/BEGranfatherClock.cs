@@ -62,7 +62,7 @@ namespace DecoClock
                 GetItemMesh("minutehand"), 1f, -0.101f,
                 GetItemMesh("tickmarks", TypeDial), 1.0f, -0.113f,
                 GetPartItemMesh("clockparts", "pendulum"), 0.625f, -0.05f,
-                GetPartItemMesh("clockparts", "weight"), 0.15f, 0.7f, -0.05f,
+                GetPartItemMesh("clockparts", "weight"), 0.15f, 0.85f, -0.25f,
                 MeshAngle);
             Api.World.Logger.Warning("Mute "+ MuteSounds);
 

@@ -43,19 +43,21 @@ namespace DecoClock.Render
             }
             if (weight != null)
             {
-                RenderWeight(rpi, camPos, clockShader, -dxWeight, 0.5f);
-                RenderWeight(rpi, camPos, clockShader, dxWeight, 0.5f);
+                RenderWeight(rpi, camPos, clockShader, -dxWeight, 0.25f, 0);
+                RenderWeight(rpi, camPos, clockShader, dxWeight, 0.5f, 90);
             }
         }
 
-        void RenderWeight(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader, float dx, float dy)
+        void RenderWeight(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader, float dx, float dy, int rotate)
         {
             clockShader.ModelMatrix = modelMat
                .Identity()
                .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
-               .Translate(0.5f, 0.5f + dyWeight - dy, 0.5f)
+               .Translate(0.5f, dyWeight - dy, 0.5f)
                .RotateY(MeshAngle)
-               .Translate(-0.5f + dx, -0.5f, -0.5f + dzWeight)
+               .Translate(dx, 0,  dzWeight)
+               .RotateYDeg(rotate)
+               .Translate(-0.5f  , 0f, -0.5f )
                .Values;
             clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
             clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;

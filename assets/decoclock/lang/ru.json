@@ -24,7 +24,24 @@
 	"block-grandfatherclock-walnut": "Напольные часы из грецкого ореха",
 	"block-grandfatherclock-purpleheart": "Напольные часы из пурпурного дерева",
 
-	"block-wallclock-aged-north": "Настенные часы из древнего дерева",
+	"block-grandfatherclock-bearnut": "Напольные часы из орешника",
+	"block-grandfatherclock-beech": "Напольные часы из бука",
+	"block-grandfatherclock-blackpoplar": "Напольные часы из черного тополя",
+	"block-grandfatherclock-catalpa": "Напольные часы из катальпы",
+	"block-grandfatherclock-cedar": "Напольные часы из кедра",
+	"block-grandfatherclock-douglasfir": "Напольные часы из пихты Дугласа",
+	"block-grandfatherclock-elm": "Напольные часы из вяз",
+	"block-grandfatherclock-eucalyptus": "Напольные часы из эвкалипта",
+	"block-grandfatherclock-honeylocust": "Напольные часы из гледичии",
+	"block-grandfatherclock-mahogany": "Напольные часы из махагони",
+	"block-grandfatherclock-pyramidalpoplar": "Напольные часы из пирамидального тополя",
+	"block-grandfatherclock-sal": "Напольные часы из сал",
+	"block-grandfatherclock-saxaul": "Напольные часы из саксаул",
+	"block-grandfatherclock-spruce": "Напольные часы из ели",
+	"block-grandfatherclock-sycamore": "Напольные часы из платан",
+	"block-grandfatherclock-willow": "Напольные часы из ива",
+
+	"block-wallclock-aged-*": "Настенные часы из древнего дерева",
 	"block-wallclock-birch-*": "Настенные часы из березы",
 	"block-wallclock-oak-*": "Настенные часы из дуба",
 	"block-wallclock-maple-*": "Настенные часы из клена",
@@ -37,6 +54,23 @@
 	"block-wallclock-ebony-*": "Настенные часы из черного дерева",
 	"block-wallclock-walnut-*": "Настенные часы из грецкого ореха",
 	"block-wallclock-purpleheart-*": "Настенные часы из пурпурного дерева",
+
+	"block-wallclock-bearnut-*": "Настенные часы из орешника",
+	"block-wallclock-beech-*": "Настенные часы из бука",
+	"block-wallclock-blackpoplar-*": "Настенные часы из черного тополя",
+	"block-wallclock-catalpa-*": "Настенные часы из катальпы",
+	"block-wallclock-cedar-*": "Настенные часы из кедра",
+	"block-wallclock-douglasfir-*": "Настенные часы из пихты Дугласа",
+	"block-wallclock-elm-*": "Настенные часы из вяз",
+	"block-wallclock-eucalyptus-*": "Настенные часы из эвкалипта",
+	"block-wallclock-honeylocust-*": "Настенные часы из гледичии",
+	"block-wallclock-mahogany-*": "Настенные часы из махагони",
+	"block-wallclock-pyramidalpoplar-*": "Настенные часы из пирамидального тополя",
+	"block-wallclock-sal-*": "Настенные часы из сал",
+	"block-wallclock-saxaul-*": "Настенные часы из саксаул",
+	"block-wallclock-spruce-*": "Настенные часы из ели",
+	"block-wallclock-sycamore-*": "Настенные часы из платан",
+	"block-wallclock-willow-*": "Настенные часы из ива",
 
 	"block-clockwork-copper": "Часовой механизм из меди",
 	"block-clockwork-tin": "Часовой механизм из олова",
@@ -128,6 +162,6 @@
 	"mute": "Заглушить",
 	"radius": "Размер часов",
 	"typedial": "Тип циферблата",
-	
+
 	"game:tabname-decoclock": "DecoClock"
 }

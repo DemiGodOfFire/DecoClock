@@ -12,9 +12,9 @@
 	"elements": [
 		{
 			"name": "Weight1",
-			"from": [ 7.5, 3.0, 4.2 ],
-			"to": [ 8.5, 6.0, 5.2 ],
-			"rotationOrigin": [ 8.0, 3.0, 5.2 ],
+			"from": [ 7.5, 0.0, 7.5 ],
+			"to": [ 8.5, 3.0, 8.5 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
 			"faces": {
 				"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 3.0 ], "reflectiveMode": 3 },
 				"east": { "texture": "#clockparts", "uv": [ 3.0, 1.0, 4.0, 4.0 ], "reflectiveMode": 3 },
