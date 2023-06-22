@@ -131,7 +131,7 @@ namespace DecoClock
             {
                 LoadSound(capi);
                 RegisterRenderer(capi);
-                TextureSource = capi.Tesselator.GetTextureSource(Block);
+                TextureSource = capi.Tesselator.GetTexSource(Block);
                 //rendererHand.HourTick += (_) => { chimeSound?.Start(); };
                 UpdateMesh();
             }

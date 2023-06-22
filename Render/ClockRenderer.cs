@@ -128,7 +128,7 @@ namespace DecoClock
             rpi.GlToggleBlend(true);
 
             IStandardShaderProgram clockShader = rpi.PreparedStandardShader(Pos.X, Pos.Y, Pos.Z);
-            clockShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
+            clockShader.Tex2D = capi.BlockTextureAtlas.AtlasTextureIds[0];
 
             BuildShader(rpi, camPos, clockShader, hourRad, minuteRad);
 

@@ -33,7 +33,7 @@ namespace DecoClock.Render
             rpi.GlToggleBlend(true);
 
             IStandardShaderProgram doorShader = rpi.PreparedStandardShader(pos.X, pos.Y, pos.Z);
-            doorShader.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
+            doorShader.Tex2D = capi.BlockTextureAtlas.AtlasTextureIds[0];
             doorShader.ModelMatrix = modelMat
                .Identity()
                .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
