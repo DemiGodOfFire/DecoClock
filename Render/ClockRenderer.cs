@@ -18,7 +18,7 @@ namespace DecoClock
         public readonly ICoreClientAPI capi;
         public BlockPos Pos { get; }
         public MeshRef? Dial { get; set; }
-        public int Time { get; set; } = 30000;
+        public int Time { get; set; } = 100000;
         public float MeshAngle { get; set; }
         public float DyDial { get; set; }
         public float DzDial { get; set; }

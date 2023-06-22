@@ -11,7 +11,7 @@
 	"drawtype": "json",
 	"maxstacksize": 64,	
 	"variantgroups": [
-		{ "code": "metal", "loadFromProperties": "decoclock:block/metal"}
+		{ "code": "metal", "loadFromProperties": "block/metal"}   
 	],
 	"texture":  { "base": "game:block/metal/ingot/{metal}" },
 	"guiTransform": {

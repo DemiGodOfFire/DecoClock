@@ -3,11 +3,8 @@
   "class": "bigclock",
   "entityClass": "bebigclock",
   "creativeinventory": { "general": [ "*" ], "decorative": [ "*" ], "decoclock": [ "*" ] },
-  "variantgroups": [
-    {
-      "code": "metal",
-      "states": [ "copper", "tin", "bismuth", "tinbronze", "bismuthbronze", "blackbronze", "brass", "silver", "gold", "iron", "meteoriciron", "lead", "zinc", "steel" ]
-    }
+  "variantgroups": [    
+      { "code": "metal", "loadFromProperties": "block/metal"}    
   ],
   "shape": { "base": "block/clock/clockwork" },
   "shapeInventory": { "base": "item/clockwork" },
