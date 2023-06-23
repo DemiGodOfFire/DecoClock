@@ -1,5 +1,5 @@
 {
-  "code": "wallclock",
+  "code": "cuckooclock",
   "class": "wallclock",
   "entityClass": "bewallclock",
   "behaviors": [ {"name": "HorizontalAttachable", "properties": {  "dropBlockFace": "north" }} ], 
@@ -8,11 +8,10 @@
  	{ "code":"side", "loadFromProperties": "abstract/horizontalorientation"}
     ],	
   "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "decoclock": ["*-north"] },
-  	"shape": { "base": "block/wallclock/complete1"},
+  	"shape": { "base": "block/cuckooclock/base"},
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},
-		"dialglass": { "base": "game:block/transparent"},		
-		"clockwork": { "base": "game:block/transparent"}
+		"clockwork": { "base": "game:block/transparent"},
 	},
     "blockmaterial": "Wood",
     "resistance": 0.5,

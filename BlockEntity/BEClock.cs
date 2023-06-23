@@ -61,10 +61,10 @@ namespace DecoClock
             //}
             get
             {
-                if (Inventory.IsExist("clockparts"))
-                    {
-                    if (textureCode == "thread") return TextureSource["string"];
-                }
+                //if (Inventory.IsExist("clockparts"))
+                //    {
+                //    if (textureCode == "thread") return TextureSource["string"];
+                //}
 
                 ItemStack? stack = Inventory.TryGetPart(textureCode);
 

@@ -15,14 +15,9 @@
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},
 		"doorglass": {"base":  "game:block/transparent"},
-		"thread": {"base":  "game:block/transparent"},
-		"dialglass": { "base": "game:block/transparent"},		
-		"clockparts": { "base": "game:block/transparent"},
-		"clockwork": { "base": "game:block/transparent"},
-		"tickmarks": { "base": "game:block/transparent"},
-		"hourhand": { "base": "game:block/transparent"},
-		"minutehand": { "base": "game:block/transparent"},
-		"string": {"base": "game:block/cloth/burlap/string"}
+		"thread": {"base":  "game:block/cloth/burlap/string"},
+		"dialglass": { "base": "game:block/transparent"},
+		"clockwork": { "base": "game:block/transparent"}
 	},
 	"facecullmode": "nevercull",
 	"lightAbsorption": 0,
