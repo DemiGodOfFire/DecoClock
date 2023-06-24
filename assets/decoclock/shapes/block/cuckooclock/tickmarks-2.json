@@ -1,0 +1,190 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"0": [16,16]
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "root",
+			"from": [ 8.0, 8.0, 8.0 ],
+			"to": [ 8.0, 8.0, 8.0 ],
+			"rotationOrigin": [ 8.0, 8.0, 8.0 ],
+			"faces": {
+			},
+			"children": [
+				{
+					"name": "small_marks5",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": 60.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 7.0, 2.5, 7.5, 4.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 10.5, 10.5, 12.0, 12.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 10.0, 8.0, 10.5, 9.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 3.5, 12.5, 4.5, 13.0 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 3.5, 5.5, 5.0, 6.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks10",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": 30.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 0.5, 5.0, 1.0, 6.5 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 12.0, 2.5, 13.5, 4.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 10.5, 4.5, 11.0, 5.5 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 5.0, 5.0, 6.0, 5.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 11.5, 13.5, 13.0, 14.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks20",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": -30.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 15.0, 6.0, 15.5, 7.5 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 9.5, 11.5, 11.0, 13.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 9.5, 11.5, 10.0, 12.5 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 8.0, 12.5, 9.0, 13.0 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 13.0, 10.5, 14.5, 11.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks25",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": -60.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 1.5, 0.0, 2.0, 1.5 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 0.0, 6.5, 1.5, 8.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 3.0, 7.0, 3.5, 8.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 6.5, 4.0, 7.5, 4.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 11.0, 1.0, 12.5, 1.5 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks35",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": -120.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 9.0, 13.0, 9.5, 14.5 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 7.0, 0.0, 8.5, 1.5 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 11.5, 9.0, 12.0, 10.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 9.0, 15.0, 10.0, 15.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 5.0, 10.5, 6.5, 11.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks40",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": -150.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 4.0, 13.5, 4.5, 15.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 5.5, 9.5, 7.0, 11.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 2.5, 0.0, 3.0, 1.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 14.0, 6.0, 15.0, 6.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 4.0, 13.5, 5.5, 14.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks50",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": 150.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 11.0, 13.5, 11.5, 15.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 1.5, 7.5, 3.0, 9.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 11.5, 11.0, 12.0, 12.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 14.5, 7.0, 15.5, 7.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 6.0, 3.5, 7.5, 4.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "small_marks55",
+					"from": [ 3.3875, -0.1124, 0.0 ],
+					"to": [ 3.6126, 0.1124, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": 120.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 10.0, 10.5, 10.5, 12.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 13.0, 6.0, 14.5, 7.5 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 3.5, 8.0, 4.0, 9.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 8.5, 13.0, 9.5, 13.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 1.5, 1.0, 3.0, 1.5 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "marks3",
+					"from": [ -0.1124, 3.1625, 0.0 ],
+					"to": [ 0.1124, 3.8376, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": -90.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 1.5, 5.5, 2.0, 10.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 13.5, 4.0, 15.0, 9.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 4.0, 2.5, 4.5, 7.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 4.0, 11.0, 5.5, 11.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 5.0, 5.0, 6.5, 5.5 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "marks6",
+					"from": [ -0.1124, 3.1625, 0.0 ],
+					"to": [ 0.1124, 3.8376, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": 180.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 0.0, 0.5, 0.5, 5.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 12.5, 1.0, 14.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 4.0, 2.0, 4.5, 6.5 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 4.5, 8.5, 6.0, 9.0 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 6.5, 9.5, 8.0, 10.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "marks9",
+					"from": [ -0.1124, 3.1625, 0.0 ],
+					"to": [ 0.1124, 3.8376, 0.075 ],
+					"rotationOrigin": [ 0.0, 0.0, 0.0 ],
+					"rotationZ": 90.0,
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 12.5, 3.0, 13.0, 7.5 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 1.5, 9.5, 3.0, 14.5 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 9.5, 8.0, 10.0, 12.5 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 1.0, 6.5, 2.5, 7.0 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 1.0, 14.0, 2.5, 14.5 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "marks12",
+					"from": [ -0.1124, 3.1625, 0.0 ],
+					"to": [ 0.1124, 3.8376, 0.075 ],
+					"faces": {
+						"east": { "texture": "#tickmarks", "uv": [ 10.5, 2.5, 11.0, 7.0 ], "autoUv": false },
+						"south": { "texture": "#tickmarks", "uv": [ 7.0, 3.0, 8.5, 8.0 ], "autoUv": false },
+						"west": { "texture": "#tickmarks", "uv": [ 5.0, 0.5, 5.5, 5.0 ], "autoUv": false },
+						"up": { "texture": "#tickmarks", "uv": [ 13.0, 9.0, 14.5, 9.5 ], "autoUv": false },
+						"down": { "texture": "#tickmarks", "uv": [ 0.0, 7.5, 1.5, 8.0 ], "autoUv": false }
+					}
+				}
+			]
+		}
+	]}

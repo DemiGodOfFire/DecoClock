@@ -1,7 +1,7 @@
 {
   "code": "cuckooclock",
-  "class": "wallclock",
-  "entityClass": "bewallclock",
+  "class": "cuckooclock",
+  "entityClass": "becuckooclock",
   "behaviors": [ {"name": "HorizontalAttachable", "properties": {  "dropBlockFace": "north" }} ], 
   "variantgroups": [
     { "code": "wood", "loadFromProperties": "decoclock:block/wood"},
@@ -12,6 +12,7 @@
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},
 		"clockwork": { "base": "game:block/transparent"},
+		"thread": {"base":  "game:block/cloth/burlap/string"},
 	},
     "blockmaterial": "Wood",
     "resistance": 0.5,

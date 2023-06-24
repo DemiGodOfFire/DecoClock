@@ -11,7 +11,7 @@ namespace DecoClock
         ILoadedSound chimeSound = null!;
 
         GuiDialogGrandfatherClock dialogClock = null!;
-        GrandfatherClockRenderer rendererGrandfatherClock = null!;
+        PendulumClockRenderer rendererGrandfatherClock = null!;
         GrandfatherClockDoorRenderer rendererDoor = null!;
         public override string PathBlock => "decoclock:shapes/block/grandfatherclock/";
 
@@ -110,7 +110,7 @@ namespace DecoClock
             capi.Event.RegisterRenderer(rendererDoor =
                 new GrandfatherClockDoorRenderer(capi, Pos), EnumRenderStage.Opaque);
             capi.Event.RegisterRenderer(rendererGrandfatherClock =
-               new GrandfatherClockRenderer(capi, Pos), EnumRenderStage.Opaque);
+               new PendulumClockRenderer(capi, Pos), EnumRenderStage.Opaque);
             rendererGrandfatherClock.MinuteTick += () => { if (!MuteSounds) TickSound?.Start(); };
             rendererGrandfatherClock.HourTick += (_) => { if (!MuteSounds) chimeSound?.Start(); };
         }

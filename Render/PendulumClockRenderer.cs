@@ -4,7 +4,7 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock.Render
 {
-    internal class GrandfatherClockRenderer : ClockRenderer
+    internal class PendulumClockRenderer : ClockRenderer
     {
         private MeshRef? weight;
         private MeshRef? pendulum;
@@ -17,7 +17,7 @@ namespace DecoClock.Render
         private float dyWeight;
         private float dzWeight;
 
-        public GrandfatherClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos) : base(coreClientAPI, pos)
+        public PendulumClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos) : base(coreClientAPI, pos)
         {
         }
 
@@ -43,7 +43,7 @@ namespace DecoClock.Render
             }
             if (weight != null)
             {
-                RenderWeight(rpi, camPos, clockShader, -dxWeight, 0.25f, 0);
+                RenderWeight(rpi, camPos, clockShader, -dxWeight, 0.0f, 0);
                 RenderWeight(rpi, camPos, clockShader, dxWeight, 0.5f, 90);
             }
         }

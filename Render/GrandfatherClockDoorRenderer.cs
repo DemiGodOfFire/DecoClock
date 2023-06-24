@@ -5,10 +5,10 @@ namespace DecoClock.Render
 {
     internal class GrandfatherClockDoorRenderer : IRenderer
     {
-        private ICoreClientAPI capi;
-        private BlockPos pos;
+        private readonly ICoreClientAPI capi;
+        private readonly BlockPos pos;
         private MeshRef? door;
-        private Matrixf modelMat = new Matrixf();
+        private readonly Matrixf modelMat = new();
         private float meshAngle;
         private float i = 0;
         private bool open = false;

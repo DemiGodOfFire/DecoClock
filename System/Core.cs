@@ -11,9 +11,11 @@ namespace DecoClock
             ModId = Mod.Info.ModID;
             api.RegisterBlockClass("bigclock", typeof(ClockBlock));
             api.RegisterBlockClass("wallclock", typeof(WallClockBlock));
+            api.RegisterBlockClass("cuckooclock", typeof(CuckooClockBlock));
             api.RegisterBlockClass("grandfatherclock", typeof(GrandfatherClockBlock));
             api.RegisterBlockEntityClass("bebigclock", typeof(BEBigClock));
             api.RegisterBlockEntityClass("bewallclock", typeof(BEWallClock));
+            api.RegisterBlockEntityClass("becuckooclock", typeof(BECuckooClock));
             api.RegisterBlockEntityClass("begrandfatherclock", typeof(BEGrandfatherClock));
         }
     }
