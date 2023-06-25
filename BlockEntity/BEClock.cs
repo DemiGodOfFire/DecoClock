@@ -60,12 +60,7 @@ namespace DecoClock
             //    return textureSource[textureCode];
             //}
             get
-            {
-                //if (Inventory.IsExist("clockparts"))
-                //    {
-                //    if (textureCode == "thread") return TextureSource["string"];
-                //}
-
+            {               
                 ItemStack? stack = Inventory.TryGetPart(textureCode);
 
                 if (stack is not null)
@@ -94,14 +89,19 @@ namespace DecoClock
 
             if (texpos == null)
             {
-                IAsset texAsset = capi.Assets.TryGet(texturePath.Clone().WithPathPrefixOnce("textures/").WithPathAppendixOnce(".png"));
+                IAsset texAsset = capi.Assets.TryGet(texturePath.Clone().
+                    WithPathPrefixOnce("textures/").
+                    WithPathAppendixOnce(".png"));
                 if (texAsset != null)
                 {
-                    capi.BlockTextureAtlas.GetOrInsertTexture(texturePath, out _, out texpos, () => texAsset.ToBitmap(capi));
+                    capi.BlockTextureAtlas.GetOrInsertTexture(texturePath, out _, out texpos,
+
+                        () => texAsset.ToBitmap(capi));
                 }
                 else
                 {
-                    capi.World.Logger.Warning("For render in block " + Block.Code + ", item {0} defined texture {1}, no such texture found.", texturePath);
+                    capi.World.Logger.Warning("For render in block " + Block.Code +
+                        ", item {0} defined texture {1}, no such texture found.", texturePath);
                 }
             }
             return texpos;

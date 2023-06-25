@@ -17,7 +17,9 @@ namespace DecoClock
             "tickmarks",
             "hourhand",
             "minutehand",
-            "clockparts"
+            "dialglass",
+            "clockparts",
+            "cuckoo"
         };
 
         public override void ComposeDialog()
@@ -27,11 +29,13 @@ namespace DecoClock
             ElementBounds clockBounds = ElementBounds.Fixed(0.0, 0.0, 200.0, 290.0);
             ElementBounds clockworkSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 76.0, 110.0, 1, 1);
             ElementBounds tickMarksSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 76.0, 30.0, 1, 1);
+            ElementBounds cuckooSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 190.0, 1, 1);
             ElementBounds hourHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 0.0, 110.0, 1, 1);
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 110.0, 1, 1);
+            ElementBounds dialGlassSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 153.0, 190.0, 1, 1);
             ElementBounds clockPartsSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 76.0, 190.0, 1, 1);
             ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
-            ElementBounds typeDialBounds = ElementBounds.Fixed(0, 40, 50, 30);
+            ElementBounds typeDialBounds = ElementBounds.Fixed(0, 255, 50, 30);
             ElementBounds muteSoundsBounds = ElementBounds.Fixed(168, 255, 50, 50);
 
 
@@ -50,7 +54,9 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 1 }, tickMarksSlotBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 2 }, hourHandBounds)
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, minuteHandBounds)
-                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, clockPartsSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 4 }, dialGlassSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 5 }, clockPartsSlotBounds)
+                    .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 6 }, cuckooSlotBounds)
                     .AddSlider(OnDialChanged, typeDialBounds, "typedial")
                     .AddSwitch(OnMuteChanged, muteSoundsBounds,"mutesounds")
 

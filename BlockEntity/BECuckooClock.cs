@@ -12,7 +12,7 @@ namespace DecoClock
 
         GuiDialogCuckooClock dialogClock = null!;
         PendulumClockRenderer rendererCuckooClock = null!;
-        //GrandfatherClockDoorRenderer rendererDoor = null!;
+        CuckooRenderer rendererCuckoo = null!;
         public override string PathBlock => "decoclock:shapes/block/cuckooclock/";
 
         public override void AddParts()
@@ -21,6 +21,7 @@ namespace DecoClock
             _parts.Add(new("tickmarks", "clockwork"));
             _parts.Add(new("hourhand", "clockwork"));
             _parts.Add(new("minutehand", "clockwork"));
+            _parts.Add(new("dialglass"));
             _parts.Add(new("clockparts", "clockwork"));
             _parts.Add(new("cuckoo"));
         }
@@ -29,16 +30,16 @@ namespace DecoClock
         {
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
-                dialogClock = new (Core.ModId + ":cuckooclock-title", Inventory, Pos, (ICoreClientAPI)Api);
+                dialogClock = new(Core.ModId + ":cuckooclock-title", Inventory, Pos, (ICoreClientAPI)Api);
                 dialogClock.OnOpened += () =>
                 {
-                   // openSound?.Start();
-                   // rendererDoor.Open();
+                    // openSound?.Start();
+                    // rendererDoor.Open();
                 };
                 dialogClock.OnClosed += () =>
                 {
-                   // closeSound?.Start();
-                   // rendererDoor.Close();
+                    // closeSound?.Start();
+                    // rendererDoor.Close();
                 };
             }
 
@@ -55,15 +56,18 @@ namespace DecoClock
         public override void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
             base.UpdateMesh(tesselator);
-           // rendererDoor.Update(GetMesh("door"), MeshAngle);
+            rendererCuckoo.Update(
+                GetItemMesh("cuckoo"), 0.65625f, 0.275f,
+                GetMesh("doorR"), GetMesh("doorL"), 0.0625f, 0.15625f, 0.185f,
+                MeshAngle);
             rendererCuckooClock.Update(
-                GetItemMesh("hourhand"), -0.11f,
-                GetItemMesh("minutehand"), 1f, -0.101f,
-                GetItemMesh("tickmarks", TypeDial), 1.0f, -0.113f,
+                GetItemMesh("hourhand"), -0.181f,
+                GetItemMesh("minutehand"), -0.1875f, -0.174f,
+                GetItemMesh("tickmarks", TypeDial), -0.1875f, -0.1875f,
                 GetPartItemMesh("clockparts", "pendulum"), -0.5f, -0.05f,
                 GetPartItemMesh("clockparts", "weight"), 0.15f, -0.25f, -0.25f,
                 MeshAngle);
-            Api.World.Logger.Warning("Mute "+ MuteSounds);
+            Api.World.Logger.Warning("Mute " + MuteSounds);
 
         }
 
@@ -86,10 +90,10 @@ namespace DecoClock
 
         public override void RegisterRenderer(ICoreClientAPI capi)
         {
-            //capi.Event.RegisterRenderer(rendererDoor =
-            //    new GrandfatherClockDoorRenderer(capi, Pos), EnumRenderStage.Opaque);
+            capi.Event.RegisterRenderer(rendererCuckoo =
+               new(capi, Pos), EnumRenderStage.Opaque);
             capi.Event.RegisterRenderer(rendererCuckooClock =
-               new PendulumClockRenderer(capi, Pos), EnumRenderStage.Opaque);
+               new(capi, Pos), EnumRenderStage.Opaque);
             rendererCuckooClock.MinuteTick += () => { if (!MuteSounds) TickSound?.Start(); };
             rendererCuckooClock.HourTick += (_) => { if (!MuteSounds) chimeSound?.Start(); };
         }
@@ -104,18 +108,18 @@ namespace DecoClock
             chimeSound?.Stop();
             chimeSound?.Dispose();
             dialogClock?.TryClose();
-            //rendererDoor?.Dispose();
+            rendererCuckoo?.Dispose();
             rendererCuckooClock?.Dispose();
         }
 
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
-            //rendererDoor?.Dispose();
-            rendererCuckooClock?.Dispose();
             //openSound?.Dispose();
             //closeSound?.Dispose();
             chimeSound?.Dispose();
+            rendererCuckoo?.Dispose();
+            rendererCuckooClock?.Dispose();
         }
     }
 }
