@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 
@@ -17,8 +18,9 @@ namespace DecoClock
         float doorDy;
         float doorDz;
         float meshAngle;
-        bool cu;
-        int i = 0;
+        bool cu = false;
+        float x = 0;
+        float timeAnimation = 0;
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
 
@@ -45,18 +47,45 @@ namespace DecoClock
 
             if (cu && cuckoo != null)
             {
-                DoorRender(rpi, camPos, cuckooClockShader, doorL!, -doorDx, -i);
-                DoorRender(rpi, camPos, cuckooClockShader, doorR!, doorDx, i);
-                CuckooRender(rpi, camPos, cuckooClockShader, 0);
+                float y = AnimationY(deltaTime);
+                float angle = y * 2 / 3 * (float)Math.PI;
+                DoorRender(rpi, camPos, cuckooClockShader, doorL!, -doorDx, -angle);
+                DoorRender(rpi, camPos, cuckooClockShader, doorR!, doorDx, angle);
+                CuckooRender(rpi, camPos, cuckooClockShader, y * 0.1875f);
             }
             else
             {
                 DoorRender(rpi, camPos, cuckooClockShader, doorL!, -doorDx);
                 DoorRender(rpi, camPos, cuckooClockShader, doorR!, doorDx);
-            }
-            i++;
+                //CuckooRender(rpi, camPos, cuckooClockShader, 0 * 0.1875f);
 
+            }
             cuckooClockShader.Stop();
+        }
+
+        float AnimationY(float deltaTime)
+        {
+            float durationAnimation = 0.5f;
+            float durationSound = 0.5f;
+
+
+            if (timeAnimation > 2 * durationAnimation + durationSound)
+            {
+                cu = false;
+                x = 0;
+                timeAnimation = 0;
+                cu = false;
+                return 0;
+            }
+            else if (timeAnimation < durationAnimation || timeAnimation > durationAnimation + durationSound)
+            {
+                //Ку-ку ёпта
+                timeAnimation += deltaTime;
+                x += deltaTime;
+                return 1 - (float)(Math.Cos(6*x) + 1) / 2f;
+            }
+            timeAnimation += deltaTime;
+            return 1;
         }
 
         private void DoorRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram doorShader,
@@ -68,7 +97,7 @@ namespace DecoClock
                .Translate(0.5f, 0.5f + doorDy, 0.5f)
                .RotateY(meshAngle)
                .Translate(shift, 0, -doorDz)
-               .RotateYDeg(angle)
+               .RotateY(angle)
                .Translate(-0.5f, -0.5f, -0.5)
                .Values;
 
@@ -99,9 +128,9 @@ namespace DecoClock
             cuckooShader.ModelMatrix = modelMat
               .Identity()
               .Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z)
-              .Translate(0.5f, cuckooDy, 0.5f + translateZ)
+              .Translate(0.5f, cuckooDy, 0.5f )
               .RotateY(meshAngle)
-              .Translate(-0.5f, -0.5f, -0.5 - cuckooDz)
+              .Translate(-0.5f, -0.5f, -0.5 - cuckooDz + translateZ)
               .Values;
 
             cuckooShader.ViewMatrix = rpi.CameraMatrixOriginf;

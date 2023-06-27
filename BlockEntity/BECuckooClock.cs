@@ -8,7 +8,7 @@ namespace DecoClock
     {
         //ILoadedSound openSound = null!;
         //ILoadedSound closeSound = null!;
-        ILoadedSound chimeSound = null!;
+        ILoadedSound cuckooSound = null!;
 
         GuiDialogCuckooClock dialogClock = null!;
         PendulumClockRenderer rendererCuckooClock = null!;
@@ -31,16 +31,6 @@ namespace DecoClock
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
                 dialogClock = new(Core.ModId + ":cuckooclock-title", Inventory, Pos, (ICoreClientAPI)Api);
-                dialogClock.OnOpened += () =>
-                {
-                    // openSound?.Start();
-                    // rendererDoor.Open();
-                };
-                dialogClock.OnClosed += () =>
-                {
-                    // closeSound?.Start();
-                    // rendererDoor.Close();
-                };
             }
 
             if (Api.Side == EnumAppSide.Client)
@@ -57,7 +47,7 @@ namespace DecoClock
         {
             base.UpdateMesh(tesselator);
             rendererCuckoo.Update(
-                GetItemMesh("cuckoo"), 0.65625f, 0.275f,
+                GetItemMesh("cuckoo"), 0.675f, 0.3f,
                 GetMesh("doorR"), GetMesh("doorL"), 0.0625f, 0.15625f, 0.185f,
                 MeshAngle);
             rendererCuckooClock.Update(
@@ -76,7 +66,7 @@ namespace DecoClock
         public override void LoadSound(ICoreClientAPI capi)
         {
             base.LoadSound(capi);
-            chimeSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
+            cuckooSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
             {
                 Location = new AssetLocation("decoclock:sounds/chimeend1"),
                 ShouldLoop = false,
@@ -95,18 +85,14 @@ namespace DecoClock
             capi.Event.RegisterRenderer(rendererCuckooClock =
                new(capi, Pos), EnumRenderStage.Opaque);
             rendererCuckooClock.MinuteTick += () => { if (!MuteSounds) TickSound?.Start(); };
-            rendererCuckooClock.HourTick += (_) => { if (!MuteSounds) chimeSound?.Start(); };
+            rendererCuckooClock.HourTick += (_) => { rendererCuckoo?.Cu(); if (!MuteSounds) cuckooSound?.Start(); };
         }
 
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-            //openSound?.Stop();
-            //openSound?.Dispose();
-            //closeSound?.Stop();
-            //closeSound?.Dispose();
-            chimeSound?.Stop();
-            chimeSound?.Dispose();
+            cuckooSound?.Stop();
+            cuckooSound?.Dispose();
             dialogClock?.TryClose();
             rendererCuckoo?.Dispose();
             rendererCuckooClock?.Dispose();
@@ -115,9 +101,7 @@ namespace DecoClock
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
-            //openSound?.Dispose();
-            //closeSound?.Dispose();
-            chimeSound?.Dispose();
+            cuckooSound?.Dispose();
             rendererCuckoo?.Dispose();
             rendererCuckooClock?.Dispose();
         }

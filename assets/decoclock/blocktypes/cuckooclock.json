@@ -27,7 +27,7 @@
     "sideopaque": { "all": "false" },
     "collisionselectionboxes": [
     {
-      "x1": 0.1875,	"y1": 0, "z1": 0, "x2": 0.8125, "y2": 1, "z2": 0.125,
+      "x1": 0.1875,	"y1": 0, "z1": 0, "x2": 0.8125, "y2": 1, "z2": 0.3125,
       "rotateYByType": { "*-south": 180, "*-east": 270,"*-west": 90 }
     }
     ], 
