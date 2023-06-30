@@ -14,7 +14,8 @@
 		"dialglass": { "base": "game:block/transparent"},		
 		"clockwork": { "base": "game:block/transparent"}
 	},
-    "blockmaterial": "Wood",
+    "blockmaterial": "Wood",	
+	"materialDensity": 600,
     "resistance": 0.5,
     "sounds": {
     "place": "game:block/planks",

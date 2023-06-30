@@ -8,14 +8,17 @@
  	{ "code":"side", "loadFromProperties": "abstract/horizontalorientation"}
     ],	
   "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "decoclock": ["*-north"] },
+  "shapeInventory": { "base": "block/cuckooclock/complete" },
   	"shape": { "base": "block/cuckooclock/base"},
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},
 		"clockwork": { "base": "game:block/transparent"},
 		"dialglass": { "base": "game:block/transparent"},
 		"thread": {"base":  "game:block/cloth/burlap/string"},
+		"eye":  { "base": "eye"}
 	},
-    "blockmaterial": "Wood",
+    "blockmaterial": "Wood",	
+	"materialDensity": 600,
     "resistance": 0.5,
     "sounds": {
     "place": "game:block/planks",
@@ -27,7 +30,7 @@
     "sideopaque": { "all": "false" },
     "collisionselectionboxes": [
     {
-      "x1": 0.1875,	"y1": 0, "z1": 0, "x2": 0.8125, "y2": 1, "z2": 0.3125,
+      "x1": 0.1875,	"y1": 0, "z1": 0, "x2": 0.8125, "y2": 1, "z2": 0.344,
       "rotateYByType": { "*-south": 180, "*-east": 270,"*-west": 90 }
     }
     ], 

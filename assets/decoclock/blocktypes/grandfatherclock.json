@@ -10,6 +10,7 @@
 	],
 	"creativeinventory": { "general": ["*"], "decorative": ["*"], "decoclock": ["*"] },
 	"blockmaterial": "Wood",	
+	"materialDensity": 700,
 	"shape": { "base": "block/grandfatherclock/complete"},
 	
 	"textures": {

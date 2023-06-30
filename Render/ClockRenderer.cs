@@ -1,15 +1,19 @@
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace DecoClock
 {
     public class ClockRenderer : IRenderer
-    {        
+    {
         private float dzHourHand;
         private float dzMinuteHand;
+        private float multiplier;
+        private float count;
         private int hourMemory;
         private int minuteMemory;
+        static Random? _rand;
         private readonly Matrixf modelMat = new();
         private MeshRef? hourHand;
         private MeshRef? minuteHand;
@@ -48,7 +52,21 @@ namespace DecoClock
 
             if (IfWork)
             {
-                Time = (int)Math.Round(capi.World.Calendar.HourOfDay / capi.World.Calendar.HoursPerDay * 24f * 10000);
+                if (capi.ModLoader.GetModSystem<SystemTemporalStability>().StormData.nowStormActive)
+                {
+                    if (count <= 0)
+                    {
+                        _rand ??= new Random();
+                        count = (float)_rand.NextDouble() * 100;
+                        multiplier = ((float)_rand.NextDouble() - 0.5f) * 6f;
+                    }
+                    Time += (int)(deltaTime * multiplier * 100);
+                    count -= deltaTime;
+                }
+                else
+                {
+                    Time = (int)Math.Round(capi.World.Calendar.HourOfDay / capi.World.Calendar.HoursPerDay * 24f * 10000);
+                }
             }
 
             if (hourHand != null || minuteHand != null)
@@ -62,18 +80,17 @@ namespace DecoClock
                 if (hourMemory != hourM12)
                 {
                     hourMemory = hourM12;
-                    if (minute60 == 0)
+                    if (minute60 == 0 && IfWork)
                     {
                         HourTick?.Invoke(hour);
                     }
                 }
                 minuteRad = minute60 * (6f) * (float)Math.PI / 180;
-                if (minuteMemory != minute60)
+                if (minuteMemory != minute60 && IfWork)
                 {
                     minuteMemory = (int)minute60;
                     MinuteTick?.Invoke();
                 }
-
             }
             AddRenderer(hourRad, minuteRad);
         }

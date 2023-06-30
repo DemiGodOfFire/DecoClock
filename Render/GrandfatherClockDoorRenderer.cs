@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 
@@ -10,9 +11,8 @@ namespace DecoClock.Render
         private MeshRef? door;
         private readonly Matrixf modelMat = new();
         private float meshAngle;
-        private float i = 0;
+        private float x = 0;
         private bool open = false;
-        private bool close = true;
         public GrandfatherClockDoorRenderer(ICoreClientAPI capi, BlockPos pos)
         {
             this.capi = capi;
@@ -25,8 +25,21 @@ namespace DecoClock.Render
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
             if (door == null) { return; }
-            if (open && i <= 120) { i += 11; }
-            else if (close && i > 0) { i -= 11; }
+            float angle;
+            float timeAnimation = 0.43f;
+            if (open && x < timeAnimation)
+            {
+                x += deltaTime;
+                angle = Angle(timeAnimation);
+            }
+            else if (open && x >= timeAnimation) { angle = (float)Math.PI * 2 / 3; }
+            else if (!open && x > 0)
+            {
+                x -= deltaTime;
+                angle = Angle(timeAnimation);
+            }
+            else angle = 0;
+
             IRenderAPI rpi = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             rpi.GlDisableCullFace();
@@ -40,8 +53,8 @@ namespace DecoClock.Render
                .Translate(0.5f, 0.0f, 0.5f)
                .RotateY(meshAngle)
                .Translate(0.3125f, 0f, -0.0563f)
-               .RotateYDeg(i)
-               .Translate(-0.8125f, 0f, -0.4437) 
+               .RotateY(angle)
+               .Translate(-0.8125f, 0f, -0.4437)
                .Values;
 
             doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
@@ -63,15 +76,18 @@ namespace DecoClock.Render
             }
         }
 
+        float Angle(float durationAnimation)
+        {
+            return (float)((0.5 * (-Math.Cos(x * Math.PI / durationAnimation) - 1) + 1) * 2 / 3 * Math.PI);
+        }
+
         public void Open()
         {
             open = true;
-            close = false;
         }
 
         public void Close()
         {
-            close = true;
             open = false;
         }
 

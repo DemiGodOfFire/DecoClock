@@ -68,7 +68,7 @@ namespace DecoClock
             base.LoadSound(capi);
             cuckooSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
             {
-                Location = new AssetLocation("decoclock:sounds/chimeend1"),
+                Location = new AssetLocation("decoclock:sounds/cuckoo-clock-chime"),
                 ShouldLoop = false,
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,
