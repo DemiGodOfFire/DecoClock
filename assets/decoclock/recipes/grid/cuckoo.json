@@ -1,0 +1,12 @@
+{
+	"ingredientPattern": "C,P,A",
+	"ingredients": {
+		"C": { "type": "item", "code": "game:chisel-*", "name": "metal", "isTool": true, "toolDurabilityCost": 50 },
+		"P": { "type": "item", "code": "game:plank-*", "name": "wood", "quantity": 1},
+		"A": { "type": "item", "code": "game:charcoal",}	
+	},
+	"width": 1,
+	"height": 3,
+	"shapeless": true,
+	"output": { "type": "item", "code": "cuckoo-{wood}", "quantity": 1 }	
+}

@@ -1,0 +1,21 @@
+{
+	"ingredientPattern": "_P_,P_P,_O_",
+	"ingredients": {
+		"P": { 
+			"type": "item",
+			"code": "game:plank-*",
+			"name": "wood",			
+			"quantity": 2},
+		"O": { 
+			"type": "item",
+			"code": "game:plank-*",
+			"name": "wood",			
+			"quantity": 1},
+	},
+	"width": 3,
+	"height": 3,
+	"output": { 
+		"type": "block", 
+		"code": "cuckooclock-{wood}-north"
+	}
+}

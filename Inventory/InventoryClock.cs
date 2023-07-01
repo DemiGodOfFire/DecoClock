@@ -124,7 +124,7 @@ namespace DecoClock
                 {
                     if (Api is ICoreClientAPI capi)
                     {
-                        capi.TriggerIngameError(this, "missingclocwork", Lang.Get("Missing clocwork"));
+                        capi.TriggerIngameError(this, null, Lang.Get($"{Core.ModId}:clock-error-missingclocwork"));
                     }
                     return false;
                 }
@@ -216,7 +216,7 @@ namespace DecoClock
                 {
                     if (Api is ICoreClientAPI capi)
                     {
-                        capi.TriggerIngameError(this, "notemptydependency", Lang.Get("Remove other elements first"));
+                        capi.TriggerIngameError(this, null, Lang.Get($"{Core.ModId}:clock-error-notemptydependency"));
                     }
                     return false;
                 }
