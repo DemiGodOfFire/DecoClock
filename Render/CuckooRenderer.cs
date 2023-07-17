@@ -49,16 +49,14 @@ namespace DecoClock
             {
                 float y = AnimationY(deltaTime);
                 float angle = y * 2 / 3 * (float)Math.PI;
-                DoorRender(rpi, camPos, cuckooClockShader, doorL!, -doorDx, -angle);
-                DoorRender(rpi, camPos, cuckooClockShader, doorR!, doorDx, angle);
+                DoorRender(rpi, camPos, cuckooClockShader, doorL, -doorDx, -angle);
+                DoorRender(rpi, camPos, cuckooClockShader, doorR, doorDx, angle);
                 CuckooRender(rpi, camPos, cuckooClockShader, y * 0.1875f);
             }
             else
             {
-                DoorRender(rpi, camPos, cuckooClockShader, doorL!, -doorDx);
-                DoorRender(rpi, camPos, cuckooClockShader, doorR!, doorDx);
-                //CuckooRender(rpi, camPos, cuckooClockShader, 0 * 0.1875f);
-
+                DoorRender(rpi, camPos, cuckooClockShader, doorL, -doorDx);
+                DoorRender(rpi, camPos, cuckooClockShader, doorR, doorDx);           
             }
             cuckooClockShader.Stop();
         }

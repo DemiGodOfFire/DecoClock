@@ -32,33 +32,6 @@ namespace DecoClock
 
         public virtual TextureAtlasPosition? this[string textureCode]
         {
-            //get
-            //{
-            //    if (inventory.TryGetPart("clockparts") != null)
-            //    {
-            //        if (textureCode == "thread") return textureSource["string"];
-            //    }
-
-            //    ItemStack stack = inventory.TryGetPart(textureCode);
-            //    if (stack is not null)
-            //    {
-            //        var capi = Api as ICoreClientAPI;
-            //        if (stack.Class == EnumItemClass.Item)
-            //        {
-            //            var tex = stack.Item.FirstTexture;
-            //            AssetLocation texturePath = tex.Baked.BakedName;
-            //            // return capi.ItemTextureAtlas[tex.Base];
-            //            //   return capi.ItemTextureAtlas.GetPosition(stack.Item);
-            //            return GetOrCreateTexPos(texturePath, capi);
-            //        }
-            //        else
-            //        {
-            //            // var tex = stack.Block.FirstTexture;
-            //            return capi.BlockTextureAtlas.GetPosition(stack.Block);
-            //        }
-            //    }
-            //    return textureSource[textureCode];
-            //}
             get
             {               
                 ItemStack? stack = Inventory.TryGetPart(textureCode);
