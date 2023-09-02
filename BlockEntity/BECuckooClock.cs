@@ -57,7 +57,7 @@ namespace DecoClock
                 GetPartItemMesh("clockparts", "pendulum"), -0.5f, -0.05f,
                 GetPartItemMesh("clockparts", "weight"), 0.15f, -0.25f, -0.25f,
                 MeshAngle);
-            Api.World.Logger.Warning("Mute " + MuteSounds);
+           // Api.World.Logger.Warning("Mute " + MuteSounds);
 
         }
 

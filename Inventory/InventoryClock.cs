@@ -116,8 +116,7 @@ namespace DecoClock
         }
 
         private bool CanAddPart(int id)
-        {
-        //    int id = IdSlot(type);
+        {        
             if(codes[id].Dependency!=null)
             {
                 if (slots[IdSlot(codes[id].Dependency)].Empty)
@@ -223,47 +222,5 @@ namespace DecoClock
             }
             return true;
         }
-
-        //public override void OnItemSlotModified(ItemSlot slot)
-        //{
-        //    string type = codes[slot.Inventory.GetSlotId(slot)].Dependency;
-        //    if (type != null)
-        //    {
-        //        for (int i = 0; i < codes.Length; i++)
-        //        {
-        //            if (codes[i].Type == type)
-        //            {
-        //                slot.Inventory[i].CanTake();
-        //            }
-        //        }
-        //    }
-        //    slot
-        //}
-
-        //public override void ToTreeAttributes(ITreeAttribute invtree)
-        //{
-        //    base.ToTreeAttributes(invtree);
-        //    var formatter = new BinaryFormatter();
-        //    using (MemoryStream stream = new MemoryStream())
-        //    {
-        //        formatter.Serialize(stream, codes);
-        //        invtree.SetBytes("clockitems", stream.ToArray());
-        //    }
-        //}
-
-        //public override void FromTreeAttributes(ITreeAttribute invtree)
-        //{
-        //    base.FromTreeAttributes(invtree);
-        //    byte[] bytes = invtree.GetBytes("clockitems", null);
-
-        //    if (codes == null && bytes != null)
-        //    {
-        //        var formatter = new BinaryFormatter();
-        //        using (MemoryStream stream = new MemoryStream(bytes))
-        //        {
-        //            codes = (ClockItem[])formatter.Deserialize(stream);
-        //        }
-        //    }
-        //}
     }
 }

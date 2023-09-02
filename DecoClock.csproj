@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
     <!-- <TargetFramework>netstandard2.0</TargetFramework> -->
-		<TargetFramework>net461</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
@@ -21,6 +21,7 @@
 	<ItemGroup>
 		<Folder Include="Assets\" />
 		<Folder Include="Mods\" />
+		<Folder Include="schematics\" />
 		<Folder Include="Releases\" />
 	</ItemGroup>
 </Project>

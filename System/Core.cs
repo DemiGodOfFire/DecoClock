@@ -4,7 +4,7 @@ namespace DecoClock
 {
     class Core : ModSystem
     {
-        public static string ModId { get; private set; }
+        public static string? ModId { get; private set; }
 
         public override void Start(ICoreAPI api)
         {
