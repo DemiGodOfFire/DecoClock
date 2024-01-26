@@ -153,10 +153,10 @@ namespace DecoClock
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,
                 Volume = 1f,
-                Range = 48f,
+                Range = 16f,
                 SoundType = EnumSoundType.Ambient
             });
-
+            
         }
 
         public override void RegisterRenderer(ICoreClientAPI capi)

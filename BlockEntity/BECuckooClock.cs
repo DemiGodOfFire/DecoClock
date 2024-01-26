@@ -50,7 +50,7 @@ namespace DecoClock
             base.UpdateMesh(tesselator);
             rendererCuckoo.Update(
                 GetItemMesh("cuckoo"), 0.675f, 0.3f,
-                GetMesh("doorR"), GetMesh("doorL"), 0.0625f, 0.15625f, 0.185f,
+                GetMesh("doorr"), GetMesh("doorl"), 0.0625f, 0.15625f, 0.185f,
                 MeshAngle);
             rendererCuckooClock.Update(
                 GetItemMesh("hourhand"), -0.181f,
@@ -84,7 +84,7 @@ namespace DecoClock
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,
                 Volume = 1f,
-                Range = 48f,
+                Range = 16f,
                 SoundType = EnumSoundType.Ambient
             });
         }

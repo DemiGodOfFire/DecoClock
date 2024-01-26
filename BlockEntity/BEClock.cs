@@ -180,7 +180,7 @@ namespace DecoClock
             ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
             string path = this.PathBlock + $"{part}.json";
             Shape? shape = Api.Assets.TryGet(path)?.ToObject<Shape>();
-            Api.World.Logger.Warning($"{Core.ModId} {part}: " + path);
+            //Api.World.Logger.Warning($"{Core.ModId} {part}: " + path);
             if ( shape == null)
                 return null;
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
@@ -219,7 +219,7 @@ namespace DecoClock
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,
                 Volume = 0.5f,
-                Range = 16f,
+                Range = 8f,
                 SoundType = EnumSoundType.Ambient
             });
 

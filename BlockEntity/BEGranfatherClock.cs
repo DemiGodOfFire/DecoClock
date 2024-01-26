@@ -64,7 +64,7 @@ namespace DecoClock
                 GetPartItemMesh("clockparts", "pendulum"), 0.625f, -0.05f,
                 GetPartItemMesh("clockparts", "weight"), 0.15f, 0.85f, -0.25f,
                 MeshAngle);
-            Api.World.Logger.Warning("Mute "+ MuteSounds);
+            //Api.World.Logger.Warning("Mute "+ MuteSounds);
 
         }
 
@@ -80,7 +80,7 @@ namespace DecoClock
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,
                 Volume = 1f,
-                Range = 48f,
+                Range = 16f,
                 SoundType = EnumSoundType.Ambient
             });
 
