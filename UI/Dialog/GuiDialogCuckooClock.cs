@@ -70,14 +70,20 @@ namespace DecoClock
         }
         public override int GetTypeDial()
         {
-            BECuckooClock be = (BECuckooClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.TypeDial;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BECuckooClock be)
+            {
+                return be.TypeDial;
+            }
+            return 0;
         }
 
         public override bool GetMuteSounds()
         {
-            BECuckooClock be = (BECuckooClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.MuteSounds;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BECuckooClock be)
+            {
+                return be.MuteSounds;
+            }
+            return false;
         }
     }
 }

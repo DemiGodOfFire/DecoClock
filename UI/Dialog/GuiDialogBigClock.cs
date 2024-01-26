@@ -27,6 +27,7 @@ namespace DecoClock
             ElementBounds minuteHandBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 160.0, 110.0, 1, 1);
             ElementBounds disguiseSlotBounds = ElementStdBounds.SlotGrid(EnumDialogArea.None, 80.0, 190.0, 1, 1);
             ElementBounds radiusBounds = ElementBounds.Fixed(0, 250, 50, 30);
+            ElementBounds shiftBounds = ElementBounds.Fixed(80, 250, 50, 30);
             ElementBounds typeDialBounds = ElementBounds.Fixed(80, 90, 50, 30);
             ElementBounds hoverBounds = ElementBounds.Fixed(0, 0, 0, 26);
             ElementBounds muteSoundsBounds = ElementBounds.Fixed(168, 255, 50, 50);
@@ -50,14 +51,17 @@ namespace DecoClock
                     .AddItemSlotGrid(Inventory, SendInvPacket, 1, new int[] { 3 }, tickMarksSlotBounds)
                     .AddAutoSizeHoverText("", CairoFont.WhiteSmallText(), 200, hoverBounds, "hover")
                     .AddSlider(OnRadiusChanged, radiusBounds, "radius")
+                    .AddSlider(OnShiftChanged, shiftBounds, "shift")
                     .AddSlider(OnDialChanged, typeDialBounds, "typedial")
                     .AddSwitch(OnMuteChanged, muteSoundsBounds, "mutesounds")
                     .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:typedial"), CairoFont.WhiteSmallText(), 200, typeDialBounds)
                     .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:radius"), CairoFont.WhiteSmallText(), 200, radiusBounds)
                     .AddAutoSizeHoverText(Lang.Get($"{Core.ModId}:mute"), CairoFont.WhiteSmallText(), 200, muteSoundsBounds)
+                    
                 .EndChildElements()
                 .Compose();
             SingleComposer.GetSlider("radius").SetValues(GetRadius(), 1, 7, 1);
+            SingleComposer.GetSlider("shift").SetValues(GetShiftZ(), 0, 100, 1,"%");
             SingleComposer.GetSlider("typedial").SetValues(GetTypeDial(), 1, 9, 1);
         }
 
@@ -67,22 +71,47 @@ namespace DecoClock
             return true;
         }
 
+        private bool OnShiftChanged(int value)
+        {
+            capi.Network.SendBlockEntityPacket(Pos.X, Pos.Y, Pos.Z, Constants.ShiftZ, BitConverter.GetBytes(value));
+            return true;
+        }
+
         private int GetRadius()
         {
-            BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.Radius;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BEBigClock be)
+            {
+                return be.Radius;
+            }
+            return 0;
+        }
+
+        private int GetShiftZ()
+        {
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BEBigClock be)
+            {
+                return be.ShiftZ;
+            }
+            return 0;
         }
 
         public override int GetTypeDial()
         {
-            BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.TypeDial;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BEBigClock be)
+            {
+                return be.TypeDial;
+            }
+            return 0;
         }
+
 
         public override bool GetMuteSounds()
         {
-            BEBigClock be = (BEBigClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.MuteSounds;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BEBigClock be)
+            {
+                return be.MuteSounds;
+            }
+            return false;
         }
     }
 }

@@ -1,6 +1,8 @@
 using DecoClock.Render;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.Client.NoObf;
+using Vintagestory.Server;
 
 namespace DecoClock
 {
@@ -66,9 +68,18 @@ namespace DecoClock
         public override void LoadSound(ICoreClientAPI capi)
         {
             base.LoadSound(capi);
+            string str;
+            if (ClientSettings.MasterserverUrl != "https://masterserver.vintagestory.at/api/v1/servers/")
+            {
+                str = "decoclock:sounds/cuckoo-clock-chime";
+            }else
+            {
+                str = "decoclock:sounds/cuckoo-clock-chime";
+            }
             cuckooSound ??= ((IClientWorldAccessor)capi.World).LoadSound(new SoundParams
             {
-                Location = new AssetLocation("decoclock:sounds/cuckoo-clock-chime"),
+                
+                Location = new AssetLocation(str),
                 ShouldLoop = false,
                 Position = Pos.ToVec3f().Add(0.5f, 1.5f, 0.5f),
                 DisposeOnFinish = false,

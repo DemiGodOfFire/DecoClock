@@ -111,6 +111,7 @@ namespace DecoClock.Render
         {
             base.Dispose();
             pendulum?.Dispose();
+            weight?.Dispose();
         }
     }
 }

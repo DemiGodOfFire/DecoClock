@@ -13,6 +13,7 @@ namespace DecoClock
         BigClockRenderer? rendererClock;
         public override string PathBlock => "decoclock:shapes/block/clock/";
         public int Radius { get; set; } = 1;
+        public int ShiftZ { get; set; } = 0;
 
         public override void AddParts()
         {
@@ -79,7 +80,7 @@ namespace DecoClock
             if (Inventory.IsExist("disguise"))
             {
                 ItemStack itemStack = Inventory.TryGetPart("disguise")!;
-                if(itemStack.Block is BlockChisel)
+                if (itemStack.Block is BlockChisel)
                 {
                     var bem = new BlockEntityMicroBlock();
                     bem.FromTreeAttributes(itemStack.Attributes, Api.World);
@@ -87,7 +88,14 @@ namespace DecoClock
                 }
                 else
                 {
-                    tesselator.TesselateBlock(itemStack.Block, out mesh);
+                    try
+                    {
+                        tesselator.TesselateBlock(itemStack.Block, out mesh);
+                    }
+                    catch
+                    {
+                        mesh = GenBaseMesh(tesselator);
+                    }
                 }
             }
             else
@@ -97,9 +105,10 @@ namespace DecoClock
             BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
             rendererClock?.Update(GetItemMesh("hourhand"), 0.6f,
                 GetItemMesh("minutehand"), 0f, 0.75f,
-                GetItemMesh("tickmarks",TypeDial), 0f, 0.5f,
+                GetItemMesh("tickmarks", TypeDial), 0f, 0.5f,
                 GetMesh("tribe"),
                 Radius,
+                ShiftZ,
                 MeshAngle);
         }
 
@@ -109,6 +118,7 @@ namespace DecoClock
         {
             base.GetVariablesFromTreeAttributes(tree);
             Radius = tree.GetInt("radius", Radius);
+            ShiftZ = tree.GetInt("shift", ShiftZ);
 
         }
 
@@ -116,6 +126,7 @@ namespace DecoClock
         {
             base.ToTreeAttributes(tree);
             tree.SetInt("radius", Radius);
+            tree.SetInt("shift", ShiftZ);
         }
 
         public override void ClientPackets(IPlayer player, int packetid, byte[] data)
@@ -124,6 +135,11 @@ namespace DecoClock
             if (packetid == Constants.Radius)
             {
                 Radius = BitConverter.ToInt32(data, 0);
+                MarkDirty(true);
+            }
+            if (packetid == Constants.ShiftZ)
+            {
+                ShiftZ = BitConverter.ToInt32(data, 0);
                 MarkDirty(true);
             }
         }

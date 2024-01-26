@@ -167,6 +167,9 @@ namespace DecoClock
         public void Dispose()
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
+            cuckoo?.Dispose();
+            doorR?.Dispose();
+            doorL?.Dispose();
         }
     }
 }

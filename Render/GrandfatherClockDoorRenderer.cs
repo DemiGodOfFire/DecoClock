@@ -8,8 +8,8 @@ namespace DecoClock.Render
     {
         private readonly ICoreClientAPI capi;
         private readonly BlockPos pos;
-        private MeshRef? door;
         private readonly Matrixf modelMat = new();
+        private MeshRef? door;
         private float meshAngle;
         private float x = 0;
         private bool open = false;

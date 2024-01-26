@@ -1,11 +1,10 @@
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using static OpenTK.Graphics.OpenGL.GL;
 
 namespace DecoClock
 {
-    internal class GrandfatherClockBlock : ClockBlock//, IMultiBlockInteract
+    internal class GrandfatherClockBlock : ClockBlock
     {
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -44,8 +43,7 @@ namespace DecoClock
 
         public override Cuboidf[] GetSelectionBoxes(IBlockAccessor blockAccessor, BlockPos pos)
         {
-            BEGrandfatherClock be = (BEGrandfatherClock)blockAccessor.GetBlockEntity(pos);
-            if (be != null)
+            if (blockAccessor.GetBlockEntity(pos) is BEGrandfatherClock be)
             {
                 Cuboidf[] selectionBoxes = new Cuboidf[1];
                 float angleDeg = be.MeshAngle * GameMath.RAD2DEG;

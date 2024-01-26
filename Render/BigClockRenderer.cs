@@ -8,6 +8,7 @@ namespace DecoClock
         private readonly Matrixf modelMat = new();
         MeshRef? tribe;
         float scale;
+        float shiftZ;//0.0625f
         int i = 0;
 
         public BigClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos) : base(coreClientAPI, pos)
@@ -24,7 +25,7 @@ namespace DecoClock
                     .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
                     .Translate(0.5f, 0.5f, 0.5f)
                     .RotateY(MeshAngle)
-                    .Translate(0.0f, 0.0f, 0.5f)
+                    .Translate(0.0f, 0.0f, 0.5f + shiftZ)
                     .Scale(scale, scale, scale)
                     .Translate(-0.5f, -0.5f, -0.5f)
                     .Values;
@@ -45,7 +46,7 @@ namespace DecoClock
               .Translate(0.5f, 0.5f + DyHand, 0.5f)
               .RotateY(MeshAngle)
               .RotateZ(-angleRad)
-              .Translate(0.0f, 0.0f, (dz - 0.5) * scale + 0.5)
+              .Translate(0.0f, 0.0f, (dz - 0.5) * scale + 0.5 + shiftZ)
 
               .Scale(scale, scale, scale)
               .Translate(-0.5f, -0.5f, -0.5f)
@@ -64,7 +65,7 @@ namespace DecoClock
                .Translate(Pos.X - camPos.X, Pos.Y - camPos.Y, Pos.Z - camPos.Z)
                .Translate(0.5f, 0.5f + DyDial, 0.5f)
                .RotateY(MeshAngle)
-               .Translate(0.0f, 0.0f, DzDial)
+               .Translate(0.0f, 0.0f, DzDial + shiftZ)
                .Scale(scale, scale, scale)
                .Translate(-0.5f, -0.5f, -0.5f)
                .Values;
@@ -84,11 +85,12 @@ namespace DecoClock
             MeshData? dial, float dzDial, float dyDial,
             MeshData? tribe,
             int radius,
+            int shiftZ,
             float meshAngle)
         {
             base.Update(hourHand, dzHour, minuteHand, dzMinute, dyHand, dial, dzDial, dyDial, meshAngle);
             scale = radius / 7f;
-
+            this.shiftZ = shiftZ / 100f * 0.115f * radius;
             this.tribe?.Dispose();
             this.tribe = null;
 

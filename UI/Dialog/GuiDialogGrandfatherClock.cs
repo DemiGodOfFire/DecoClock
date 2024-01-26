@@ -70,14 +70,21 @@ namespace DecoClock
         }
         public override int GetTypeDial()
         {
-            BEGrandfatherClock be = (BEGrandfatherClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.TypeDial;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BEGrandfatherClock be)
+            {
+                return be.TypeDial;
+            }
+            return 0;
+           
         }
 
         public override bool GetMuteSounds()
         {
-            BEGrandfatherClock be = (BEGrandfatherClock)capi.World.BlockAccessor.GetBlockEntity(Pos);
-            return be.MuteSounds;
+            if (capi.World.BlockAccessor.GetBlockEntity(Pos) is BEGrandfatherClock be)
+            {
+                return be.MuteSounds;
+            }
+            return false;
         }
     }
 }
