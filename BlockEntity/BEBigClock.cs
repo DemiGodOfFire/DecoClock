@@ -84,7 +84,7 @@ namespace DecoClock
                 {
                     var bem = new BlockEntityMicroBlock();
                     bem.FromTreeAttributes(itemStack.Attributes, Api.World);
-                    mesh = BlockEntityMicroBlock.CreateMesh((ICoreClientAPI)Api, bem.VoxelCuboids, bem.MaterialIds, Pos);
+                    mesh = BlockEntityMicroBlock.CreateMesh((ICoreClientAPI)Api, bem.VoxelCuboids, bem.MaterialIds, null, Pos);
                 }
                 else
                 {
