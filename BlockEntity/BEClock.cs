@@ -248,7 +248,7 @@ namespace DecoClock
             {
                 Inventory.InvNetworkUtil.HandleClientPacket(player, packetid, data);
                 // Tell server to save this chunk to disk again
-                Api.World.BlockAccessor.GetChunkAtBlockPos(Pos.X, Pos.Y, Pos.Z).MarkModified();
+                Api.World.BlockAccessor.GetChunkAtBlockPos(Pos)?.MarkModified();
                 MarkDirty(true);
                 return;
             }
