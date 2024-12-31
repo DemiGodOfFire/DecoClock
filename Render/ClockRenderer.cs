@@ -5,7 +5,7 @@ using Vintagestory.GameContent;
 
 namespace DecoClock
 {
-    public class ClockRenderer : IRenderer
+    public class ClockRenderer(ICoreClientAPI capi, BlockPos pos) : IRenderer
     {
         private float dzHourHand;
         private float dzMinuteHand;
@@ -15,13 +15,13 @@ namespace DecoClock
         private int minuteMemory;
         static Random? _rand;
         private readonly Matrixf modelMat = new();
-        private MeshRef? hourHand;
-        private MeshRef? minuteHand;
+        private MultiTextureMeshRef? hourHand;
+        private MultiTextureMeshRef? minuteHand;
         public event Action<int>? HourTick;
         public event Action? MinuteTick;
-        public readonly ICoreClientAPI capi;
-        public BlockPos Pos { get; }
-        public MeshRef? Dial { get; set; }
+        public readonly ICoreClientAPI capi = capi;
+        public BlockPos Pos { get; } = pos;
+        public MultiTextureMeshRef? Dial { get; set; }
         public int Time { get; set; } = 100000;
         public float MeshAngle { get; set; }
         public float DyDial { get; set; }
@@ -33,12 +33,6 @@ namespace DecoClock
 
         public double RenderOrder => 0.37;
         public int RenderRange => 24;
-
-        public ClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos)
-        {
-            capi = coreClientAPI;
-            this.Pos = pos;
-        }
 
         public virtual void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
@@ -115,7 +109,7 @@ namespace DecoClock
 
             if (hourHand != null)
             {
-                this.hourHand = capi.Render.UploadMesh(hourHand);
+                this.hourHand = capi.Render.UploadMultiTextureMesh(hourHand);
             }
 
             this.minuteHand?.Dispose();
@@ -123,7 +117,7 @@ namespace DecoClock
 
             if (minuteHand != null)
             {
-                this.minuteHand = capi.Render.UploadMesh(minuteHand);
+                this.minuteHand = capi.Render.UploadMultiTextureMesh(minuteHand);
             }
 
             this.Dial?.Dispose();
@@ -133,7 +127,7 @@ namespace DecoClock
 
             if (dial != null)
             {
-                this.Dial = capi.Render.UploadMesh(dial);
+                this.Dial = capi.Render.UploadMultiTextureMesh(dial);
             }
         }
 
@@ -172,7 +166,7 @@ namespace DecoClock
         }
 
         public virtual void HandRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader,
-            MeshRef mesh, float angleRad, float dz)
+            MultiTextureMeshRef mesh, float angleRad, float dz)
         {
             clockShader.ModelMatrix = modelMat
                .Identity()
@@ -184,7 +178,7 @@ namespace DecoClock
                .Values;
             clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
             clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(mesh);
+            rpi.RenderMultiTextureMesh(mesh, "tex");
         }
 
         public virtual void DialRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader)
@@ -198,7 +192,7 @@ namespace DecoClock
            .Values;
             clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
             clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(Dial);
+            rpi.RenderMultiTextureMesh(Dial, "tex");
         }
 
 

@@ -4,20 +4,13 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock.Render
 {
-    internal class GrandfatherClockDoorRenderer : IRenderer
+    internal class GrandfatherClockDoorRenderer(ICoreClientAPI capi, BlockPos pos) : IRenderer
     {
-        private readonly ICoreClientAPI capi;
-        private readonly BlockPos pos;
         private readonly Matrixf modelMat = new();
-        private MeshRef? door;
+        private MultiTextureMeshRef? door;
         private float meshAngle;
         private float x = 0;
         private bool open = false;
-        public GrandfatherClockDoorRenderer(ICoreClientAPI capi, BlockPos pos)
-        {
-            this.capi = capi;
-            this.pos = pos;
-        }
 
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
@@ -59,7 +52,7 @@ namespace DecoClock.Render
 
             doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
             doorShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(door);
+            rpi.RenderMultiTextureMesh(door, "tex");
             doorShader.Stop();
 
         }
@@ -72,7 +65,7 @@ namespace DecoClock.Render
 
             if (door != null)
             {
-                this.door = capi.Render.UploadMesh(door);
+                this.door = capi.Render.UploadMultiTextureMesh(door);
             }
         }
 

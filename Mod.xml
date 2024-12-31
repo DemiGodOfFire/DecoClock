@@ -2,10 +2,11 @@
 	<PropertyGroup>
 		<Name>DecO'Clock</Name>
 		<ModId>decoclock</ModId>
-		<Version>0.9.3</Version>
+		<Version>0.9.4</Version>
 		<Authors>Svarozhich</Authors>
-		<GameVersion>1.19.2</GameVersion>
+		<GameVersion>1.20.0-rc.1</GameVersion>
 		<Description>Adds to the game several types of mechanical clocks showing the current game time</Description>
+    <NoLang>True</NoLang>
 		<Website></Website>
 	</PropertyGroup>
 	<ItemGroup>		

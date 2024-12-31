@@ -4,10 +4,10 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock.Render
 {
-    internal class PendulumClockRenderer : ClockRenderer
+    internal class PendulumClockRenderer(ICoreClientAPI capi, BlockPos pos) : ClockRenderer(capi, pos)
     {
-        private MeshRef? weight;
-        private MeshRef? pendulum;
+        private MultiTextureMeshRef? weight;
+        private MultiTextureMeshRef? pendulum;
         private readonly Matrixf modelMat = new();
 
         // private int directions = 1;
@@ -16,10 +16,6 @@ namespace DecoClock.Render
         private float dxWeight;
         private float dyWeight;
         private float dzWeight;
-
-        public PendulumClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos) : base(coreClientAPI, pos)
-        {
-        }
 
         public override void BuildShader(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader,
             float hourRad, float minuteRad)
@@ -39,7 +35,7 @@ namespace DecoClock.Render
                 .Values;
                 clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
                 clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                rpi.RenderMesh(pendulum);
+                rpi.RenderMultiTextureMesh(pendulum, "tex");
             }
             if (weight != null)
             {
@@ -61,7 +57,7 @@ namespace DecoClock.Render
                .Values;
             clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
             clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(weight);
+            rpi.RenderMultiTextureMesh(weight, "tex");
         }
 
         public override bool IsNotRender()
@@ -86,7 +82,7 @@ namespace DecoClock.Render
 
             if (pendulum != null)
             {
-                this.pendulum = capi.Render.UploadMesh(pendulum);
+                this.pendulum = capi.Render.UploadMultiTextureMesh(pendulum);
                 IfWork = true;
             }
             else
@@ -103,7 +99,7 @@ namespace DecoClock.Render
 
             if (weight != null)
             {
-                this.weight = capi.Render.UploadMesh(weight);
+                this.weight = capi.Render.UploadMultiTextureMesh(weight);
             }
         }
 

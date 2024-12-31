@@ -28,12 +28,16 @@ namespace DecoClock
             {
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEBigClock be)
                 {
-                    float deg90 = GameMath.PIHALF;
-                    be.MeshAngle = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / deg90) - 1) * deg90;
+                    float yRotRad = ((int)Math.Round(byPlayer.Entity.Pos.Yaw / GameMath.PIHALF) - 2) * GameMath.PIHALF;
+                    if (yRotRad <= -(float)(2 * Math.PI))
+                        throw new Exception("Argh!");                                                                               //Check for less than -180 degrees
+                    be.MeshAngle = yRotRad < 0 ? yRotRad + (float)(2 * Math.PI) : yRotRad;
+
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
                     }
+
                     be.MarkDirty(true);
                 }
             }
@@ -44,8 +48,7 @@ namespace DecoClock
         {
             return new WorldInteraction[]
             {
-                new WorldInteraction
-                {
+                new() {
                     ActionLangCode = "blockhelp-chest-open",
                     MouseButton = EnumMouseButton.Right
                 }

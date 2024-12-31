@@ -4,14 +4,12 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    internal class CuckooRenderer : IRenderer
+    internal class CuckooRenderer(ICoreClientAPI capi, BlockPos pos) : IRenderer
     {
-        private readonly ICoreClientAPI capi;
-        private readonly BlockPos pos;
         private readonly Matrixf modelMat = new();
-        MeshRef? cuckoo;
-        MeshRef? doorR;
-        MeshRef? doorL;
+        MultiTextureMeshRef? cuckoo;
+        MultiTextureMeshRef? doorR;
+        MultiTextureMeshRef? doorL;
         float cuckooDy;
         float cuckooDz;
         float doorDx;
@@ -23,12 +21,7 @@ namespace DecoClock
         float timeAnimation = 0;
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
-
-        public CuckooRenderer(ICoreClientAPI coreClientAPI, BlockPos pos)
-        {
-            capi = coreClientAPI;
-            this.pos = pos;
-        }
+        public bool Cu => cuckoo != null;
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
@@ -87,7 +80,7 @@ namespace DecoClock
         }
 
         private void DoorRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram doorShader,
-            MeshRef door, float shift, float angle)
+            MultiTextureMeshRef door, float shift, float angle)
         {
             doorShader.ModelMatrix = modelMat
                .Identity()
@@ -101,11 +94,11 @@ namespace DecoClock
 
             doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
             doorShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(door);
+            rpi.RenderMultiTextureMesh(door, "tex");
         }
 
         private void DoorRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram doorShader,
-           MeshRef door, float shift)
+           MultiTextureMeshRef door, float shift)
         {
             doorShader.ModelMatrix = modelMat
                .Identity()
@@ -117,7 +110,7 @@ namespace DecoClock
 
             doorShader.ViewMatrix = rpi.CameraMatrixOriginf;
             doorShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(door);
+            rpi.RenderMultiTextureMesh(door, "tex");
         }
 
         private void CuckooRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram cuckooShader,
@@ -133,7 +126,7 @@ namespace DecoClock
 
             cuckooShader.ViewMatrix = rpi.CameraMatrixOriginf;
             cuckooShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(cuckoo);
+            rpi.RenderMultiTextureMesh(cuckoo, "tex");
         }
 
         public void Update(MeshData? cuckoo, float cuckooDy, float cuckooDz,
@@ -144,25 +137,21 @@ namespace DecoClock
 
             if (cuckoo != null)
             {
-                this.cuckoo = capi.Render.UploadMesh(cuckoo);
+                this.cuckoo = capi.Render.UploadMultiTextureMesh(cuckoo);
                 this.cuckooDy = cuckooDy;
                 this.cuckooDz = cuckooDz;
             }
 
             if (doorR != null && doorL != null)
             {
-                this.doorR = capi.Render.UploadMesh(doorR);
-                this.doorL = capi.Render.UploadMesh(doorL);
+                this.doorR = capi.Render.UploadMultiTextureMesh(doorR);
+                this.doorL = capi.Render.UploadMultiTextureMesh(doorL);
                 this.doorDx = doorDx;
                 this.doorDy = doorDy;
                 this.doorDz = doorDz;
             }
         }
 
-        public void Cu()
-        {
-            cu = true;
-        }
 
         public void Dispose()
         {

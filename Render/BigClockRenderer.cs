@@ -3,17 +3,13 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    internal class BigClockRenderer : ClockRenderer
+    internal class BigClockRenderer(ICoreClientAPI capi, BlockPos pos) : ClockRenderer(capi, pos)
     {
         private readonly Matrixf modelMat = new();
-        MeshRef? tribe;
+        MultiTextureMeshRef? tribe;
         float scale;
         float shiftZ;//0.0625f
         int i = 0;
-
-        public BigClockRenderer(ICoreClientAPI coreClientAPI, BlockPos pos) : base(coreClientAPI, pos)
-        {
-        }
 
         public override void BuildShader(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader, float hourRad, float minuteRad)
         {
@@ -31,12 +27,12 @@ namespace DecoClock
                     .Values;
                 clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
                 clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                rpi.RenderMesh(tribe);
+                rpi.RenderMultiTextureMesh(tribe, "tex");
             }
         }
 
         public override void HandRender(IRenderAPI rpi, Vec3d camPos, IStandardShaderProgram clockShader,
-            MeshRef mesh, float angleRad, float dz)
+            MultiTextureMeshRef mesh, float angleRad, float dz)
         {
             if (i == 360) i = 0;
 
@@ -53,7 +49,7 @@ namespace DecoClock
               .Values;
             clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
             clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(mesh);
+            rpi.RenderMultiTextureMesh(mesh, "tex");
             i++;
 
         }
@@ -71,7 +67,7 @@ namespace DecoClock
                .Values;
             clockShader.ViewMatrix = rpi.CameraMatrixOriginf;
             clockShader.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            rpi.RenderMesh(Dial);
+            rpi.RenderMultiTextureMesh(Dial, "tex");
         }
 
         public override bool IsNotRender()
@@ -96,7 +92,7 @@ namespace DecoClock
 
             if (tribe != null)
             {
-                this.tribe = capi.Render.UploadMesh(tribe);
+                this.tribe = capi.Render.UploadMultiTextureMesh(tribe);
             }
         }
         public override void AddRenderer(float hourRad, float minuteRad)
