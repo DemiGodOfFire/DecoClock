@@ -29,14 +29,6 @@ namespace DecoClock
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
                 dialogClock = new GuiDialogBigClock(Core.ModId + ":bigclock-title", Inventory, Pos, (ICoreClientAPI)Api);
-                //dialogClock.OnOpened += () =>
-                //{
-                //    //openSound?.Start();
-                //};
-                //dialogClock.OnClosed += () =>
-                //{
-                //    //closeSound?.Start();
-                //};
             }
 
             if (Api.Side == EnumAppSide.Client)
@@ -48,7 +40,7 @@ namespace DecoClock
 
         #region meshing
 
-        public MeshData GenBaseMesh(ITesselatorAPI tesselator)
+        public override MeshData GenBaseMesh(ITesselatorAPI tesselator)
         {
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();

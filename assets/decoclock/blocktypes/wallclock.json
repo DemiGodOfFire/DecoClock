@@ -4,10 +4,11 @@
   "entityClass": "bewallclock",
   "behaviors": [ {"name": "HorizontalAttachable", "properties": {  "dropBlockFace": "north" }} ], 
   "variantgroups": [
-    { "code": "wood", "loadFromProperties": "decoclock:block/wood"},
  	{ "code":"side", "loadFromProperties": "abstract/horizontalorientation"}
-    ],	
-  "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "decoclock": ["*-north"] },
+    ],
+    "attributes": {
+		"material": { "loadFromProperties": "decoclock:block/wood" },
+	},
   	"shape": { "base": "block/wallclock/complete1"},
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/{wood}"},

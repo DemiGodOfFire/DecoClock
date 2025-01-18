@@ -1,10 +1,20 @@
+using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    public class WallClockBlock : ClockBlock
+    public class WallClockBlock : VariableClockBlock
     {
+        public override string Key => "wallclock";
+
+        public override void CreateCreativeInventoryStacks(List<JsonItemStack> stacks)
+        {
+            if (this.LastCodePart() == "north")
+            {
+                base.CreateCreativeInventoryStacks(stacks);
+            }
+        }
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -15,6 +25,8 @@ namespace DecoClock
             }
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
+
+       
 
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {
@@ -33,6 +45,8 @@ namespace DecoClock
                         case "east": be.MeshAngle = 270 * deg; break;
                     }
 
+                    be.Material = byItemStack.Attributes.GetString("material", "oak");
+
                     if (world.Side == EnumAppSide.Client)
                     {
                         be.UpdateMesh();
@@ -42,6 +56,7 @@ namespace DecoClock
             }
             return val;
         }
+
     }
 }
 

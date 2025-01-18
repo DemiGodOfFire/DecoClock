@@ -12,7 +12,6 @@ namespace DecoClock
     {
         public ITexPositionSource TextureSource { get; set; } = null!;
         public ILoadedSound? TickSound { get; set; }
-        //ILoadedSound chimeSound = null!;
 
         public MeshData? BaseMesh { get; set; }
         public InventoryClock Inventory { get; set; } = null!;
@@ -26,7 +25,7 @@ namespace DecoClock
         public float MeshAngle { get; set; }
         public abstract string PathBlock { get; }
         public bool MuteSounds { get; set; } = false;
-
+        public string Material { get; set; }
         public abstract void AddParts();
 
 
@@ -52,6 +51,35 @@ namespace DecoClock
                         return GetOrCreateTexPos(texturePath, capi);
                     }
                 }
+
+                if (textureCode == "frame")
+                {
+                    var capi = (ICoreClientAPI)Api;
+                    var texturePath = new AssetLocation($"block/wood/debarked/{Material}");
+                    TextureAtlasPosition? pos = capi.BlockTextureAtlas[texturePath];
+
+                    if (pos == null)
+                    {
+                        IAsset texAsset = capi.Assets.TryGet(texturePath.Clone().
+                                                WithPathPrefixOnce("textures/").
+                                                WithPathAppendixOnce(".png"));
+                        if (texAsset != null)
+                        {
+                            capi.BlockTextureAtlas.GetOrInsertTexture(texturePath, out _, out pos,
+                                () => texAsset.ToBitmap(capi));
+                        }
+                        else
+                        {
+                            capi.World.Logger.Warning("For render in block " + this.Block.Code +
+                                ", no such texture found.", texturePath);
+                        }
+
+                        pos ??= capi.BlockTextureAtlas.UnknownTexturePosition;
+                    }
+
+                    return pos ??= capi.BlockTextureAtlas.UnknownTexturePosition;
+                }
+
                 return TextureSource[textureCode];
             }
         }
@@ -105,7 +133,6 @@ namespace DecoClock
                 LoadSound(capi);
                 RegisterRenderer(capi);
                 TextureSource = capi.Tesselator.GetTextureSource(Block);
-                //rendererHand.HourTick += (_) => { chimeSound?.Start(); };
                 UpdateMesh();
             }
         }
@@ -114,13 +141,13 @@ namespace DecoClock
 
         #region meshing
 
-        //public virtual MeshData GenBaseMesh(ITesselatorAPI tesselator)
-        //{
-        //    AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
-        //    Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
-        //    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
-        //    return mesh;
-        //}
+        public virtual MeshData GenBaseMesh(ITesselatorAPI tesselator)
+        {
+            AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+            Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
+            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+            return mesh;
+        }
 
         public MeshData? GetItemMesh(string item)
         {
@@ -156,7 +183,6 @@ namespace DecoClock
             return null;
         }
 
-
         public MeshData? GetPartItemMesh(string item, string part)
         {
             if (Inventory != null)
@@ -174,13 +200,11 @@ namespace DecoClock
             return null;
         }
 
-
         public MeshData? GetMesh(string part)
         {
             ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
             string path = this.PathBlock + $"{part}.json";
             Shape? shape = Api.Assets.TryGet(path)?.ToObject<Shape>();
-            //Api.World.Logger.Warning($"{Core.ModId} {part}: " + path);
             if ( shape == null)
                 return null;
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
@@ -288,6 +312,7 @@ namespace DecoClock
             MeshAngle = tree.GetFloat("meshAngle", MeshAngle);
             TypeDial = tree.GetInt("typedial", TypeDial);
             MuteSounds = tree.GetBool("mutesoudns", MuteSounds);
+            Material = tree.GetString("material", Material);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -310,6 +335,8 @@ namespace DecoClock
             tree.SetFloat("meshAngle", MeshAngle);
             tree.SetInt("typedial", TypeDial);
             tree.SetBool("mutesoudns", MuteSounds);
+            tree.SetString("material", Material);
+
             Inventory?.ToTreeAttributes(tree);
         }
 
