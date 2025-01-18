@@ -7,7 +7,7 @@ using Vintagestory.API.Util;
 namespace DecoClock
 {
 
-    internal class ClockBlock : Block
+    public class ClockBlock : Block
     {
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)

@@ -3,7 +3,7 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    internal class WallClockBlock : ClockBlock
+    public class WallClockBlock : ClockBlock
     {
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)

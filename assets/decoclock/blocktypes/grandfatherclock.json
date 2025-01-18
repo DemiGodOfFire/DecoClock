@@ -5,16 +5,17 @@
 	"behaviors": [
 	{ "name": "Multiblock", "properties": { "sizex": 1, "sizey": 2, "sizez": 1, "cposition": { "x": 0, "y": 0, "z": 0 } } }
 	],
-	"variantgroups": [
-		{ "code": "wood", "loadFromProperties": "decoclock:block/wood"}
-	],
-	"creativeinventory": { "general": ["*"], "decorative": ["*"], "decoclock": ["*"] },
+	
+	"attributes": {
+		"material": { "loadFromProperties": "decoclock:block/wood" },
+	},
+
 	"blockmaterial": "Wood",	
 	"materialDensity": 700,
 	"shape": { "base": "block/grandfatherclock/complete"},
 	
 	"textures": {
-		"frame": { "base": "game:block/wood/debarked/{wood}"},
+		"frame": { "base": "game:block/wood/debarked/oak"},
 		"doorglass": {"base":  "game:block/transparent"},
 		"thread": {"base":  "game:block/cloth/burlap/string"},
 		"dialglass": { "base": "game:block/transparent"},

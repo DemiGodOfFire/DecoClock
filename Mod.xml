@@ -1,10 +1,12 @@
-<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema https://raw.githubusercontent.com/DArkHekRoMaNT/VSMods/master/Mod.xsd">
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.w3.org/2001/XMLSchema
+         https://raw.githubusercontent.com/DArkHekRoMaNT/VSMods/master/Mod.xsd">
 	<PropertyGroup>
 		<Name>DecO'Clock</Name>
 		<ModId>decoclock</ModId>
 		<Version>0.9.4</Version>
 		<Authors>Svarozhich</Authors>
-		<GameVersion>1.20.0-rc.1</GameVersion>
+		<GameVersion>1.19.8</GameVersion>
 		<Description>Adds to the game several types of mechanical clocks showing the current game time</Description>
     <NoLang>True</NoLang>
 		<Website></Website>

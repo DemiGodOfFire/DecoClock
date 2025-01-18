@@ -20,7 +20,7 @@ namespace DecoClock
         public Size2i AtlasSize => TextureSource.AtlasSize;
         List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
 
-        public readonly List<ClockItem> _parts = new();
+        public readonly List<ClockItem> _parts = [];
 
         public int TypeDial { get; set; } = 1;
         public float MeshAngle { get; set; }
