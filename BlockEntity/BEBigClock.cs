@@ -48,7 +48,7 @@ namespace DecoClock
 
         #region meshing
 
-        public override MeshData GenBaseMesh(ITesselatorAPI tesselator)
+        public MeshData GenBaseMesh(ITesselatorAPI tesselator)
         {
             AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
             Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();

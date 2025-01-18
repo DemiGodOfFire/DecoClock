@@ -114,13 +114,13 @@ namespace DecoClock
 
         #region meshing
 
-        public virtual MeshData GenBaseMesh(ITesselatorAPI tesselator)
-        {
-            AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
-            Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
-            tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
-            return mesh;
-        }
+        //public virtual MeshData GenBaseMesh(ITesselatorAPI tesselator)
+        //{
+        //    AssetLocation assetLocation = Block.Shape.Base.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
+        //    Shape shape = Api.Assets.TryGet(assetLocation).ToObject<Shape>();
+        //    tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
+        //    return mesh;
+        //}
 
         public MeshData? GetItemMesh(string item)
         {

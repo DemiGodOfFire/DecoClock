@@ -12,7 +12,6 @@
 
 	"blockmaterial": "Wood",	
 	"materialDensity": 700,
-	"shape": { "base": "block/grandfatherclock/complete"},
 	
 	"textures": {
 		"frame": { "base": "game:block/wood/debarked/oak"},
