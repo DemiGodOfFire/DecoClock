@@ -1,4 +1,5 @@
 {
+	"enabled": false,
 	"ingredientPattern": "_P_,P_P,_O_",
 	"ingredients": {
 		"P": { 

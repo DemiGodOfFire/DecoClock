@@ -15,14 +15,13 @@ namespace DecoClock
 
         public MeshData? BaseMesh { get; set; }
         public InventoryClock Inventory { get; set; } = null!;
-
         public Size2i AtlasSize => TextureSource.AtlasSize;
         List<ClockItem> Parts { get { if (_parts.Count == 0) { AddParts(); } return _parts; } }
 
         public readonly List<ClockItem> _parts = [];
 
         public int TypeDial { get; set; } = 1;
-        public float MeshAngle { get; set; }
+        public float MeshAngle { get; set; } = -1;
         public abstract string PathBlock { get; }
         public bool MuteSounds { get; set; } = false;
         public string Material { get; set; }
@@ -32,7 +31,7 @@ namespace DecoClock
         public virtual TextureAtlasPosition? this[string textureCode]
         {
             get
-            {               
+            {
                 ItemStack? stack = Inventory.TryGetPart(textureCode);
 
                 if (stack is not null)
@@ -133,9 +132,14 @@ namespace DecoClock
                 LoadSound(capi);
                 RegisterRenderer(capi);
                 TextureSource = capi.Tesselator.GetTextureSource(Block);
-                UpdateMesh();
+                if (MeshAngle != -1)
+                {
+                    UpdateMesh();
+                }
             }
         }
+
+
 
         public abstract bool OnInteract(IPlayer byPlayer, BlockSelection blockSel);
 
@@ -205,7 +209,7 @@ namespace DecoClock
             ITesselatorAPI tesselator = ((ICoreClientAPI)Api).Tesselator;
             string path = this.PathBlock + $"{part}.json";
             Shape? shape = Api.Assets.TryGet(path)?.ToObject<Shape>();
-            if ( shape == null)
+            if (shape == null)
                 return null;
             tesselator.TesselateShape("BeClock", shape, out MeshData mesh, this);
             return mesh;
@@ -222,9 +226,12 @@ namespace DecoClock
 
         public virtual void UpdateMesh(ITesselatorAPI? tesselator = null)
         {
-            tesselator ??= ((ICoreClientAPI)Api).Tesselator;
-            MeshData mesh = GenBaseMesh(tesselator);
-            BaseMesh = mesh.Clone().Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            if (MeshAngle != -1)
+            {
+                tesselator ??= ((ICoreClientAPI)Api).Tesselator;
+                MeshData mesh = GenBaseMesh(tesselator);
+                BaseMesh = mesh.Rotate(new Vec3f(0.5f, 0.5f, 0.5f), 0, MeshAngle, 0);
+            }
         }
 
         private void OnSlotModifid(int slot)
@@ -299,7 +306,7 @@ namespace DecoClock
                 MarkDirty(true);
             }
 
-            if(packetid == Constants.MuteSounds)                //Silence, my brother.
+            if (packetid == Constants.MuteSounds)                //Silence, my brother.
             {
                 MuteSounds = BitConverter.ToBoolean(data, 0);
                 MarkDirty(true);
