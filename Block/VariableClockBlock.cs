@@ -2,12 +2,15 @@ using csvorbis;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
+using Vintagestory.GameContent;
 using Vintagestory.ServerMods;
 
 namespace DecoClock
@@ -85,24 +88,6 @@ namespace DecoClock
 
         }
 
-        public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ItemStack byItemStack = null)
-        {
-            base.OnBlockPlaced(world, blockPos, byItemStack);
-            //BEClock? be = (BEClock)world.BlockAccessor.GetBlockEntity(blockPos);
-            //if (be != null && byItemStack != null)
-            //{
-            //    be.Material = byItemStack.Attributes.GetString("material", "oak");
-
-            //    if (world.Side == EnumAppSide.Client)
-            //    {
-
-            //        be.UpdateMesh();
-            //    }
-
-            //    be.MarkDirty(redrawOnClient: true);
-            //}
-        }
-
         public override void OnLoaded(ICoreAPI api)
         {
             base.OnLoaded(api);
@@ -149,5 +134,52 @@ namespace DecoClock
             ];
         }
 
+        public override ItemStack OnPickBlock(IWorldAccessor world, BlockPos pos)
+        {
+            var stack = base.OnPickBlock(world, pos);
+            if (world.BlockAccessor.GetBlockEntity(pos) is BEClock beclock)
+            {
+                stack.Attributes.SetString("material", beclock.Material);
+            }
+
+            return stack;
+        }
+
+        public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier = 1)
+        {
+            return [OnPickBlock(world, pos)];
+        }
+
+        public override BlockDropItemStack[] GetDropsForHandbook(ItemStack handbookStack, IPlayer forPlayer)
+        {
+            return base.GetDropsForHandbook(handbookStack, forPlayer);
+        }
+
+        public override string GetHeldItemName(ItemStack itemStack)
+        {
+            string material = itemStack.Attributes.GetString("material", "oak");
+            return Lang.Get($"{Core.ModId}:block-{Key}-{material}");
+        }
+
+        public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+        {
+            base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+        }
+
+        public override string GetPlacedBlockName(IWorldAccessor world, BlockPos pos)
+        {
+            if (world.BlockAccessor.GetBlockEntity(pos) is not BEClock beclock) return base.GetPlacedBlockName(world, pos);
+
+            return Lang.Get($"{Core.ModId}:block-{Key}-{beclock.Material}");
+        }
+
+        public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer)
+        {
+
+            if (world.BlockAccessor.GetBlockEntity(pos) is not BEClock beclock) return base.GetPlacedBlockName(world, pos);
+
+            return base.GetPlacedBlockInfo(world, pos, forPlayer) + "\n" + Lang.Get("Material: {0}", Lang.Get($"material-{beclock.Material}"));
+        }
+        
     }
 }

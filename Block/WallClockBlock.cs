@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
 namespace DecoClock
@@ -25,8 +26,6 @@ namespace DecoClock
             }
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
-
-       
 
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {
@@ -56,7 +55,6 @@ namespace DecoClock
             }
             return val;
         }
-
     }
 }
 

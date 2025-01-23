@@ -14,7 +14,7 @@
 	"materialDensity": 700,
 	"shape": { "base": "block/grandfatherclock/complete"},
 	"textures": {
-		"frame": { "base": "game:block/wood/debarked/oak"},
+		"frame": { "base": "game:block/transparent"},
 		"doorglass": {"base":  "game:block/transparent"},
 		"thread": {"base":  "game:block/cloth/burlap/string"},
 		"dialglass": { "base": "game:block/transparent"},

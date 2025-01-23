@@ -11,7 +11,7 @@
 	},
   	"shape": { "base": "block/wallclock/complete1"},
 	"textures": {
-		"frame": { "base": "game:block/wood/debarked/{wood}"},
+		"frame": { "base": "game:block/transparent"},
 		"dialglass": { "base": "game:block/transparent"},		
 		"clockwork": { "base": "game:block/transparent"}
 	},
