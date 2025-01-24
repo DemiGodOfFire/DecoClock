@@ -26,6 +26,7 @@
 				"type": "item",
 				"code": "game:metalplate-*",
 				"name": "material"
+			}
 		},
 		"width": 3,
 		"height": 3,
