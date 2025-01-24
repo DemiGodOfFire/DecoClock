@@ -4,7 +4,7 @@ using Vintagestory.API.Common;
 
 namespace DecoClock
 {
-    internal class BEGrandfatherClock : BEClock
+    internal class BEGrandfatherClock : BEVariableClock
     {
         ILoadedSound openSound = null!;
         ILoadedSound closeSound = null!;

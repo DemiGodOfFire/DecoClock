@@ -109,7 +109,7 @@
 			"to": [ 15.75, 14.8, 1.0 ],
 			"rotationOrigin": [ 8.2, 9.3, 0.75 ],
 			"faces": {
-				"north": { "texture": "#oak", "uv": [ 0.0, 1.0, 15.5, 14.5 ], "windMode": [-1,-1,-1,-1] },
+				"north": { "texture": "#oak", "uv": [ 0.0, 1.0, 15.5, 14.5 ] },
 				"south": { "texture": "#oak", "uv": [ 0.0, 1.0, 15.5, 14.5 ] }
 			}
 		}

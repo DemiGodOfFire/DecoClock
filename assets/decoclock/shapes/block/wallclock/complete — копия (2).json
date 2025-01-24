@@ -68,7 +68,7 @@
 					"rotationOrigin": [ 15.0, 1.0, 1.0 ],
 					"faces": {
 						"east": { "texture": "#frame", "uv": [ 14.0, 1.0, 15.0, 15.0 ] },
-						"south": { "texture": "#frame", "uv": [ 13.0, 1.0, 14.0, 15.0 ], "windMode": [-1,-1,-1,-1] },
+						"south": { "texture": "#frame", "uv": [ 13.0, 1.0, 14.0, 15.0 ] },
 						"west": { "texture": "#frame", "uv": [ 12.0, 1.0, 13.0, 15.0 ] }
 					}
 				},
@@ -478,7 +478,7 @@
 					"renderInEditor": false,
 					"rotationOrigin": [ 1.0, 1.0, 0.8 ],
 					"faces": {
-						"south": { "texture": "#dialglass", "uv": [ 1.0, 1.0, 15.0, 15.0 ], "windMode": [-1,-1,-1,-1] }
+						"south": { "texture": "#dialglass", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
 					}
 				}
 			]

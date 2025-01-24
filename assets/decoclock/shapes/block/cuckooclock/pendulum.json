@@ -16,10 +16,10 @@
 			"to": [ 8.5, 9.0, 2.6 ],
 			"rotationOrigin": [ 8.0, 8.0, 2.2 ],
 			"faces": {
-				"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 10.0 ], "reflectiveMode": 3 },
-				"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ], "reflectiveMode": 3 },
-				"south": { "texture": "#clockparts", "uv": [ 8.5, 3.5, 9.5, 13.5 ], "reflectiveMode": 3 },
-				"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ], "reflectiveMode": 3 }
+				"north": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 1.0, 10.0 ], "reflectiveMode": 2 },
+				"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ], "reflectiveMode": 2 },
+				"south": { "texture": "#clockparts", "uv": [ 8.5, 3.5, 9.5, 13.5 ], "reflectiveMode": 2 },
+				"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 10.0 ], "reflectiveMode": 2 }
 			},
 			"children": [
 				{
@@ -28,12 +28,12 @@
 					"to": [ 2.0, 0.0, 0.4 ],
 					"rotationOrigin": [ -1.0, -3.0, 0.0 ],
 					"faces": {
-						"north": { "texture": "#clockparts", "uv": [ 0.5, 0.5, 3.5, 3.5 ], "reflectiveMode": 3 },
-						"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "reflectiveMode": 3 },
-						"south": { "texture": "#clockparts", "uv": [ 1.0, 1.5, 4.0, 4.5 ], "reflectiveMode": 3 },
-						"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "reflectiveMode": 3 },
-						"up": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ], "reflectiveMode": 3 },
-						"down": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ], "reflectiveMode": 3 }
+						"north": { "texture": "#clockparts", "uv": [ 0.5, 0.5, 3.5, 3.5 ], "reflectiveMode": 2 },
+						"east": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "reflectiveMode": 2 },
+						"south": { "texture": "#clockparts", "uv": [ 1.0, 1.5, 4.0, 4.5 ], "reflectiveMode": 2 },
+						"west": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 0.5, 3.0 ], "reflectiveMode": 2 },
+						"up": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ], "reflectiveMode": 2 },
+						"down": { "texture": "#clockparts", "uv": [ 0.0, 0.0, 3.0, 0.5 ], "reflectiveMode": 2 }
 					}
 				}
 			]

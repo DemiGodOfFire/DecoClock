@@ -1,5 +1,4 @@
 {
-	"enabled": false,
 	"ingredientPattern": "_P_,P_P,_P_",
 	"ingredients": {
 		"P": { 
@@ -12,6 +11,9 @@
 	"height": 3,
 	"output": { 
 		"type": "block", 
-		"code": "wallclock-{wood}-north"
+		"code": "wallclock-north",
+		"attributes": {
+			"material": "{wood}",
+		}
 	}
 }

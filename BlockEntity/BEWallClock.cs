@@ -4,7 +4,7 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    internal class BEWallClock : BEClock
+    internal class BEWallClock : BEVariableClock
     {
         GuiDialogWallClock? dialogClock;
         ClockRenderer? rendererClock;
@@ -24,14 +24,6 @@ namespace DecoClock
             if (dialogClock == null && Api.Side == EnumAppSide.Client)
             {
                 dialogClock = new GuiDialogWallClock(Core.ModId + ":wallclock-title", Inventory, Pos, (ICoreClientAPI)Api);
-                //dialogClock.OnOpened += () =>
-                //{
-                //    //openSound?.Start();
-                //};
-                //dialogClock.OnClosed += () =>
-                //{
-                //    //closeSound?.Start();
-                //};
             }
 
             if (Api.Side == EnumAppSide.Client)

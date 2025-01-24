@@ -3,8 +3,9 @@ using Vintagestory.API.MathTools;
 
 namespace DecoClock
 {
-    public class CuckooClockBlock : ClockBlock
+    public class CuckooClockBlock : VariableClockBlock
     {
+        public override string Key => "cuckooclock";
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {

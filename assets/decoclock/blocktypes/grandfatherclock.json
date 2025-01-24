@@ -5,11 +5,9 @@
 	"behaviors": [
 	{ "name": "Multiblock", "properties": { "sizex": 1, "sizey": 2, "sizez": 1, "cposition": { "x": 0, "y": 0, "z": 0 } } }
 	],
-	
 	"attributes": {
 		"material": { "loadFromProperties": "decoclock:block/wood" },
 	},
-
 	"blockmaterial": "Wood",	
 	"materialDensity": 700,
 	"shape": { "base": "block/grandfatherclock/complete"},

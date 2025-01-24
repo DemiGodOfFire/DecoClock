@@ -1,13 +1,13 @@
 [
 	{
-		"ingredientPattern": "GGG,PMP,GGG",
+		"ingredientPattern": "GGG,PM,GGG",
 		"ingredients": {
 			"G": { "type": "item", "code": "gear-iron"},
 			"P": { 
 				"type": "item",
 				"code": "game:metalplate-*",
-				"name": "material",   				
-				"quantity": 3},
+				"name": "material"
+			},
 			"M": {"type": "block", "code": "game:metal-parts"}
 		},
 		"width": 3,
@@ -18,15 +18,14 @@
 		}
 	},
 	{
-		"ingredientPattern": "GGG,PGP,GGG",
+		"ingredientPattern": "GGG,PG,GGG",
 		"requiresTrait": "tinkerer",
 		"ingredients": {
 			"G": { "type": "item", "code": "gear-iron"},
 			"P": { 
 				"type": "item",
 				"code": "game:metalplate-*",
-				"name": "material",
-				"quantity": 3}
+				"name": "material"
 		},
 		"width": 3,
 		"height": 3,

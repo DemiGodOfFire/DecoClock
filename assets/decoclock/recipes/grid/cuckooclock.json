@@ -1,5 +1,4 @@
 {
-	"enabled": false,
 	"ingredientPattern": "_P_,P_P,_O_",
 	"ingredients": {
 		"P": { 
@@ -17,6 +16,9 @@
 	"height": 3,
 	"output": { 
 		"type": "block", 
-		"code": "cuckooclock-{wood}-north"
+		"code": "cuckooclock-north",
+		"attributes": {
+			"material": "{wood}",
+		}
 	}
 }

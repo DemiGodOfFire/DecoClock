@@ -6,10 +6,8 @@ using Vintagestory.Server;
 
 namespace DecoClock
 {
-    internal class BECuckooClock : BEClock
+    internal class BECuckooClock : BEVariableClock
     {
-        //ILoadedSound openSound = null!;
-        //ILoadedSound closeSound = null!;
         ILoadedSound cuckooSound = null!;
 
         GuiDialogCuckooClock dialogClock = null!;
@@ -59,8 +57,6 @@ namespace DecoClock
                 GetPartItemMesh("clockparts", "pendulum"), -0.5f, -0.05f,
                 GetPartItemMesh("clockparts", "weight"), 0.15f, -0.25f, -0.25f,
                 MeshAngle);
-           // Api.World.Logger.Warning("Mute " + MuteSounds);
-
         }
 
         #endregion

@@ -1,4 +1,3 @@
-using csvorbis;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +8,6 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
-using Vintagestory.Client.NoObf;
-using Vintagestory.GameContent;
 using Vintagestory.ServerMods;
 
 namespace DecoClock
@@ -137,7 +134,7 @@ namespace DecoClock
         public override ItemStack OnPickBlock(IWorldAccessor world, BlockPos pos)
         {
             var stack = base.OnPickBlock(world, pos);
-            if (world.BlockAccessor.GetBlockEntity(pos) is BEClock beclock)
+            if (world.BlockAccessor.GetBlockEntity(pos) is BEVariableClock beclock)
             {
                 stack.Attributes.SetString("material", beclock.Material);
             }
@@ -168,7 +165,7 @@ namespace DecoClock
 
         public override string GetPlacedBlockName(IWorldAccessor world, BlockPos pos)
         {
-            if (world.BlockAccessor.GetBlockEntity(pos) is not BEClock beclock) return base.GetPlacedBlockName(world, pos);
+            if (world.BlockAccessor.GetBlockEntity(pos) is not BEVariableClock beclock) return base.GetPlacedBlockName(world, pos);
 
             return Lang.Get($"{Core.ModId}:block-{Key}-{beclock.Material}");
         }
@@ -176,7 +173,7 @@ namespace DecoClock
         public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer)
         {
 
-            if (world.BlockAccessor.GetBlockEntity(pos) is not BEClock beclock) return base.GetPlacedBlockName(world, pos);
+            if (world.BlockAccessor.GetBlockEntity(pos) is not BEVariableClock beclock) return base.GetPlacedBlockName(world, pos);
 
             return base.GetPlacedBlockInfo(world, pos, forPlayer) + "\n" + Lang.Get("Material: {0}", Lang.Get($"material-{beclock.Material}"));
         }

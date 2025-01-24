@@ -4,42 +4,42 @@
   "entityClass": "becuckooclock",
   "behaviors": [ {"name": "HorizontalAttachable", "properties": {  "dropBlockFace": "north" }} ], 
   "variantgroups": [
-    { "code": "wood", "loadFromProperties": "decoclock:block/wood"},
- 	{ "code":"side", "loadFromProperties": "abstract/horizontalorientation"}
-    ],	
-  "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "decoclock": ["*-north"] },
-  "shapeInventory": { "base": "block/cuckooclock/complete" },
-  	"shape": { "base": "block/cuckooclock/base"},
-	"textures": {
-		"frame": { "base": "game:block/wood/debarked/{wood}"},
-		"clockwork": { "base": "game:block/transparent"},
-		"dialglass": { "base": "game:block/transparent"},
-		"thread": {"base":  "game:block/cloth/burlap/string"},
-		"eye":  { "base": "eye"}
-	},
-    "blockmaterial": "Wood",	
-	"materialDensity": 600,
-    "resistance": 0.5,
-    "sounds": {
-    "place": "game:block/planks",
-    "hit": "game:block/planks",
-    "break": "game:block/planks"
-    },
-    "lightAbsorption": 0,
-    "sidesolid": { "all": "false" },
-    "sideopaque": { "all": "false" },
-    "collisionselectionboxes": [
-    {
-      "x1": 0.1875,	"y1": 0, "z1": 0, "x2": 0.8125, "y2": 1, "z2": 0.344,
-      "rotateYByType": { "*-south": 180, "*-east": 270,"*-west": 90 }
-    }
-    ], 
-    "guiTransform": {
-    "rotate": false,
-    "translation": { "x": -2, "y": 0, "z": 8 },
-    "rotation": { "x": -10, "y": -135, "z": 0 },
-    "origin": { "x": 0.15, "y": 0.6, "z": 0.5 },
-    "scale": 1.20
+      { "code":"side", "loadFromProperties": "abstract/horizontalorientation"}
+  ],
+  "attributes": {
+		"material": { "loadFromProperties": "decoclock:block/wood" },
+  },
+  "shape": { "base": "block/cuckooclock/complete"},
+  "textures": {
+      "frame": { "base": "game:block/transparent"},
+      "clockwork": { "base": "game:block/transparent"},
+      "dialglass": { "base": "game:block/transparent"},
+      "thread": {"base":  "game:block/cloth/burlap/string"},
+      "eye":  { "base": "eye"}
+  },
+   "blockmaterial": "Wood",	
+   "materialDensity": 600,
+   "resistance": 0.5,
+   "sounds": {
+      "place": "game:block/planks",
+      "hit": "game:block/planks",
+      "break": "game:block/planks"
+  },
+  "lightAbsorption": 0,
+  "sidesolid": { "all": "false" },
+  "sideopaque": { "all": "false" },
+  "collisionselectionboxes": [
+  {
+    "x1": 0.1875,	"y1": 0, "z1": 0, "x2": 0.8125, "y2": 1, "z2": 0.344,
+    "rotateYByType": { "*-south": 180, "*-east": 270,"*-west": 90 }
+  }
+  ], 
+  "guiTransform": {
+  "rotate": false,
+  "translation": { "x": -2, "y": 0, "z": 8 },
+  "rotation": { "x": -10, "y": -135, "z": 0 },
+  "origin": { "x": 0.15, "y": 0.6, "z": 0.5 },
+  "scale": 1.20
   },
   "groundTransform": {
     "translation": { "x": 0.4, "y": 0, "z": -0.4 },
